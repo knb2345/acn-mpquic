@@ -18,7 +18,11 @@ case $scenario in
     symmetric) a_rate=4000 a_rtt=40 b_rate=4000 b_rtt=40 ;;
     rtt_asym)  a_rate=4000 a_rtt=30 b_rate=4000 b_rtt=150 ;;
     low_bw)    a_rate=1500 a_rtt=60 b_rate=1000 b_rtt=120 ;;
-    *) echo "up.sh: unknown scenario '$scenario' (symmetric|rtt_asym|low_bw)" >&2; exit 2 ;;
+    # Rates of these two change over time (testbed/replay.py); the values here
+    # are the starting rates and size the queues (trace means for "trace").
+    trace)     a_rate=5170 a_rtt=60 b_rate=2020 b_rtt=120 ;;
+    outage)    a_rate=4000 a_rtt=40 b_rate=4000 b_rtt=40 ;;
+    *) echo "up.sh: unknown scenario '$scenario' (symmetric|rtt_asym|low_bw|trace|outage)" >&2; exit 2 ;;
 esac
 A_RATE_KBIT=${A_RATE_KBIT:-$a_rate}; A_RTT_MS=${A_RTT_MS:-$a_rtt}
 B_RATE_KBIT=${B_RATE_KBIT:-$b_rate}; B_RTT_MS=${B_RTT_MS:-$b_rtt}

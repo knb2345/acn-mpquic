@@ -113,10 +113,10 @@ path why the sender holds back; debug/trace logs are gzipped). The table at the 
 is reprinted any time with:
 
 ```bash
-python3 analysis/transfer_summary.py table results/symmetric
+python3 analysis/transfer_summary.py table results/week1_transfer/symmetric
 ```
 
-Per run, `results/<scenario>/<scheduler>/<run_id>/` holds `meta.env` (link
+Per run, `results/week1_transfer/<scenario>/<scheduler>/<run_id>/` holds `meta.env` (link
 parameters, TQUIC commit, exit code, file check, transfer time), `summary.csv`,
 before/after counter snapshots, client and server logs, and qlogs (git-ignored,
 about 4 MB per run).
@@ -126,6 +126,105 @@ per-path bytes come from the kernel's veth counters (`down_bytes_a/b` = bytes
 received on `cA`/`cB` during the transfer). `drops_a/b` are tbf drops on the
 server side. The file flows server to client, so the scheduler that matters is
 the server's `--multipath-algor`; both ends get the same value.
+
+## Rate replay (trace and outage scenarios)
+
+`replay.py` changes the tbf rates every 100 ms while a run is going; the run
+scripts start it themselves. By hand:
+
+```bash
+testbed/up.sh trace && python3 testbed/replay.py trace /tmp/replay.csv --offset-ms 200000 --duration-s 30
+```
+
+`trace`: path A follows carrier 1 (AT&T LTE), path B carrier 2 (T-Mobile
+UMTS), down traces on the server side and up traces on the client side (see
+`traces/README.md`). `outage`: path B drops to 8 kbit/s (tbf cannot do 0)
+for 2 s every 30 s, first at 15 s. Checked with iperf3: during an outage path B
+carries 0.00 Mbit/s and recovers within a second; on `trace`, per-second TCP
+throughput follows the trace within about 1 Mbit/s.
+
+## Frame streaming (Week 2 on)
+
+Build the streamer once (and after any TQUIC change):
+
+```bash
+cargo build --release --manifest-path streamer/Cargo.toml
+```
+
+Run one scenario, 5 runs per scheduler:
+
+```bash
+testbed/run_stream.sh rtt_asym deadline framepin minrtt ecf roundrobin redundant single
+```
+
+Schedulers: `deadline` (ours) and `framepin` (its ablation) are in
+`third_party/tquic/src/multipath_scheduler/scheduler_deadline.rs`, `ecf` in
+`scheduler_ecf.rs`; `minrtt`, `roundrobin`, `redundant` are TQUIC's. The
+sender gives every frame a deadline (scheduled send time + `DEADLINE_MS`)
+through `Connection::stream_set_deadline`; only `deadline` uses it. For
+`deadline`/`framepin` runs, `plan.log` has the scheduler's per-frame estimates
+and decision (rate, queue and predicted finish time per path).
+
+For a long batch, freeze the binaries first so later builds cannot change
+it mid-way, and do not edit the testbed scripts while it runs:
+
+```bash
+testbed/freeze_bins.sh final
+```
+
+```bash
+BIN_DIR=.cache/bin/final testbed/run_stream.sh low_bw deadline framepin minrtt ecf roundrobin redundant single
+```
+
+The sender (QUIC server, `mpq-srv`) writes frame i of
+`workload/synthetic_lecture.csv` at its scheduled time to a new unidirectional
+stream; the receiver (QUIC client, `mpq-cli`, one path per address) logs when
+each stream completes. `single` disables multipath and uses only path A, the
+better path in every scenario. Per run, `results/<scenario>/<scheduler>/<run_id>/`
+holds `frames.csv` (one row per frame, CLAUDE.md columns), `summary.csv`
+(metrics), the raw `sent.csv`, `recv.csv`, `frame_path.csv` (bytes of every
+STREAM frame per path, from the TQUIC hook), logs and `meta.env`. Metric
+definitions are at the top of `analysis/frames.py`; reprint a scenario's
+table with:
+
+```bash
+python3 analysis/frames.py table results/rtt_asym
+```
+
+Env knobs: `RUNS`, `RUN_START`, `CC`, `WORKLOAD`, `DEADLINE_MS` (playback
+delay budget, default 300), `LOG_LEVEL`, `QLOG=1`, `BIN_DIR`.
+
+Figures for the report (PNG plus the numbers behind them in
+`figures_data.csv`):
+
+```bash
+python3 analysis/plots.py results analysis/figures
+```
+
+### Results layout
+
+- `results/<workload>/<scenario>/<scheduler>/<run_id>/`: the final matrices,
+  `copyrightx_lecture` (real lecture, main) and `synthetic_lecture`. Each run's
+  `meta.env` names the frozen build it used (`BUILD_TAG`, `TQUIC_COMMIT`).
+- `results/synthetic_lecture/deadline_v1/`: `deadline` from the first final
+  build, before frames past their deadline were released to any path (see
+  CLAUDE.md).
+- `results/week3_dev/`: development runs of `deadline`/`framepin` while tuning.
+- `results/week2_baseline/`: baselines from the Week 2 build (before the
+  path-selection fix below).
+- `results/week1_transfer/`: Week 1 file transfers.
+
+### TQUIC bug found on the trace scenario
+
+With multipath on, whole connections stalled when path B was nearly dead
+while it was being validated (15 of 1800 frames in 90 s; `single` on the
+same trace was fine). `select_send_path` kept choosing the path that needed
+PATH_CHALLENGE/RESPONSE frames although its congestion window was full;
+`send_packet` writes those frames only after the congestion check, so no
+packet left on any path, ACKs for path A included, and the server backed
+off (sending at 1, 2, 4, ... 32 s). Fixed on `team7` (commit "fix connection
+stall when a path being validated cannot send"); runs before the fix are in
+`results/week2_baseline/trace/`.
 
 ## Week 1 results (28 Oct 2026)
 
@@ -152,6 +251,12 @@ above. Commands: `testbed/run_transfer.sh symmetric` and
 | rtt_asym | minrtt | 25 | 25 | 12.24 s | 6.85 Mbit/s | 51.7-52.4% | 47.6-48.3% |
 | rtt_asym | roundrobin | 26 | **25** | 12.20 s | 6.88 Mbit/s | 51.5-52.7% | 47.3-48.5% |
 
+Caveat on the times: these runs timed the transfer with the wall clock, which
+WSL2 steps forward by about 0.5 s every 30-40 s (found in Week 2; see
+CLAUDE.md). A run that spans a step reads about 0.5 s long (e.g.
+symmetric/minrtt/1, 12.36 s against 11.8 s for the others); medians and byte
+shares are unaffected. `run_transfer.sh` now uses the monotonic clock.
+
 The veth counters agree with TQUIC's own count: in symmetric/minrtt/1 the
 client reports 10,747,543 bytes in 7,410 packets; adding 42 bytes of
 Ethernet/IP/UDP header per packet gives 11,058,763, against 11,059,173 on
@@ -165,7 +270,7 @@ to avoid.
 ### Known issue: one stalled transfer (rtt_asym, roundrobin, run 5)
 
 The transfer stopped making progress after about 0.9 MB and the client timed
-out at 300 s (evidence in `results/rtt_asym/roundrobin/5/`, qlogs kept
+out at 300 s (evidence in `results/week1_transfer/rtt_asym/roundrobin/5/`, qlogs kept
 locally). From the qlogs: 21 packets were lost on path A in the first second
 (tbf drops); after that the server's congestion window stayed at 4.8-9.5 KB on
 both paths and it sent about one data packet every 1-2 s for 5 minutes, with no

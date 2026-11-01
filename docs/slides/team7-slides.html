@@ -1,0 +1,479 @@
+<title>Team 7 Slides</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root { --bg:#f5f6f8; --paper:#ffffff; --ink:#131722; --muted:#5a6273; --rule:#dde1e7; --accent:#2a78d6;
+  --accent-soft:#e3eefb; --bar:#b3bcc8; --a:#1f8a70; --b:#b8650a;
+  --f-d:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif; --f-b:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+  --f-m:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace; }
+* { box-sizing:border-box; }
+html, body { height:100%; }
+body { margin:0; background:#1b1f27; color:var(--ink); font-family:var(--f-b);
+  padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px)); }
+.deck { display:flex; flex-direction:column; align-items:center; gap:24px; padding-block:24px; }
+.slide { width:min(100%, calc((100vh - 48px) * 16 / 9)); aspect-ratio:16/9; background:var(--paper);
+  container-type:inline-size; position:relative; overflow:hidden; border-radius:6px;
+  padding:4.5cqw 5.5cqw 4cqw; display:flex; flex-direction:column; gap:2.6cqw; }
+.slide::after { content:attr(data-n); position:absolute; right:3cqw; bottom:2cqw; font:1.1cqw var(--f-m); color:var(--muted); }
+.slide.title { justify-content:center; background:linear-gradient(180deg,#ffffff 0%,#eef3fa 100%); }
+h1 { font:600 4.6cqw/1.08 var(--f-d); margin:0; text-wrap:balance; }
+h2 { font:600 3.6cqw/1.12 var(--f-d); margin:0; text-wrap:balance; }
+h3 { font:600 2.1cqw/1.2 var(--f-d); margin:0 0 1cqw; }
+p, li { font-size:2cqw; line-height:1.42; margin:0; }
+.big li, p.big { font-size:2.3cqw; }
+ul, ol { margin:0; padding-left:2.8cqw; display:flex; flex-direction:column; gap:1.5cqw; }
+.kicker { font:500 1.4cqw var(--f-m); letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+.sub { font-size:2.4cqw; color:var(--muted); max-width:70cqw; }
+.who { font:1.5cqw var(--f-m); color:var(--muted); margin-top:2cqw; }
+.cols { display:grid; grid-template-columns:1.25fr 1fr; gap:3.5cqw; align-items:start; }
+.cols.even { grid-template-columns:1fr 1fr; }
+.cols.flip { grid-template-columns:1fr 1.25fr; }
+td.nw, .nw td { white-space:nowrap; }
+ul + h3 { margin-top:1.6cqw; }
+.card { background:var(--bg); border:1px solid var(--rule); border-radius:8px; padding:2.4cqw; display:flex; flex-direction:column; gap:1.3cqw; }
+.note, .small { font-size:1.65cqw; color:var(--muted); }
+.center { text-align:center; }
+.formula { font:500 3.6cqw var(--f-m); text-align:center; padding:1.5cqw; background:var(--accent-soft); border-radius:8px; }
+table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; }
+th, td { font-size:1.85cqw; padding:.8cqw 1cqw; border-bottom:1px solid var(--rule); text-align:right; }
+th:first-child, td:first-child { text-align:left; }
+th { font:500 1.3cqw var(--f-m); letter-spacing:.04em; text-transform:uppercase; color:var(--muted); }
+tr.ours td { background:var(--accent-soft); font-weight:600; }
+td.best { color:var(--accent); font-weight:600; }
+table.mini th, table.mini td { font-size:1.7cqw; }
+svg { width:100%; height:auto; display:block; }
+svg text { font-family:var(--f-m); }
+.lab, .val { font-size:17px; fill:var(--ink); }
+.axis { font-size:14px; fill:var(--muted); }
+.grid { stroke:var(--rule); }
+.bar { fill:var(--bar); } .bar.hi { fill:var(--accent); }
+.frames { display:flex; align-items:flex-end; gap:.6cqw; height:9cqw; }
+.fr { flex:1; border-radius:3px; } .fr.i { height:100%; background:var(--accent); } .fr.p { height:16%; background:var(--bar); }
+.legend { display:flex; gap:3cqw; font-size:1.7cqw; color:var(--muted); }
+.sw { display:inline-block; width:1.2cqw; height:1.2cqw; border-radius:2px; margin-right:.6cqw; vertical-align:middle; }
+.sw.i { background:var(--accent); } .sw.p { background:var(--bar); }
+.flow { display:flex; align-items:stretch; gap:1.5cqw; }
+.box { flex:1; border:1px solid var(--rule); border-radius:8px; padding:1.8cqw; font:600 2.3cqw var(--f-d); background:var(--bg); display:flex; flex-direction:column; gap:.8cqw; }
+.box small { font:400 1.6cqw var(--f-b); color:var(--muted); }
+.box.hi { background:var(--accent-soft); border-color:var(--accent); }
+.arrow { align-self:center; font-size:3cqw; color:var(--muted); }
+.diagram .ns { fill:var(--bg); stroke:var(--rule); stroke-width:1.5; }
+.diagram .dt { font:600 21px var(--f-d); fill:var(--ink); } .diagram .dm { font-size:15px; fill:var(--muted); }
+.diagram .wa { stroke:var(--a); stroke-width:4; fill:none; } .diagram .wb { stroke:var(--b); stroke-width:4; fill:none; }
+.diagram .ta { fill:var(--a); font-size:15px; } .diagram .tb { fill:var(--b); font-size:15px; }
+.notes { display:none; }
+body.show-notes .notes { display:block; width:min(100%, calc((100vh - 48px) * 16 / 9)); background:#262b35; color:#e9ecf1;
+  border-radius:6px; padding:16px 20px; font-size:15px; line-height:1.5; margin-top:-12px; }
+.hint { color:#9aa3b1; font:13px var(--f-m); text-align:center; }
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  body { background:#fff; padding:0; } .deck { gap:0; padding:0; } .hint { display:none; }
+  .slide { width:1280px; height:720px; border-radius:0; break-after:page; }
+  body.print-notes .slide { width:996px; height:560px; margin:0 auto; break-after:auto; }
+  body.print-notes .notes { display:block; width:1280px; height:160px; background:#fff; color:#131722; border-top:2px solid #dde1e7;
+    padding:16px 60px; font-size:17px; break-after:page; margin:0; border-radius:0; }
+}
+</style>
+<div class="deck">
+<p class="hint">Arrow keys to move · N shows speaker notes</p>
+<section class="slide title" data-n="1 / 21">
+<div class="kicker">ACN project · Team 7</div>
+<h1>Frame-aware multipath QUIC<br>with a learned bandwidth predictor</h1>
+<p class="sub">Streaming live lectures over two cellular connections without missing playback deadlines</p>
+<p class="who">Kabir Bajaj and Team 7 · 29 October 2026</p>
+</section>
+<div class="notes"><b>Slide 1.</b> Introduce the team and the one-line idea: a phone with two SIM cards has two internet connections; we
+send a live lecture over both at once, and we built a scheduler, driven by a small neural network, that
+decides which connection each video frame takes so frames arrive on time.</div>
+<section class="slide " data-n="2 / 21">
+<h2>The setting</h2>
+<div class="cols">
+<ul class="big">
+<li>Students attend live classes on a <b>phone over mobile data</b></li>
+<li>Many phones hold <b>two SIM cards</b>, two carriers: two internet connections at once</li>
+<li>Each one alone is often <b>slow and unsteady</b>: a few Mbit/s, 50–150 ms delay, short coverage holes</li>
+<li><b>Multipath QUIC</b> runs one connection over both at the same time</li>
+</ul>
+<div class="card"><div class="kicker">The question</div><p>A <b>scheduler</b> inside the transport decides, packet by packet, which connection
+carries the data. How should it decide when the data is <b>live video</b>?</p></div>
+</div>
+</section>
+<div class="notes"><b>Slide 2.</b> Start from the user: a student in India on mobile data. Dual-SIM phones are common, so there are two
+connections. Multipath QUIC (an IETF draft about to become an RFC) lets one connection use both paths.
+The scheduler is the piece that decides which path each packet takes; that is what this project is about.</div>
+<section class="slide " data-n="3 / 21">
+<h2>How a live lecture travels</h2>
+<div class="frames">
+<div class="fr i"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr i"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr p"></div><div class="fr i"></div>
+</div>
+<div class="legend"><span><i class="sw i"></i>I-frame: full picture, ~55 KB, every 2 s</span><span><i class="sw p"></i>P-frame: only the changes, ~8 KB, 24 per second</span></div>
+<ul class="big">
+<li>A frame is usable only when <b>every byte</b> has arrived</li>
+<li>The player shows frame <i>i</i> a fixed <b>playback delay</b> after it was produced (we use 300 ms)</li>
+<li>Later than that: a <b>missed deadline</b>, the picture freezes or glitches</li>
+</ul>
+</section>
+<div class="notes"><b>Slide 3.</b> Explain video frames: the encoder sends a big complete picture (I-frame) every 2 seconds and small
+difference frames in between. The player has a schedule; a frame that arrives after its slot is a missed
+deadline and the viewer sees a freeze. Big frames are the risky ones because they take longest to send.</div>
+<section class="slide " data-n="4 / 21">
+<h2>The problem: schedulers see bytes, not frames</h2>
+<div class="cols">
+<div>
+<h3>What standard schedulers do</h3>
+<ul>
+<li><b>MinRTT</b>: lowest-delay path with room</li>
+<li><b>Round-robin</b>: alternate paths</li>
+<li><b>Redundant</b>: everything on both paths</li>
+<li><b>ECF</b>: wait for the fast path if that finishes sooner</li>
+</ul>
+<h3>Why that hurts video</h3>
+<ul>
+<li><b>Frames get split</b>: done only when the slow half arrives</li>
+<li><b>Big frames block small ones</b> queued behind them</li>
+</ul>
+</div>
+<div class="card"><div class="kicker">Worked example</div>
+<p>A 45 KB I-frame on a 1.5 Mbit/s path needs <b>240 ms</b> to transmit, plus 30 ms travel: <b>270 ms of a 300 ms budget</b>, before counting the frames already queued.</p>
+<p>With two slow paths there is no room to spare.</p></div>
+</div>
+</section>
+<div class="notes"><b>Slide 4.</b> None of the standard schedulers knows where a frame starts or ends or when it is due. Two failure
+modes: a frame split across a fast and a slow path finishes only when the slow part lands; and a big
+I-frame occupies a path while small frames wait behind it. The worked example shows how tight the budget
+is on low-bandwidth links.</div>
+<section class="slide " data-n="5 / 21">
+<h2>Research questions</h2>
+<ol class="big">
+<li>How often do transport-only multipath schedulers make lecture frames <b>miss their playback deadline</b> on two low-bandwidth cellular paths?</li>
+<li>Can a scheduler that knows each frame's <b>size and deadline</b>, driven by a <b>learned prediction</b> of each path's capacity, do better?</li>
+<li>Which part of the design makes the difference? (ablations)</li>
+</ol>
+<p class="note">Closest work: MoMQ (2026), frame-aware multipath QUIC for Starlink + Wi-Fi. Two similar low-bandwidth cellular paths are not studied.</p>
+</section>
+<div class="notes"><b>Slide 5.</b> State the three questions. Question 3 is answered with ablations: a hand-tuned version of our
+scheduler and a frame-pinning version without deadlines. Mention MoMQ as the closest related work and how
+our setting differs.</div>
+<section class="slide " data-n="6 / 21">
+<h2>Our approach</h2>
+<div class="flow">
+<div class="box">Path observations<small>every 100 ms, per path: delivery rate, send rate, queueing delay, loss, cwnd, BBR estimate</small></div>
+<div class="arrow">→</div>
+<div class="box hi">Neural network<small>predicts a cautious capacity for the next 0.5 s</small></div>
+<div class="arrow">→</div>
+<div class="box">Deadline scheduler<small>picks the path(s) for each video frame</small></div>
+</div>
+<ul class="big">
+<li>Each frame on its <b>own QUIC stream</b>; the sender tells the transport its <b>deadline</b></li>
+<li>Built <b>inside TQUIC</b> (Tencent's Rust QUIC library), not as a simulation</li>
+</ul>
+</section>
+<div class="notes"><b>Slide 6.</b> The big picture: every 100 ms we measure each path; a small neural network turns those measurements
+into a cautious estimate of how fast the path will be for the next half second; the scheduler uses that
+estimate to decide where each frame goes. All of it runs inside a real QUIC implementation.</div>
+<section class="slide " data-n="7 / 21">
+<h2>The scheduler, per frame</h2>
+<div class="formula">T<sub>p</sub> = (Q<sub>p</sub> + S) / B<sub>p</sub> + sRTT<sub>p</sub> / 2</div>
+<p class="center small">finish time on path p · S frame size · Q<sub>p</sub> bytes already queued · B<sub>p</sub> predicted capacity · sRTT<sub>p</sub> round-trip time</p>
+<ol class="big">
+<li>If a path finishes the frame before its deadline: <b>whole frame on the path that finishes first</b></li>
+<li>Otherwise (big I-frames): <b>split</b> so both parts finish at the same moment</li>
+<li>Keep each frame on its path(s), so <b>small frames overtake</b> a big one on the other path</li>
+<li>A frame already past its deadline may use any path (safety net)</li>
+</ol>
+</section>
+<div class="notes"><b>Slide 7.</b> Walk through the formula: time to drain what is ahead of the frame plus the frame itself at the
+path's rate, plus one-way delay. Rules 1-3 are the proposal's design; rule 4 we added after finding a
+failure where a path collapsed and frames pinned to it never arrived. The split solves a simple linear
+equation so both halves land together.</div>
+<section class="slide " data-n="8 / 21">
+<h2>Why machine learning? The estimate B<sub>p</sub> is the hard part</h2>
+<div class="cols">
+<div>
+<p class="big">Simple estimates of a path's capacity fail in opposite ways:</p>
+<ul class="big">
+<li><b>BBR's estimate</b> and the <b>"best of last 3 s"</b> rule are often <b>too high</b> when a link fades</li>
+<li>The <b>recent delivery rate</b> is far <b>too low</b> on a path that carries little traffic</li>
+<li>Too high is what makes a frame <b>miss its deadline</b></li>
+</ul>
+</div>
+<div class="card"><div class="kicker">On held-out cellular traces</div>
+<p>BBR overestimates capacity <b>38.2%</b> of the time</p>
+<p>"Best of last 3 s" overestimates <b>47.1%</b></p>
+<p>Mean delivery rate is off by <b>72%</b> (median)</p></div>
+</div>
+</section>
+<div class="notes"><b>Slide 8.</b> This is the motivation for ML. The scheduler's formula is simple physics; the uncertain part is the
+path's capacity in the near future. Hand-made estimates are either too optimistic on fading links or far
+too pessimistic on idle links. A learned model can combine all the signals and tell us how sure it is.</div>
+<section class="slide " data-n="9 / 21">
+<h2>The learned bandwidth predictor</h2>
+<div class="cols">
+<ul>
+<li><b>Input (44 numbers)</b>: for each 100 ms tick of the last second, delivery rate, send rate, queueing delay, loss ratio; plus cwnd/RTT, bytes in flight, min RTT, BBR's estimate</li>
+<li><b>Model</b>: small MLP, 44 → 32 → 32 → 4, ReLU</li>
+<li><b>Output</b>: the 10th, 20th, 30th and 50th <b>percentile</b> of the capacity over the next 0.5 s</li>
+<li><b>Loss</b>: quantile (pinball) loss, trained with Adam in numpy</li>
+<li>The scheduler uses the <b>10th percentile</b>: "at least this much, 9 times out of 10"</li>
+</ul>
+<div class="card"><div class="kicker">Deployed inside TQUIC</div>
+<p>Weights compiled into Rust as constants; two small matrix products per path every 100 ms.</p>
+<p>Rust and Python predictions agree to <b>0.002%</b> (574 live predictions).</p>
+<p>All 566 TQUIC tests pass.</p></div>
+</div>
+</section>
+<div class="notes"><b>Slide 9.</b> Describe the model: inputs summarise the last second of each path; a small two-layer network outputs
+percentiles rather than a single guess, trained with the pinball loss which is the standard loss for
+quantile regression. Using a low percentile builds caution into the estimate instead of a hand-tuned
+safety margin. It runs inside the transport on the send path and we verified the Rust code matches.</div>
+<section class="slide " data-n="10 / 21">
+<h2>Training without leaking the test data</h2>
+<div class="cols">
+<ul>
+<li><b>Training traces</b> (6): Verizon LTE ×2, T-Mobile LTE ×2, AT&amp;T LTE 2016, Verizon EVDO</li>
+<li><b>Test traces</b> (2, never used for training): AT&amp;T LTE, T-Mobile 3G</li>
+<li><b>60 emulated sessions</b>, 20 random conditions (traces scaled to 1–6 Mbit/s, constant rates, outages), 3 schedulers</li>
+<li><b>Exact labels</b>: the emulator knows the true capacity at every moment</li>
+<li>Validated on <b>4 held-out conditions</b>; percentile chosen on 4 more</li>
+</ul>
+<div class="card"><div class="kicker">Calibration on held-out conditions</div>
+<table class="mini"><thead><tr><th>percentile</th><th>target</th><th>measured</th></tr></thead><tbody>
+<tr><td>10th</td><td>10%</td><td>12.6%</td></tr><tr><td>20th</td><td>20%</td><td>18.9%</td></tr><tr><td>30th</td><td>30%</td><td>25.5%</td></tr><tr><td>50th</td><td>50%</td><td>38.9%</td></tr>
+</tbody></table>
+<p class="small">51,210 training and 13,355 validation samples</p></div>
+</div>
+</section>
+<div class="notes"><b>Slide 10.</b> Emphasise that the model never sees the test traces, and that validation uses whole network
+conditions it never saw, so the numbers are honest. Labels are exact because in emulation we set the
+capacity ourselves. The calibration table shows the predicted percentiles behave as percentiles: the
+10th percentile is exceeded about 10% of the time.</div>
+<section class="slide " data-n="11 / 21">
+<h2>The testbed: real code, emulated network</h2>
+<svg class="diagram" viewBox="0 0 900 230" role="img" aria-label="Student namespace and server namespace joined by path A and path B">
+<rect class="ns" x="10" y="20" width="270" height="190" rx="10"/>
+<text class="dt" x="30" y="56">Student (QUIC client)</text>
+<text class="dm" x="30" y="84">network namespace mpq-cli</text>
+<text class="dm" x="30" y="128">10.10.1.1 → path A</text>
+<text class="dm" x="30" y="176">10.10.2.1 → path B</text>
+<rect class="ns" x="620" y="20" width="270" height="190" rx="10"/>
+<text class="dt" x="640" y="56">Lecture (QUIC server)</text>
+<text class="dm" x="640" y="84">network namespace mpq-srv</text>
+<text class="dm" x="640" y="128">one stream per frame</text>
+<path class="wa" d="M280 124 H620"/><path class="wb" d="M280 172 H620"/>
+<text class="ta" x="450" y="112" text-anchor="middle">path A · netem delay + tbf rate</text>
+<text class="tb" x="450" y="198" text-anchor="middle">path B · netem delay + tbf rate</text>
+</svg>
+<ul>
+<li>Linux <b>network namespaces</b> + <b>veth</b> cables; <b>tc netem</b> adds delay, <b>tc tbf</b> sets rate and a 100 ms queue, in both directions</li>
+<li>A replay script changes each path's rate <b>every 100 ms</b> from real cellular traces</li>
+<li>Checked: 40.5 ms measured on a 40 ms path; per-path bytes match TQUIC's own count within 410 bytes</li>
+</ul>
+</section>
+<div class="notes"><b>Slide 11.</b> Explain the emulator in one breath: two isolated network stacks on the laptop connected by two
+virtual cables, each shaped with the kernel's traffic-control tools; a script replays recorded cellular
+speeds. The real TQUIC code runs on top, so bugs and behaviour are real.</div>
+<section class="slide " data-n="12 / 21">
+<h2>Workload and scenarios</h2>
+<div class="cols flip">
+<div class="card"><div class="kicker">Real lecture</div>
+<p>Harvard CopyrightX Lecture 3.2 (W. Fisher), CC BY 3.0, Wikimedia Commons</p>
+<p>60 s clip · 1,441 frames at 24 fps · 1.57 Mbit/s · I-frames ~55 KB every 2 s</p>
+<p class="small">Encoded like a live stream (H.264, no B-frames, quality-capped)</p></div>
+<table class="nw"><thead><tr><th>scenario</th><th>path A</th><th>path B</th></tr></thead><tbody>
+<tr><td>symmetric</td><td>4 Mbit/s, 40 ms</td><td>4 Mbit/s, 40 ms</td></tr>
+<tr><td>rtt_asym</td><td>4 Mbit/s, 30 ms</td><td>4 Mbit/s, 150 ms</td></tr>
+<tr><td>low_bw</td><td>1.5 Mbit/s, 60 ms</td><td>1 Mbit/s, 120 ms</td></tr>
+<tr><td>trace</td><td>AT&amp;T LTE trace</td><td>T-Mobile 3G trace</td></tr>
+<tr><td>outage</td><td>4 Mbit/s, stable</td><td>off 2 s every 30 s</td></tr>
+</tbody></table>
+</div>
+</section>
+<div class="notes"><b>Slide 12.</b> The video is a real university lecture under an open licence. The five scenarios each test one
+thing: a sanity check, delay asymmetry, a link that needs both paths, real cellular variability, and a
+coverage hole. The trace scenario is the realistic one.</div>
+<section class="slide " data-n="13 / 21">
+<h2>Experiment design</h2>
+<ul class="big">
+<li><b>8 schedulers</b>: learned (ours), hand-tuned deadline, frame-pin, MinRTT, ECF, round-robin, redundant, single path</li>
+<li><b>5 scenarios × 5 runs</b> each = <b>200 runs</b> of the 60 s lecture</li>
+<li>Runs with the same number see the <b>same network</b>, so schedulers are compared <b>run by run</b></li>
+<li>Network rebuilt before every run; all schedulers from <b>one frozen build</b></li>
+<li>Metrics: deadline-miss rate at 150 / 300 / 500 ms, I-frame misses, stall time, frame completion time, bytes per path</li>
+</ul>
+</section>
+<div class="notes"><b>Slide 13.</b> Explain fairness: same network conditions per run number, fresh network each run, one compiled
+build for everything. Hand-tuned deadline and frame-pin are our ablations. Stall time models a player
+that waits for late frames.</div>
+<section class="slide " data-n="14 / 21">
+<h2>Result 1: the predictor is the most reliable estimate</h2>
+<div class="cols even">
+<div><h3>How often each estimate is too high (trace)</h3>
+<svg viewBox="0 0 560 198" role="img" aria-label="overestimate rate">
+<line class="grid" x1="186.8" y1="20" x2="186.8" y2="174"/>
+<text class="axis" x="186.8" y="192" text-anchor="middle">0%</text>
+<line class="grid" x1="338.4" y1="20" x2="338.4" y2="174"/>
+<text class="axis" x="338.4" y="192" text-anchor="middle">25%</text>
+<line class="grid" x1="490.0" y1="20" x2="490.0" y2="174"/>
+<text class="axis" x="490.0" y="192" text-anchor="middle">50%</text>
+<text class="lab" x="176.8" y="49.1" text-anchor="end">model, 10th pct</text>
+<rect class="bar hi" x="186.8" y="26" width="68.5" height="34" rx="3"/>
+<text class="val" x="263.3" y="49.1">11.3%</text>
+<text class="lab" x="176.8" y="97.1" text-anchor="end">BBR's estimate</text>
+<rect class="bar" x="186.8" y="74" width="231.6" height="34" rx="3"/>
+<text class="val" x="426.4" y="97.1">38.2%</text>
+<text class="lab" x="176.8" y="145.1" text-anchor="end">best of last 3 s</text>
+<rect class="bar" x="186.8" y="122" width="285.6" height="34" rx="3"/>
+<text class="val" x="480.4" y="145.1">47.1%</text>
+</svg>
+</div>
+<div><h3>Median error of the estimate (trace)</h3>
+<svg viewBox="0 0 560 246" role="img" aria-label="median error">
+<line class="grid" x1="186.8" y1="20" x2="186.8" y2="222"/>
+<text class="axis" x="186.8" y="240" text-anchor="middle">0%</text>
+<line class="grid" x1="338.4" y1="20" x2="338.4" y2="222"/>
+<text class="axis" x="338.4" y="240" text-anchor="middle">30%</text>
+<line class="grid" x1="490.0" y1="20" x2="490.0" y2="222"/>
+<text class="axis" x="490.0" y="240" text-anchor="middle">60%</text>
+<text class="lab" x="176.8" y="49.1" text-anchor="end">model, 30th pct</text>
+<rect class="bar hi" x="186.8" y="26" width="195.6" height="34" rx="3"/>
+<text class="val" x="390.4" y="49.1">38.7%</text>
+<text class="lab" x="176.8" y="97.1" text-anchor="end">model, median</text>
+<rect class="bar hi" x="186.8" y="74" width="203.1" height="34" rx="3"/>
+<text class="val" x="397.9" y="97.1">40.2%</text>
+<text class="lab" x="176.8" y="145.1" text-anchor="end">BBR's estimate</text>
+<rect class="bar" x="186.8" y="122" width="268.8" height="34" rx="3"/>
+<text class="val" x="463.6" y="145.1">53.2%</text>
+<text class="lab" x="176.8" y="193.1" text-anchor="end">best of last 3 s</text>
+<rect class="bar" x="186.8" y="170" width="241.0" height="34" rx="3"/>
+<text class="val" x="435.8" y="193.1">47.7%</text>
+</svg>
+</div>
+</div>
+<p class="note">31,912 samples on traces the model never saw. Its cautious estimate overestimates a third as often as BBR's, and its estimates are closer to the truth.</p>
+</section>
+<div class="notes"><b>Slide 14.</b> This is the main ML result. On the unseen cellular traces, the cautious estimate is too high only
+about 11% of the time, against 38% for BBR and 47% for the 3-second rule. And the model's own estimates
+have lower error than BBR's. Mention one caveat: on steady links BBR is already nearly exact.</div>
+<section class="slide " data-n="15 / 21">
+<h2>Result 2: deadline misses (300 ms playback delay)</h2>
+<table><thead><tr><th>scheduler</th><th>symmetric</th><th>rtt_asym</th><th>low_bw</th><th>trace</th><th>outage</th></tr></thead><tbody><tr class=ours><td>learned (ours)</td><td>0.1%</td><td>0.3%</td><td>4.0%</td><td>13.5%</td><td>0.6%</td></tr><tr><td>hand-tuned deadline</td><td>0.1%</td><td>0.1%</td><td>3.5%</td><td class=best>10.6%</td><td>0.3%</td></tr><tr><td>frame-pin</td><td>0.2%</td><td>0.1%</td><td>3.6%</td><td>16.9%</td><td class=best>0.3%</td></tr><tr><td>MinRTT</td><td class=best>0.0%</td><td class=best>0.0%</td><td>4.7%</td><td>17.8%</td><td>0.5%</td></tr><tr><td>ECF</td><td class=best>0.0%</td><td class=best>0.0%</td><td>4.9%</td><td>18.2%</td><td>0.4%</td></tr><tr><td>round-robin</td><td class=best>0.0%</td><td class=best>0.0%</td><td class=best>3.3%</td><td>16.4%</td><td>0.5%</td></tr><tr><td>redundant</td><td>0.2%</td><td>0.1%</td><td>99.7%</td><td>52.8%</td><td>0.5%</td></tr><tr><td>single path</td><td>0.5%</td><td class=best>0.0%</td><td>99.6%</td><td>72.9%</td><td>0.3%</td></tr></tbody></table>
+<p class="note">Medians over 5 runs. Fast links (symmetric, rtt_asym): almost no misses for anyone. low_bw: big I-frames barely fit. trace: real variability, where scheduling matters.</p>
+</section>
+<div class="notes"><b>Slide 15.</b> Read the table by column. On fast links nobody misses. On low_bw, the lecture's big frames barely fit
+a 300 ms budget for any scheduler; with 500 ms almost everything arrives. On outage everyone is close.
+The trace column is the interesting one; the next slide zooms in.</div>
+<section class="slide " data-n="16 / 21">
+<h2>Result 3: real cellular traces</h2>
+<div class="cols">
+<div>
+<svg viewBox="0 0 560 342" role="img" aria-label="frames missing deadline on trace">
+<line class="grid" x1="217.7" y1="20" x2="217.7" y2="318"/>
+<text class="axis" x="217.7" y="336" text-anchor="middle">0%</text>
+<line class="grid" x1="353.9" y1="20" x2="353.9" y2="318"/>
+<text class="axis" x="353.9" y="336" text-anchor="middle">10%</text>
+<line class="grid" x1="490.0" y1="20" x2="490.0" y2="318"/>
+<text class="axis" x="490.0" y="336" text-anchor="middle">20%</text>
+<text class="lab" x="207.7" y="49.1" text-anchor="end">learned (ours)</text>
+<rect class="bar hi" x="217.7" y="26" width="183.3" height="34" rx="3"/>
+<text class="val" x="409.0" y="49.1">13.5%</text>
+<text class="lab" x="207.7" y="97.1" text-anchor="end">hand-tuned deadline</text>
+<rect class="bar hi" x="217.7" y="74" width="144.6" height="34" rx="3"/>
+<text class="val" x="370.3" y="97.1">10.6%</text>
+<text class="lab" x="207.7" y="145.1" text-anchor="end">frame-pin</text>
+<rect class="bar" x="217.7" y="122" width="230.5" height="34" rx="3"/>
+<text class="val" x="456.2" y="145.1">16.9%</text>
+<text class="lab" x="207.7" y="193.1" text-anchor="end">MinRTT</text>
+<rect class="bar" x="217.7" y="170" width="241.9" height="34" rx="3"/>
+<text class="val" x="467.6" y="193.1">17.8%</text>
+<text class="lab" x="207.7" y="241.1" text-anchor="end">ECF</text>
+<rect class="bar" x="217.7" y="218" width="248.5" height="34" rx="3"/>
+<text class="val" x="474.2" y="241.1">18.2%</text>
+<text class="lab" x="207.7" y="289.1" text-anchor="end">round-robin</text>
+<rect class="bar" x="217.7" y="266" width="223.0" height="34" rx="3"/>
+<text class="val" x="448.7" y="289.1">16.4%</text>
+</svg>
+<p class="small">redundant 52.8% and single path 72.9% are off the scale.</p>
+</div>
+<ul>
+<li>Deadline-aware schedulers miss <b>10.6%</b> (hand-tuned) and <b>13.5%</b> (learned), against <b>16.4%–18.2%</b> for transport-only</li>
+<li>Learned vs MinRTT / ECF: fewer misses in 3 and 3 of 5 runs, less stalling in 4 and 4 of 5</li>
+<li>Same order at other delays: 23.2%–24.6% vs 26.9%–28.2% at 150 ms; 5.1%–5.8% vs 7.6%–9.4% at 500 ms</li>
+</ul>
+</div>
+</section>
+<div class="notes"><b>Slide 16.</b> On real variability both deadline-aware schedulers beat every transport-only one, at every playback
+delay. The paired comparison shows the learned scheduler beats MinRTT and ECF in most runs and stalls
+less.</div>
+<section class="slide " data-n="17 / 21">
+<h2>What the ablations show</h2>
+<div class="cols">
+<div class="card"><div class="kicker">Frame-pin (no deadline check, no splitting)</div>
+<p>Misses <b>16.9%</b> on trace, no better than transport-only.</p>
+<p>Keeping frames whole is not enough: the <b>deadline check and splitting</b> are what help.</p></div>
+<div class="card"><div class="kicker">Learned vs hand-tuned estimate</div>
+<p>Hand-tuned 10.6%, learned 13.5%; learned better in 2 of 5 runs.</p>
+<p>The better predictor has <b>not yet</b> become fewer misses: it is cautious everywhere and sends more traffic over the weaker path.</p></div>
+</div>
+</section>
+<div class="notes"><b>Slide 17.</b> Be honest here, it is a strength. The frame-pin ablation shows deadline awareness is what matters.
+The learned scheduler does not yet beat the hand-tuned one even though its predictions are better: its
+caution costs bandwidth on steady links. That points directly at the next step.</div>
+<section class="slide " data-n="18 / 21">
+<h2>Findings along the way</h2>
+<ul>
+<li><b>A stall bug in TQUIC</b>: a path being validated with a full congestion window blocked every other path, ACKs included; whole connections crawled (15 of 1,800 frames in 90 s). Fixed in a few lines; worth reporting upstream.</li>
+<li><b>Pinned frames and a rare BBR collapse</b>: a path fell to ~1 packet/s; frames pinned to it never arrived. Fixed by releasing late frames to any path.</li>
+<li><b>Bitrate must fit the network</b>: at 2.13 Mbit/s the lecture overloaded low_bw and every scheduler missed ~65%; a live platform would lower the bitrate, so we used 1.57 Mbit/s.</li>
+<li><b>Measurement pitfall</b>: WSL2 steps the wall clock by ~0.5 s; all timing uses the monotonic clock.</li>
+</ul>
+</section>
+<div class="notes"><b>Slide 18.</b> These show the work was done on real code: we found and fixed a real bug in TQUIC, a robustness
+problem in our own scheduler, a workload that overloaded the network, and a clock issue that would have
+corrupted the measurements.</div>
+<section class="slide " data-n="19 / 21">
+<h2>Limitations</h2>
+<ul class="big">
+<li>Emulation only: one laptop, public US cellular traces, no live mobile network</li>
+<li>Predictor trained on six public traces; transfer to Indian networks is untested</li>
+<li>One lecture clip, 60 s; five runs per scheduler and scenario</li>
+<li>Two bug fixes in TQUIC apply to every scheduler (all compared on the same build)</li>
+</ul>
+</section>
+<div class="notes"><b>Slide 19.</b> Name the limitations before the professor does. Emulation gives control and fairness but not live
+networks. The model's generalisation to other countries' networks is an open question.</div>
+<section class="slide " data-n="20 / 21">
+<h2>Next steps</h2>
+<ol class="big">
+<li><b>Turn better predictions into fewer misses</b>: less caution on steady paths, e.g. pick the percentile from the predicted spread</li>
+<li><b>Retrain with the learned scheduler's own traffic</b> (training data so far came from other schedulers)</li>
+<li>More traces and longer lectures; figures for the final report</li>
+</ol>
+</section>
+<div class="notes"><b>Slide 20.</b> The clearest next step comes straight from result 4: the model is accurate but too cautious on steady
+links. Choosing the percentile adaptively, and retraining on data from the learned scheduler itself,
+should close the gap with the hand-tuned estimate.</div>
+<section class="slide title" data-n="21 / 21">
+<h2>Summary</h2>
+<ul class="big">
+<li>Transport-only schedulers miss <b>16–18%</b> of lecture frames on real cellular traces</li>
+<li>Deadline-aware frame scheduling cuts that to <b>10.6%–13.5%</b></li>
+<li>Our learned predictor overestimates capacity <b>11.3%</b> of the time vs <b>38.2%</b> for BBR</li>
+<li>Everything runs in real TQUIC code on an emulated network; code, data and results are reproducible from one repository</li>
+</ul>
+<p class="who">Thank you · Questions?</p>
+</section>
+<div class="notes"><b>Slide 21.</b> Repeat the three numbers: 16-18% for today's schedulers, about 11-13% with deadline-aware scheduling,
+and a predictor that is wrong in the dangerous direction a third as often as BBR. Then invite questions.</div>
+</div>
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+if (location.hash === '#notes') document.body.classList.add('show-notes', 'print-notes');
+document.addEventListener('keydown', e => {
+  if (e.key === 'n' || e.key === 'N') { document.body.classList.toggle('show-notes'); return; }
+  const cur = slides.findIndex(s => s.getBoundingClientRect().top > -10);
+  const go = i => slides[Math.max(0, Math.min(slides.length - 1, i))]?.scrollIntoView({behavior: 'smooth', block: 'center'});
+  if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+  if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+});
+</script>

@@ -10,7 +10,7 @@
 #   default), TIMEOUT_S (client timeout, default 300), LOG_LEVEL (default
 #   info; trace shows why the sender holds back), FILE_BYTES (default 10 MiB),
 #   SEED (default 7, for the file content)
-# Output: results/<scenario>/<scheduler>/<run_id>/ with logs, qlogs, counter
+# Output: results/week1_transfer/<scenario>/<scheduler>/<run_id>/ with logs, qlogs, counter
 #   snapshots and summary.csv; then a table over all runs of the scenario.
 #   With a CC other than bbr the directory is <scheduler>-<cc>.
 #
@@ -68,7 +68,7 @@ snapshot() {
 for sched in "${schedulers[@]}"; do
     label=$sched; [[ $CC == bbr ]] || label=$sched-$CC
     for run_id in $(seq "$RUN_START" $(( RUN_START + RUNS - 1 ))); do
-        out=$repo/results/$scenario/$label/$run_id
+        out=$repo/results/week1_transfer/$scenario/$label/$run_id
         rm -rf "$out"; mkdir -p "$out"
 
         # Fresh namespaces per run: empty queues, counters near zero.
@@ -94,7 +94,8 @@ for sched in "${schedulers[@]}"; do
         done
 
         snapshot "$out" before
-        t0=$(date +%s.%N)
+        # Monotonic clock: WSL2 steps the wall clock (see CLAUDE.md).
+        t0=$(python3 -I -c 'import time; print(time.monotonic())')
         status=0
         timeout "$TIMEOUT_S" sudo "$IP" netns exec "$NS_CLI" runuser -u "$RUN_AS" -- "$bin/tquic_client" \
             -c "$SRV_IP:$SRV_PORT" --enable-multipath --multipath-algor "$sched" \
@@ -103,7 +104,7 @@ for sched in "${schedulers[@]}"; do
             --dump-dir "$out/dump" --qlog-dir "$out/qlog_client" \
             --log-file "$out/client.log" --log-level "$LOG_LEVEL" \
             "https://example.org/$file" > "$out/client.out" 2>&1 || status=$?
-        t1=$(date +%s.%N)
+        t1=$(python3 -I -c 'import time; print(time.monotonic())')
         snapshot "$out" after
         stop_server
 
@@ -120,4 +121,4 @@ for sched in "${schedulers[@]}"; do
 done
 
 "$here/down.sh"
-python3 -I "$repo/analysis/transfer_summary.py" table "$repo/results/$scenario"
+python3 -I "$repo/analysis/transfer_summary.py" table "$repo/results/week1_transfer/$scenario"

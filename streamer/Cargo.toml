@@ -1,0 +1,20 @@
+[package]
+name = "streamer"
+version = "0.1.0"
+edition = "2021"
+description = "Frame-by-frame lecture streaming over multipath TQUIC (team 7)"
+publish = false
+
+[dependencies]
+tquic = { path = "../third_party/tquic" }
+# QuicSocket: one UDP socket per local address, as the TQUIC tools use it.
+tquic_tools = { path = "../third_party/tquic/tools" }
+mio = { version = "0.8", features = ["net", "os-poll"] }
+log = { version = "0.4", features = ["std"] }
+bytes = "1"
+clap = { version = "=4.2.5", features = ["derive"] }
+signal-hook = "0.3.17"
+libc = "0.2"
+
+[profile.release]
+debug = 1
