@@ -1,19 +1,52 @@
 {
   "v": 4,
-  "createdOnFiles": {"v": 1, "at": "2026-11-01T19:20:00Z"},
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-01T19:20:00Z"
+  },
   "lists": "css",
   "title": "Frame-Aware Multipath QUIC: Mid-Project Evaluation",
   "cover": "cover",
-  "order": ["cover", "problem", "existing", "idea", "why", "test", "progress", "results", "plan", "close"],
+  "order": [
+    "cover",
+    "problem",
+    "existing",
+    "idea",
+    "why",
+    "test",
+    "progress",
+    "results",
+    "rtt_asym_diag",
+    "plan",
+    "close"
+  ],
   "sections": {
-    "s1": {"description": "The problem and what exists today", "start": "cover"},
-    "s2": {"description": "Our idea and why we think it works", "start": "idea"},
-    "s3": {"description": "How we test it, what is built, first results", "start": "test"},
-    "s4": {"description": "What comes next", "start": "plan"}
+    "s1": {
+      "description": "The problem and what exists today",
+      "start": "cover"
+    },
+    "s2": {
+      "description": "Our idea and why we think it works",
+      "start": "idea"
+    },
+    "s3": {
+      "description": "How we test it, what is built, first results",
+      "start": "test"
+    },
+    "s4": {
+      "description": "What comes next",
+      "start": "plan"
+    }
   },
   "faces": {
-    "source-serif-4": {"family": "Source Serif 4", "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap"},
-    "ibm-plex-sans": {"family": "IBM Plex Sans", "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"}
+    "source-serif-4": {
+      "family": "Source Serif 4",
+      "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap"
+    },
+    "ibm-plex-sans": {
+      "family": "IBM Plex Sans",
+      "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    }
   },
   "designSystems": []
 }
