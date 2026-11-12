@@ -4,23 +4,16 @@
 # Usage: scripts/run.sh <scenario> <config> <bitrate_kbps> <encoding> <clip> <run_id>
 #   scenario: control symmetric rtt_asym bw_asym outage real_pairs (SITE=...)
 #   config:   S0 (best single path) S1 (minrtt) S2 (roundrobin) S3 (redundant)
-#             S4 (ecf)
-#   encoding: intra | gop2;  clip: name in workload/clips.csv
+#             S4 (ecf) F1 (frame-split) F2 (frame-split+rescue)
+#             A1 (F2 over 2 single-path TCP/QUIC) R1 (ideal link) R2 (true trace F2)
+#   encoding: intra | gop2;   clip: name in workload/clips.csv
 #   Env: BIN (streamer binaries, default streamer/target/release), CC
-#   (default cubic), LOG_LEVEL (default info), SITE (real_pairs).
+#        (default cubic), LOG_LEVEL (default info), SITE (real_pairs).
 #
 # Paired design: the clip start (a multiple of 50 frames = 2 s, so gop2 starts
 # on a keyframe) and the trace / outage-schedule start are drawn from a seed
 # that depends only on run_id, so every config sees the same ones.
-#
-# Output: results/<scenario>[_<site>]/<config>/<bitrate>_<encoding>_<clip>/<run_id>/
-#   frames.csv (one row per frame, analysis/build_frames.py), paths.csv
-#   (per-path stats every 100 ms), send.csv, recv.csv, frame_path.csv.gz,
-#   cpu.csv, replay.csv (time-varying scenarios), veth/qdisc counter
-#   snapshots, logs, qlog_* (git-ignored), meta.json.
-# Exit status: 0 = all frames complete, 3 = run finished with frames missing
-# (a stalled run: keep it, report it, never average it in), 4 = CPU above 80%
-# (discard and rerun, logged in meta.json), other = error.
+
 set -euo pipefail
 here=$(cd "$(dirname "$0")" && pwd)
 repo=$(cd "$here/.." && pwd)
@@ -39,13 +32,20 @@ frames=$repo/workload/${clip}_${encoding}_${kbps}.csv
 for b in mpq_sender mpq_receiver; do
     [[ -x $BIN/$b ]] || { echo "run.sh: no $BIN/$b (cargo build --release in streamer/)" >&2; exit 2; }
 done
+
+# Map config IDs to TQUIC / streamer algorithms and multipath flags
 case $config in
     S0) algor=minrtt; mp=0 ;;
     S1) algor=minrtt; mp=1 ;;
     S2) algor=roundrobin; mp=1 ;;
     S3) algor=redundant; mp=1 ;;
     S4) algor=ecf; mp=1 ;;
-    *) echo "run.sh: unknown config $config (S0-S4)" >&2; exit 2 ;;
+    F1) algor=f1; mp=1 ;;
+    F2) algor=f2; mp=1 ;;
+    A1) algor=a1; mp=0 ;;
+    R1) algor=minrtt; mp=0 ;;
+    R2) algor=r2; mp=1 ;;
+    *) echo "run.sh: unknown config $config (S0-S4, F1, F2, A1, R1, R2)" >&2; exit 2 ;;
 esac
 
 scen_dir=$scenario${SITE:+_$SITE}
@@ -56,7 +56,12 @@ cache=$repo/.cache/transfer
 [[ -f $cache/cert.crt ]] || openssl req -x509 -newkey rsa:2048 -nodes -days 3650 \
     -subj /CN=example.org -keyout "$cache/cert.key" -out "$cache/cert.crt" 2>/dev/null
 
-"$repo/testbed/up.sh" "$scenario" > "$out/testbed.txt"
+# Bring up testbed (R1 uses ideal-link single path mode; all others use default mode)
+if [[ $config == "R1" ]]; then
+    "$repo/testbed/up.sh" "$scenario" R1 > "$out/testbed.txt"
+else
+    "$repo/testbed/up.sh" "$scenario" default > "$out/testbed.txt"
+fi
 source "$STATE_FILE"
 
 # Seeded offsets (depend on run_id only).
@@ -79,13 +84,10 @@ else:
     tr = 0
 print(clip, tr)")
 
-# S0: the single path with the higher mean capacity (ties: lower RTT).
-if [[ $config == S0 ]]; then
-    if (( B_RATE_KBIT > A_RATE_KBIT || (B_RATE_KBIT == A_RATE_KBIT && B_RTT_MS < A_RTT_MS) )); then
-        locals=$CLI_B_IP; s0_path=B
-    else
-        locals=$CLI_A_IP; s0_path=A
-    fi
+# Socket IP bindings
+if [[ $config == S0 || $config == R1 ]]; then
+    # Single-path execution (Path A)
+    locals=$CLI_A_IP; s0_path=A
 else
     locals=$CLI_A_IP,$CLI_B_IP; s0_path=
 fi
@@ -146,10 +148,12 @@ for _ in $(seq 50); do
     sleep 0.1
 done
 snapshot before
+
 if [[ $scenario == outage || $scenario == real_pairs ]]; then
     python3 -I "$repo/testbed/replay.py" "$out/replay.csv" --offset-ms "$trace_offset_ms" --duration-s 100 &
     pids+=($!)
 fi
+
 mp_flag=(); (( mp )) && mp_flag=(--enable-multipath)
 snd_status=0
 timeout 200 sudo "$IP" netns exec "$NS_CLI" runuser -u "$RUN_AS" -- "$BIN/mpq_sender" \
@@ -158,6 +162,7 @@ timeout 200 sudo "$IP" netns exec "$NS_CLI" runuser -u "$RUN_AS" -- "$BIN/mpq_se
     --warmup-ms "$WARMUP_MS" --out "$out/send.csv" --frame-path-log "$out/frame_path.csv" \
     --paths-log "$out/paths.csv" --log-file "$out/sender.log" --log-level "$LOG_LEVEL" \
     --qlog-dir "$out/qlog_sender" 2> "$out/sender.stderr" || snd_status=$?
+
 rcv_status=0; wait "$rcv_pid" || rcv_status=$?
 snapshot after
 cleanup; trap - EXIT

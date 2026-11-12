@@ -2,14 +2,19 @@
 # Create the two-path testbed (topology in common.sh). Safe to rerun: it tears
 # down any existing testbed first, so it also recovers after a WSL restart.
 #
-# Usage: testbed/up.sh [scenario]        default: symmetric
-#   Scenarios follow docs/proposal.md section 4 (rates in kbit/s, RTT in ms).
-#   Override any value with env vars: A_RATE_KBIT A_RTT_MS B_RATE_KBIT B_RTT_MS
-#   QUEUE_MS (bottleneck buffer per path, default 200 ms of the path's rate).
-#   real_pairs needs SITE=<dir under traces/> (see testbed/trace_site.py); its rates
-#   are the trace means (they size the buffers) and its delays the unloaded
-#   RTTs measured at the site.
-#   outage and real_pairs change rates over time: run testbed/replay.py too.
+# Usage: testbed/up.sh [scenario] [mode]     default: symmetric default
+#   Scenarios follow docs/proposal.md section 4 (rates in kbit/s, RTT in ms):
+#     control | symmetric | rtt_asym | bw_asym | outage | real_pairs
+#   Modes:
+#     default : Standard dual-path network topology.
+#     R1      : Ideal single-link reference (Rate = Rate_A + Rate_B, RTT = min(RTT_A, RTT_B)).
+#
+# Override any value with env vars: A_RATE_KBIT A_RTT_MS B_RATE_KBIT B_RTT_MS
+# QUEUE_MS (bottleneck buffer per path, default 200 ms of the path's rate).
+# real_pairs needs SITE=<dir under traces/> (see testbed/trace_site.py); its rates
+# are the trace means (they size the buffers) and its delays the unloaded
+# RTTs measured at the site.
+# outage and real_pairs change rates over time: run testbed/replay.py too.
 #
 # Each veth end is shaped on egress, so both directions of a path see the same
 # link: netem adds RTT/2 of delay, then an htb class limits the rate and a
@@ -19,11 +24,14 @@
 # every 100 ms) let extra bursts through; htb keeps its tokens when a class is
 # changed (docs/calibration.md). Data flows client -> server (the lecturer's
 # device is the client).
+
 set -euo pipefail
 here=$(cd "$(dirname "$0")" && pwd)
 source "$here/common.sh"
 
 scenario=${1:-symmetric}
+mode=${2:-default}
+
 case $scenario in
     control)    a_rate=4000 a_rtt=40 b_rate=4000 b_rtt=40 ;;
     symmetric)  a_rate=1600 a_rtt=40 b_rate=1600 b_rtt=40 ;;
@@ -35,6 +43,18 @@ case $scenario in
         eval "$(python3 -I "$here/trace_site.py" env "$SITE")" ;;
     *) echo "up.sh: unknown scenario '$scenario' (control|symmetric|rtt_asym|bw_asym|outage|real_pairs)" >&2; exit 2 ;;
 esac
+
+# Handle R1 Ideal Link Reference Mode
+if [[ "$mode" == "R1" ]]; then
+    r1_rate=$(( a_rate + b_rate ))
+    r1_rtt=$(( a_rtt < b_rtt ? a_rtt : b_rtt ))
+    a_rate=$r1_rate
+    a_rtt=$r1_rtt
+    # In R1 mode, all traffic is routed through Path A; Path B is set to a minimal stub
+    b_rate=1
+    b_rtt=1000
+fi
+
 A_RATE_KBIT=${A_RATE_KBIT:-$a_rate}; A_RTT_MS=${A_RTT_MS:-$a_rtt}
 B_RATE_KBIT=${B_RATE_KBIT:-$b_rate}; B_RTT_MS=${B_RTT_MS:-$b_rtt}
 QUEUE_MS=${QUEUE_MS:-200}
@@ -85,6 +105,7 @@ shape() {
     sudo tc -n "$ns" qdisc replace dev "$dev" parent 10:1 handle 11: plug limit "$limit"
     sudo tc -n "$ns" qdisc change dev "$dev" parent 10:1 handle 11: plug release_indefinite
 }
+
 shape "$NS_CLI" "$CLI_A" "$A_RATE_KBIT" "$A_RTT_MS"
 shape "$NS_SRV" "$SRV_A" "$A_RATE_KBIT" "$A_RTT_MS"
 shape "$NS_CLI" "$CLI_B" "$B_RATE_KBIT" "$B_RTT_MS"
@@ -100,6 +121,7 @@ sudo "$IP" -n "$NS_CLI" rule add from "$CLI_B_IP" table 102 pref 102
 
 cat > "$STATE_FILE" <<EOF
 SCENARIO=$scenario
+MODE=$mode
 SITE=${SITE:-}
 A_RATE_KBIT=$A_RATE_KBIT
 A_RTT_MS=$A_RTT_MS
@@ -107,4 +129,5 @@ B_RATE_KBIT=$B_RATE_KBIT
 B_RTT_MS=$B_RTT_MS
 QUEUE_MS=$QUEUE_MS
 EOF
-echo "testbed up: $scenario  A=${A_RATE_KBIT}kbit/${A_RTT_MS}ms  B=${B_RATE_KBIT}kbit/${B_RTT_MS}ms  queue=${QUEUE_MS}ms"
+
+echo "testbed up: scenario=$scenario mode=$mode A=${A_RATE_KBIT}kbit/${A_RTT_MS}ms B=${B_RATE_KBIT}kbit/${B_RTT_MS}ms queue=${QUEUE_MS}ms"
