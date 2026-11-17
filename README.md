@@ -14,7 +14,7 @@ recover what packet-level schedulers waste?
 | Lab log: what was built, what failed, evidence | [`docs/PROGRESS.md`](docs/PROGRESS.md) |
 | Testbed calibration | [`docs/calibration.md`](docs/calibration.md) |
 | Per-run summary of all 758 runs | [`analysis/summary_all.csv`](analysis/summary_all.csv) |
-| Raw per-run data (S0-S4 batch, calibration) | `results/` (`frames.csv`, `paths.csv`, `meta.json` per run) |
+| Raw per-run data (all runs, calibration) | `results/` (`frames.csv`, `paths.csv`, `meta.json` per run; batch logs in `results/batches/`) |
 
 ![Cross-scenario results](analysis/plots/fig1_cross_scenario_ontime.png)
 
@@ -42,10 +42,11 @@ three unit-tested TQUIC hooks plus an ECF scheduler (fork `team7` branch), a
 paired experiment harness (`scripts/`), and a deadline- and decode-aware
 playout model with paired statistics (`analysis/`, 15 hand-computed tests).
 
-**Code status (18 Nov):** S0-S4 and R1 are reproducible from this repository.
-The F1/F2/A1/R2 scheduler code that produced those runs is being merged from
-the evaluation build (pull request from Prasanna Bhavan); until it is merged,
-`scripts/run.sh ... F1|F2|A1|R2` needs that branch.
+**Code status (18 Nov):** every configuration (S0-S4, F1, F2, A1, R1, R2) runs
+from this repository with `scripts/run.sh`. F1/F2/A1/R2 are placement policies
+in the streamer (`streamer/src/lib.rs`, `streamer/src/bin/mpq_sender.rs`). Raw
+per-run data for all runs is in `results/`. Tests: TQUIC 564 + 1, streamer 9,
+analysis 15, all passing.
 
 ## Team
 

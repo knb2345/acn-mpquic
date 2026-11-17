@@ -475,3 +475,20 @@ Open issues
   to open one PR with the code (TQUIC changes as patches/), raw per-run data
   and batch scripts. Slides and report flag this until it is merged.
 - H1 (real traces), H5 (keyframe stress) and content controls were not run.
+
+## 2026-11-17 20:00 IST: F1/F2/A1/R2 code merged (PR #5) and checked
+- Prasanna's PR #5 (e56db2c, merged as f95de03) adds F1/F2/A1/R2 as
+  sender-side placement policies in the streamer (`--policy f1|f2|a1|r2`;
+  rate estimator, finish-time estimate and balanced split in
+  `streamer/src/lib.rs`, placement/rescue/oracle in `mpq_sender.rs`), the
+  batch logs, and raw per-run data (frames.csv, paths.csv, meta.json) for all
+  F1/F2/A1/R1/R2 runs and the sweep. TQUIC submodule unchanged (4d7481d).
+- Checks: streamer builds; recomputing `analysis/summarize.py` from the raw
+  data for rtt_asym, bw_asym and symmetric matches `analysis/summary_all.csv`
+  exactly for all 349 F1/F2/A1/R1/R2 runs (max |diff| on_time_250 = 0).
+- The PR had replaced five existing streamer tests (reassembly with rescue
+  overlap, gaps, duplicates; clip rotation) with one shorter test; restored
+  them next to the new estimator/split tests: streamer 9 tests pass.
+  TQUIC 564 + 1 and analysis 15 also pass.
+- Removed the "code being merged" notes from slides, report and README;
+  report section 3.4 now says where F1/F2/A1/R2 live. Report PDF rebuilt.

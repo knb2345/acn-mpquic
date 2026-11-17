@@ -421,4 +421,64 @@ mod tests {
         c.add(0, 60);
         assert!(c.complete(100));
     }
+
+    // Reassembly and clip-rotation tests from the original streamer (restored at merge).
+    #[test]
+    fn coverage_whole_frame_in_one_part() {
+        let mut c = Coverage::default();
+        assert!(!c.complete(100));
+        c.add(0, 100);
+        assert!(c.complete(100));
+    }
+
+    #[test]
+    fn coverage_split_parts_any_order() {
+        // Two parts of a 100-byte frame, second part first.
+        let mut c = Coverage::default();
+        c.add(60, 100);
+        assert!(!c.complete(100));
+        c.add(0, 60);
+        assert!(c.complete(100));
+        assert_eq!(c.covered_bytes(), 100);
+    }
+
+    #[test]
+    fn coverage_gap_and_rescue_overlap() {
+        // Parts [0,40) and [70,100) arrived; the rescue resends [30,80) on the
+        // other path, overlapping both: complete, 100 distinct bytes.
+        let mut c = Coverage::default();
+        c.add(0, 40);
+        c.add(70, 100);
+        assert!(!c.complete(100));
+        assert_eq!(c.covered_bytes(), 70);
+        c.add(30, 80);
+        assert!(c.complete(100));
+        assert_eq!(c.covered_bytes(), 100);
+    }
+
+    #[test]
+    fn coverage_duplicate_and_adjacent() {
+        let mut c = Coverage::default();
+        c.add(0, 50);
+        c.add(0, 50); // duplicate (redundant scheduler, rescue)
+        c.add(50, 99); // adjacent, one byte short
+        assert!(!c.complete(100));
+        assert_eq!(c.covered_bytes(), 99);
+        c.add(99, 100);
+        assert!(c.complete(100));
+    }
+
+    #[test]
+    fn parse_and_rotate() {
+        let text = "frame_id,frame_type,size_bytes,pts_ms\n0,I,500,0\n1,P,100,40\n2,P,120,80\n3,P,90,120\n";
+        let f = parse_frames(text).unwrap();
+        assert_eq!(f.len(), 4);
+        assert_eq!(f[2], Frame { id: 2, typ: 'P', size: 120, pts_us: 80_000 });
+        let r = rotate(&f, 2);
+        let got: Vec<(u32, u64)> = r.iter().map(|(fr, t)| (fr.id, *t)).collect();
+        // Frames 2, 3, then 0, 1 one interval after frame 3.
+        assert_eq!(got, vec![(2, 0), (3, 40_000), (0, 80_000), (1, 120_000)]);
+        let r0 = rotate(&f, 0);
+        assert_eq!(r0.iter().map(|(_, t)| *t).collect::<Vec<_>>(), vec![0, 40_000, 80_000, 120_000]);
+    }
 }

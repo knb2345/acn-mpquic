@@ -161,6 +161,13 @@ so both parts finish together:
 ACK progress for one PTO, its unfinished frame parts are resent as new streams
 on the other path.
 
+F1, F2, A1 and R2 are sender-side placement policies in the streamer
+(`streamer/src/lib.rs`: delivery-rate estimator, finish-time estimate, balanced
+split; `streamer/src/bin/mpq_sender.rs`: placement, rescue, A1's two
+connections, R2's true-rate oracle), selected with `--policy`; they use hook (a)
+to pin each frame-part stream to its path. Estimator, split and reassembly have
+hand-computed unit tests (streamer: 9 tests).
+
 ### 3.5 Metrics (`analysis/playout.py`)
 - **On time:** frame i is on time iff the latest completion time over i and
   every frame it depends on is <= `capture_ts + D` (intra-refresh: all earlier
@@ -189,9 +196,10 @@ unit tests.
 All numbers below come from `analysis/summary_all.csv` (one row per run;
 regenerate tables and figures with `analysis/generate_report_artifacts.py`).
 S0-S4 at 2.6 Mbit/s are the 200-run batch `week2_s0s4_v2`, whose raw per-run
-data is in `results/`. *Provenance note:* the F1, F2, A1, R2 runs and the sweep
-were run by the team on the evaluation build; the F1/F2/A1/R2 scheduler code is
-being merged into the repository (see README).
+data is in `results/`. Raw per-run data (`frames.csv`, `paths.csv`,
+`meta.json`) for every run, including F1/F2/A1/R2, R1 and the sweep, is in
+`results/`; recomputing the summaries from it reproduces `summary_all.csv`
+exactly.
 
 ### 4.1 One weak path is not enough; packet schedulers leave frames late
 
@@ -305,8 +313,6 @@ On bw_asym F2 puts 66 % of bytes on the 2.0 Mbit/s path (its capacity share is
   and content controls were not run.
 - Sweep points for S1, S4 and R1 have one run per bitrate.
 - CUBIC only; BBR and smaller buffers were stretch goals.
-- The F1/F2/A1/R2 implementation must be merged into the repository for their
-  runs to be reproducible from a clean clone (README).
 
 ## 7. Conclusion
 
