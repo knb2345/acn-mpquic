@@ -106,16 +106,36 @@ Linux (we use WSL2 Ubuntu 24.04; keep the repo on the Linux filesystem, not
 workload/download.sh stochastic             # videos are not in git (needs yt-dlp)
 workload/encode.sh stochastic intra          # frame traces (.csv) are in git
 testbed/up.sh rtt_asym                       # two emulated paths
-scripts/run.sh rtt_asym S1 2600 intra stochastic 0
+scripts/run.sh rtt_asym F2 2600 intra stochastic 950   # ids 1-8 are the analysed runs
 ```
 
 One run writes `results/<scenario>/<config>/<bitrate>_<encoding>_<clip>/<run_id>/`.
-Batches: `scripts/batch.sh`. Raw qlogs and dumps are git-ignored; per-run
-`frames.csv`, `paths.csv`, `meta.json` and summaries are tracked. Never edit or
-delete results by hand; log failed runs in `docs/PROGRESS.md`.
+Batches: `scripts/batch.sh` (the final one: `scripts/overnight_20261118b.sh`).
+Raw qlogs and dumps are git-ignored; per-run `frames.csv`, `paths.csv`,
+`meta.json` and logs are tracked. Results are never edited by hand; runs from
+earlier builds are kept unchanged in `results/_superseded/`.
 
-## Contributing
+## Reproduce the analysis
 
-Work on a branch, small commits, open a PR against `main`. TQUIC changes go to
-the `team7` branch of the fork, only in `src/multipath_scheduler/` plus hooks
-a-c, each with a unit test; then bump the submodule pointer here.
+```bash
+analysis/.venv/bin/python analysis/make_summary.py          # -> analysis/summary_final.csv
+PYTHONPATH=analysis analysis/.venv/bin/python analysis/generate_report_artifacts.py
+python3 docs/slides/embed_figures.py && docs/slides/deck_to_pdf.sh Team7-final.pdf
+```
+
+`generate_report_artifacts.py` prints every number used in the report and the
+slides (tables also in `analysis/tables/`) and draws the figures; the report PDF
+is built with `docs/build_report_pdf.py`.
+
+## Repository layout
+
+```
+third_party/tquic/   TQUIC fork (submodule): hooks a-c, ECF, stall fix, send log
+streamer/            frame sender and receiver; F1/F2/A1/R2 placement policies
+testbed/             two-path emulator (netem + htb + plug), calibration
+scripts/             run.sh (one run), batch.sh, demo.sh
+workload/            clip download/encode scripts, frame traces (csv)
+analysis/            playout model, statistics, summaries, figures
+results/             raw runs; results/_superseded/ for earlier builds
+docs/                proposal, report, slides, progress log, calibration
+```
