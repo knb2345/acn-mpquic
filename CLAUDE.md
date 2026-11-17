@@ -94,13 +94,18 @@ are reported, not hidden.
 | R1 | ideal link: one path, rate = sum, RTT = lower of the two | testbed only |
 | R2 | F2 using the true trace rates instead of estimates | streamer |
 
-Finish-time estimate for a frame part of S bytes on path p:
+Finish-time estimate for a frame part of S bytes on path p (as designed on 1 Nov;
+as implemented since 17 Nov the queueing term is taken from bytes in flight, see
+the note below and docs/report.md 3.4):
 `T_p = (U_p + S)/R_p + (srtt_p - min_rtt_p) + min_rtt_p/2`
 U_p = bytes assigned to p not yet sent. R_p = measured delivery rate: bytes
 acknowledged on p per interval, max over the last 1 s (do NOT use TQUIC
 pacing_rate). F2 split, used whenever it lowers predicted finish (never depends
 on D), with d_p = (srtt_p - min_rtt_p) + min_rtt_p/2, clamped to [0, S]:
 `S_a = ((U_b + S)/R_b + d_b - U_a/R_a - d_a) / (1/R_a + 1/R_b)`.
+Implementation note (17 Nov): T_p = (W_p + S)/R_p + min_rtt_p/2 with W_p = U_p +
+max(0, inflight_p - R_p * min_rtt_p); srtt lags behind the bottleneck queue
+when CUBIC's window is several BDPs (streamer/src/lib.rs bottleneck_queue_bytes).
 Rescue (F2, A1): if a path shows no ACK progress for one PTO, resend its
 unfinished frame parts as new streams on the other path. Each stream starts with
 a small header `{frame_id, offset, length, frame_size}`; the receiver completes a

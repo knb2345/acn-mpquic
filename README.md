@@ -57,8 +57,8 @@ who did what (see report section 9).
 ## Live demo (about 3 minutes)
 
 ```bash
-scripts/demo.sh            # live: MinRTT, then round-robin, on the rtt_asym links (~65 s each)
-scripts/demo.sh replay     # recorded runs: MinRTT vs F2, no network needed
+scripts/demo.sh            # live: MinRTT, then our F2, on the rtt_asym links (~65 s each)
+scripts/demo.sh replay     # same, from recorded runs (no network needed)
 ```
 
 The terminal shows, while the lecture streams: frames on time (250 ms

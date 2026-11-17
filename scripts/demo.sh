@@ -7,8 +7,8 @@
 #   live    (default) real runs on the testbed, ~65 s per config. Needs the
 #           passwordless sudo rule for ip/tc/modprobe (testbed/README.md).
 #   replay  no network: replays recorded run 1 of each config (the fallback).
-#   Defaults: live = S1 S2 (MinRTT vs round-robin, built-in schedulers that
-#   reproduce); replay = S1 F2 (recorded runs). Scenario rtt_asym (30/150 ms).
+#   Defaults: S1 F2 (MinRTT vs our frame splitting), scenario rtt_asym
+#   (30 ms vs 150 ms paths).
 #   Env: SPEED (replay speed, default 1), KBPS (default 2600).
 # Live runs are written like any run (scripts/run.sh) with a run id >= 900, so
 # they are never part of the analysis (run ids 1-8); figure in results/demo/.
@@ -20,7 +20,7 @@ scenario=${2:-rtt_asym}
 shift $(( $# > 2 ? 2 : $# ))
 configs=("$@")
 if (( ${#configs[@]} == 0 )); then
-    if [[ $mode == replay ]]; then configs=(S1 F2); else configs=(S1 S2); fi
+    configs=(S1 F2)
 fi
 kbps=${KBPS:-2600}
 py=$repo/analysis/.venv/bin/python
