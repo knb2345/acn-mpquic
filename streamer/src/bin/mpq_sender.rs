@@ -4,7 +4,7 @@
 //! Output (--out): seq,frame_id,frame_type,size_bytes,stream_id,capture_ts_us,send_start_us,rescued
 
 use std::cell::RefCell;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::error::Error;
 use std::fs::File;
 use std::io::{BufWriter, Write};
@@ -80,7 +80,9 @@ struct InflightPart {
     path_idx: usize, // 0 = Path A, 1 = Path B
     sent_ts_us: u64,
     rescued: bool,
-    acked_baseline: u64,
+    /// The part is unfinished until its stream closes (all bytes acknowledged).
+    conn_idx: u64,
+    stream_id: u64,
 }
 
 #[derive(Default)]
@@ -93,6 +95,8 @@ struct State {
     /// (conn_idx, stream_id) -> remaining unwritten bytes
     pending: HashMap<(u64, u64), Bytes>,
     qlog_dir: Option<PathBuf>,
+    /// (conn_idx, stream_id) of streams fully acknowledged since the last check.
+    closed: HashSet<(u64, u64)>,
 }
 
 struct Handler {
@@ -159,7 +163,11 @@ impl TransportHandler for Handler {
         }
     }
 
-    fn on_stream_closed(&mut self, _conn: &mut Connection, _stream_id: u64) {}
+    fn on_stream_closed(&mut self, conn: &mut Connection, stream_id: u64) {
+        if let Some(cidx) = conn.index() {
+            self.st.borrow_mut().closed.insert((cidx, stream_id));
+        }
+    }
     fn on_new_token(&mut self, _conn: &mut Connection, _token: Vec<u8>) {}
 }
 
@@ -186,9 +194,14 @@ fn write_part_stream(
     frame: &Frame,
     offset: usize,
     length: usize,
+    track: Option<(usize, usize)>,
 ) -> Result<u64, Box<dyn Error>> {
     // Non-incremental priority (urgency 0, incremental = false) preserves strict frame order.
     let sid = conn.stream_uni_new(0, false)?;
+    // track = (connection key, path index): count this part in U_p of that path.
+    if let Some((ck, path)) = track {
+        send_tracker().lock().unwrap().register(ck, sid, path, (HEADER_LEN + length) as u64);
+    }
     if let Some(p) = pref_path {
         let _ = conn.stream_set_path_preference(sid, Some(p));
     }
@@ -253,6 +266,13 @@ fn main() -> Result<(), Box<dyn Error>> {
         extra_paths.push(sock.add(&SocketAddr::new(*ip, 0), poll.registry())?);
     }
     let sock = Rc::new(sock);
+    {
+        // Which connection each local address belongs to (A1: one connection per path).
+        let mut t = send_tracker().lock().unwrap();
+        for (i, ip) in opt.local_addresses.iter().enumerate() {
+            t.set_conn_of_ip(*ip, if is_a1 { i.min(1) } else { 0 });
+        }
+    }
     let st = Rc::new(RefCell::new(State {
         extra_paths: if is_a1 { Vec::new() } else { extra_paths.clone() },
         remote: Some(opt.connect),
@@ -336,13 +356,28 @@ fn main() -> Result<(), Box<dyn Error>> {
                 }
             }
 
-            let mut est_a = PathEstimate { queued_bytes: 0.0, rate_bps: rate_a.rate_bytes_per_sec(), srtt_us: 40_000.0, min_rtt_us: 40_000.0 };
-            let mut est_b = PathEstimate { queued_bytes: 0.0, rate_bps: rate_b.rate_bytes_per_sec(), srtt_us: 40_000.0, min_rtt_us: 40_000.0 };
+            let (u_a, u_b) = {
+                let t = send_tracker().lock().unwrap();
+                (t.unsent(0) as f64, t.unsent(1) as f64)
+            };
+            let mut est_a = PathEstimate { queued_bytes: u_a, rate_bps: rate_a.rate_bytes_per_sec(), srtt_us: 40_000.0, min_rtt_us: 40_000.0 };
+            let mut est_b = PathEstimate { queued_bytes: u_b, rate_bps: rate_b.rate_bytes_per_sec(), srtt_us: 40_000.0, min_rtt_us: 40_000.0 };
             let mut addrs = [None::<(SocketAddr, SocketAddr)>; 2];
+            // (bytes in flight, min_rtt_us) per path, for the bottleneck queue term.
+            let mut bottleneck = [(0.0f64, 0.0f64); 2];
             let mut pto_us = [200_000u64; 2];
 
             for &(pidx, loc, rem, srtt, min_rtt, rttvar, sent_b, acked_b, lost_b) in &path_tuples {
-                let unacked = sent_b.saturating_sub(acked_b + lost_b) as f64;
+                // Bytes ahead of a new frame on this path: those assigned but not yet
+                // sent (U_p, from the send tracker) plus those queued at the
+                // bottleneck. The bottleneck queue is the bytes in flight beyond one
+                // round trip at the path's rate (inflight - R_p * min_rtt_p). This is
+                // what the formula's (srtt_p - min_rtt_p) term estimates, but taken
+                // now rather than from srtt, which is smoothed and lags behind; CUBIC's
+                // window is several times the path's BDP here, so bytes leave the
+                // send buffer at once and wait in the 200 ms bottleneck buffer.
+                let unsent = send_tracker().lock().unwrap().unsent(pidx) as f64;
+                let inflight = sent_b.saturating_sub(acked_b + lost_b) as f64;
                 if acked_b > last_acked_total[pidx] {
                     last_acked_total[pidx] = acked_b;
                     last_ack_progress_ts[pidx] = now;
@@ -350,21 +385,27 @@ fn main() -> Result<(), Box<dyn Error>> {
                 if pidx == 0 {
                     rate_a.update(now, acked_b);
                     est_a = PathEstimate {
-                        queued_bytes: unacked,
+                        queued_bytes: unsent,
                         rate_bps: rate_a.rate_bytes_per_sec(),
-                        srtt_us: srtt.max(1000) as f64,
+                        // srtt = min_rtt: the queueing term comes from bytes in flight
+                        // (bottleneck_queue below), not from srtt.
+                        srtt_us: min_rtt.max(1000) as f64,
                         min_rtt_us: min_rtt.max(1000) as f64,
                     };
+                    bottleneck[pidx] = (inflight, min_rtt.max(1000) as f64);
                     addrs[0] = Some((loc, rem));
                     pto_us[0] = (srtt + 4 * rttvar.max(1000)).max(20_000);
                 } else {
                     rate_b.update(now, acked_b);
                     est_b = PathEstimate {
-                        queued_bytes: unacked,
+                        queued_bytes: unsent,
                         rate_bps: rate_b.rate_bytes_per_sec(),
-                        srtt_us: srtt.max(1000) as f64,
+                        // srtt = min_rtt: the queueing term comes from bytes in flight
+                        // (bottleneck_queue below), not from srtt.
+                        srtt_us: min_rtt.max(1000) as f64,
                         min_rtt_us: min_rtt.max(1000) as f64,
                     };
+                    bottleneck[pidx] = (inflight, min_rtt.max(1000) as f64);
                     addrs[1] = Some((loc, rem));
                     pto_us[1] = (srtt + 4 * rttvar.max(1000)).max(20_000);
                 }
@@ -378,8 +419,15 @@ fn main() -> Result<(), Box<dyn Error>> {
                 }
             }
 
-            // Retire inflight parts once cumulative acked_bytes covers them
-            inflight.retain(|p| last_acked_total[p.path_idx] < p.acked_baseline + p.length as u64);
+            for (est, &(inflight, min_rtt_us)) in [&mut est_a, &mut est_b].into_iter().zip(bottleneck.iter()) {
+                est.queued_bytes += bottleneck_queue_bytes(inflight, est.rate_bps, min_rtt_us);
+            }
+
+            // A part is finished once its stream has closed (all its bytes acknowledged).
+            let closed = std::mem::take(&mut st.borrow_mut().closed);
+            if !closed.is_empty() {
+                inflight.retain(|p| !closed.contains(&(p.conn_idx, p.stream_id)));
+            }
 
             // PTO rescue for F2, A1, R2: if a path has stalled for >= 1x PTO, resend
             // unrescued inflight parts on the alternate path as new streams.
@@ -399,11 +447,11 @@ fn main() -> Result<(), Box<dyn Error>> {
                     let fake_frame = Frame { id: part.frame_id, typ: part.frame_type, size: part.frame_size, pts_us: 0 };
                     let sid = if is_a1 {
                         endpoint.conn_get_mut(conns[alt])
-                            .map(|c| write_part_stream(c, &st, None, &fake_frame, part.offset as usize, part.length as usize))
+                            .map(|c| write_part_stream(c, &st, None, &fake_frame, part.offset as usize, part.length as usize, Some((alt, alt))))
                             .transpose()?
                     } else {
                         endpoint.conn_get_mut(conns[0])
-                            .map(|c| write_part_stream(c, &st, addrs[alt], &fake_frame, part.offset as usize, part.length as usize))
+                            .map(|c| write_part_stream(c, &st, addrs[alt], &fake_frame, part.offset as usize, part.length as usize, Some((0, alt))))
                             .transpose()?
                     };
                     if let Some(sid) = sid {
@@ -422,7 +470,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     match opt.policy {
                         Policy::Tquic => {
                             let Some(conn) = endpoint.conn_get_mut(conns[0]) else { break };
-                            let sid = write_part_stream(conn, &st, None, f, 0, f.size)?;
+                            let sid = write_part_stream(conn, &st, None, f, 0, f.size, None)?;
                             writeln!(out, "{seq},{},{},{},{sid},{cap_ts},{ts},0", f.id, f.typ, f.size)?;
                             seq += 1;
                         }
@@ -431,7 +479,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                             let choose_b = addrs[1].is_some()
                                 && est_b.finish_time_us(f.size as f64) < est_a.finish_time_us(f.size as f64);
                             let pref = if choose_b { addrs[1] } else { addrs[0] };
-                            let sid = write_part_stream(conn, &st, pref, f, 0, f.size)?;
+                            let sid = write_part_stream(conn, &st, pref, f, 0, f.size, Some((0, choose_b as usize)))?;
                             if choose_b {
                                 est_b.queued_bytes += f.size as f64;
                             } else {
@@ -450,29 +498,29 @@ fn main() -> Result<(), Box<dyn Error>> {
                             if let Some(s_a) = split {
                                 let s_b = f.size - s_a;
                                 let sid_a = if is_a1 {
-                                    write_part_stream(endpoint.conn_get_mut(conns[0]).unwrap(), &st, None, f, 0, s_a)?
+                                    write_part_stream(endpoint.conn_get_mut(conns[0]).unwrap(), &st, None, f, 0, s_a, Some((0, 0)))?
                                 } else {
-                                    write_part_stream(endpoint.conn_get_mut(conns[0]).unwrap(), &st, addrs[0], f, 0, s_a)?
+                                    write_part_stream(endpoint.conn_get_mut(conns[0]).unwrap(), &st, addrs[0], f, 0, s_a, Some((0, 0)))?
                                 };
                                 writeln!(out, "{seq},{},{},{},{sid_a},{cap_ts},{ts},0", f.id, f.typ, f.size)?;
                                 seq += 1;
                                 inflight.push(InflightPart {
                                     frame_id: f.id, frame_type: f.typ, frame_size: f.size,
                                     offset: 0, length: s_a as u32, path_idx: 0,
-                                    sent_ts_us: ts, rescued: false, acked_baseline: last_acked_total[0],
+                                    sent_ts_us: ts, rescued: false, conn_idx: conns[0], stream_id: sid_a,
                                 });
 
                                 let sid_b = if is_a1 {
-                                    write_part_stream(endpoint.conn_get_mut(conns[1]).unwrap(), &st, None, f, s_a, s_b)?
+                                    write_part_stream(endpoint.conn_get_mut(conns[1]).unwrap(), &st, None, f, s_a, s_b, Some((1, 1)))?
                                 } else {
-                                    write_part_stream(endpoint.conn_get_mut(conns[0]).unwrap(), &st, addrs[1], f, s_a, s_b)?
+                                    write_part_stream(endpoint.conn_get_mut(conns[0]).unwrap(), &st, addrs[1], f, s_a, s_b, Some((0, 1)))?
                                 };
                                 writeln!(out, "{seq},{},{},{},{sid_b},{cap_ts},{ts},0", f.id, f.typ, f.size)?;
                                 seq += 1;
                                 inflight.push(InflightPart {
                                     frame_id: f.id, frame_type: f.typ, frame_size: f.size,
                                     offset: s_a as u32, length: s_b as u32, path_idx: 1,
-                                    sent_ts_us: ts, rescued: false, acked_baseline: last_acked_total[1],
+                                    sent_ts_us: ts, rescued: false, conn_idx: if is_a1 { conns[1] } else { conns[0] }, stream_id: sid_b,
                                 });
                                 est_a.queued_bytes += s_a as f64;
                                 est_b.queued_bytes += s_b as f64;
@@ -481,16 +529,16 @@ fn main() -> Result<(), Box<dyn Error>> {
                                     && est_b.finish_time_us(f.size as f64) < est_a.finish_time_us(f.size as f64);
                                 let pidx = if choose_b { 1 } else { 0 };
                                 let sid = if is_a1 {
-                                    write_part_stream(endpoint.conn_get_mut(conns[pidx]).unwrap(), &st, None, f, 0, f.size)?
+                                    write_part_stream(endpoint.conn_get_mut(conns[pidx]).unwrap(), &st, None, f, 0, f.size, Some((pidx, pidx)))?
                                 } else {
-                                    write_part_stream(endpoint.conn_get_mut(conns[0]).unwrap(), &st, addrs[pidx], f, 0, f.size)?
+                                    write_part_stream(endpoint.conn_get_mut(conns[0]).unwrap(), &st, addrs[pidx], f, 0, f.size, Some((0, pidx)))?
                                 };
                                 writeln!(out, "{seq},{},{},{},{sid},{cap_ts},{ts},0", f.id, f.typ, f.size)?;
                                 seq += 1;
                                 inflight.push(InflightPart {
                                     frame_id: f.id, frame_type: f.typ, frame_size: f.size,
                                     offset: 0, length: f.size as u32, path_idx: pidx,
-                                    sent_ts_us: ts, rescued: false, acked_baseline: last_acked_total[pidx],
+                                    sent_ts_us: ts, rescued: false, conn_idx: if is_a1 { conns[pidx] } else { conns[0] }, stream_id: sid,
                                 });
                                 if pidx == 0 { est_a.queued_bytes += f.size as f64; } else { est_b.queued_bytes += f.size as f64; }
                             }

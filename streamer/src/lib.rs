@@ -1,10 +1,11 @@
 //! Shared pieces of the frame sender and receiver.
 
-use std::collections::VecDeque;
+use std::collections::{HashMap, VecDeque};
 use std::fs::File;
 use std::io::{BufWriter, Write};
+use std::net::IpAddr;
 use std::path::Path;
-use std::sync::Mutex;
+use std::sync::{Mutex, OnceLock};
 
 use log::{Level, LevelFilter, Metadata, Record};
 
@@ -219,6 +220,13 @@ impl PathEstimate {
     }
 }
 
+/// Bytes waiting at the path's bottleneck: bytes in flight beyond what one
+/// round trip at rate R_p holds (inflight - R_p * min_rtt_p), at least 0.
+/// Added to U_p in place of the lagging srtt_p - min_rtt_p term (see mpq_sender).
+pub fn bottleneck_queue_bytes(inflight_bytes: f64, rate_bps: f64, min_rtt_us: f64) -> f64 {
+    (inflight_bytes - rate_bps * min_rtt_us / 1e6).max(0.0)
+}
+
 /// F2 balanced split: returns Some(s_a) in (0, s_total) iff splitting lowers
 /// max(T_a(S_a), T_b(S - S_a)) below sending the whole frame on either single path.
 pub fn balanced_split_bytes(a: PathEstimate, b: PathEstimate, s_total: usize) -> Option<usize> {
@@ -294,6 +302,77 @@ impl TrueRateOracle {
     }
 }
 
+/// U_p for the frame-aware policies (F1, F2, A1, R2): bytes assigned to a path
+/// that TQUIC has not sent yet (CLAUDE.md: "U_p = bytes assigned to p not yet
+/// sent"). Bytes in flight are not part of U_p; their queueing shows up in
+/// srtt - min_rtt. TQUIC reports every STREAM frame it sends (log target
+/// tquic::frame_path, new or retransmitted); only bytes beyond the highest
+/// offset already sent on that stream count, so retransmissions are not
+/// counted twice. Streams are keyed by (connection, stream id): A1 has two
+/// connections whose stream ids overlap, told apart by their local address.
+#[derive(Default, Debug)]
+pub struct SendTracker {
+    conn_of_ip: HashMap<IpAddr, usize>,
+    /// (conn, stream id) -> (assigned path, bytes to send, highest offset sent)
+    streams: HashMap<(usize, u64), (usize, u64, u64)>,
+    assigned: [u64; 2],
+    sent: [u64; 2],
+}
+
+impl SendTracker {
+    /// Packets sent from `ip` belong to connection `conn` (single multipath
+    /// connection: both local addresses map to 0; A1: path A 0, path B 1).
+    pub fn set_conn_of_ip(&mut self, ip: IpAddr, conn: usize) {
+        self.conn_of_ip.insert(ip, conn);
+    }
+
+    /// A new frame-part stream of `len` bytes (header included) assigned to `path`.
+    pub fn register(&mut self, conn: usize, stream_id: u64, path: usize, len: u64) {
+        self.streams.insert((conn, stream_id), (path, len, 0));
+        self.assigned[path] += len;
+    }
+
+    /// TQUIC sent [offset, offset + len) of a stream from local address `ip`.
+    pub fn on_sent(&mut self, ip: IpAddr, stream_id: u64, offset: u64, len: u64) {
+        let Some(&conn) = self.conn_of_ip.get(&ip) else { return };
+        let key = (conn, stream_id);
+        let Some(e) = self.streams.get_mut(&key) else { return };
+        let end = (offset + len).min(e.1);
+        if end > e.2 {
+            self.sent[e.0] += end - e.2;
+            e.2 = end;
+        }
+        if e.2 >= e.1 {
+            self.streams.remove(&key);
+        }
+    }
+
+    /// U_p in bytes.
+    pub fn unsent(&self, path: usize) -> u64 {
+        self.assigned[path] - self.sent[path]
+    }
+
+    /// Feed one tquic::frame_path log line: "stream_id,path_id,offset,len,fin,local".
+    pub fn on_log_line(&mut self, line: &str) {
+        let f: Vec<&str> = line.split(',').collect();
+        if f.len() < 6 {
+            return;
+        }
+        let (Ok(sid), Ok(off), Ok(len), Ok(addr)) =
+            (f[0].parse::<u64>(), f[2].parse::<u64>(), f[3].parse::<u64>(), f[5].parse::<std::net::SocketAddr>())
+        else {
+            return;
+        };
+        self.on_sent(addr.ip(), sid, off, len);
+    }
+}
+
+/// The process-wide tracker, fed by SplitLogger from TQUIC's frame_path lines.
+pub fn send_tracker() -> &'static Mutex<SendTracker> {
+    static T: OnceLock<Mutex<SendTracker>> = OnceLock::new();
+    T.get_or_init(|| Mutex::new(SendTracker::default()))
+}
+
 pub struct Route {
     pub target: &'static str,
     pub path: std::path::PathBuf,
@@ -323,7 +402,9 @@ impl SplitLogger {
             }
             open.push((r.target, r.sep, Mutex::new(w)));
         }
-        let max = if open.is_empty() { level } else { level.max(LevelFilter::Debug) };
+        // Debug is always on so that TQUIC's frame_path lines reach the send
+        // tracker (other targets are still filtered by `enabled`).
+        let max = level.max(LevelFilter::Debug);
         let logger = SplitLogger { level, main: Mutex::new(BufWriter::new(File::create(main)?)), routes: open };
         log::set_boxed_logger(Box::new(logger)).expect("logger already set");
         log::set_max_level(max);
@@ -341,13 +422,21 @@ impl log::Log for SplitLogger {
             return m.level() <= Level::Debug;
         }
         if m.target() == FRAME_PATH_TARGET {
-            return false;
+            return m.level() <= Level::Debug;
         }
         m.level() <= self.level
     }
 
     fn log(&self, r: &Record) {
         if !self.enabled(r.metadata()) {
+            return;
+        }
+        if r.target() == FRAME_PATH_TARGET {
+            let line = r.args().to_string();
+            send_tracker().lock().unwrap().on_log_line(&line);
+            if let Some((_, sep, w)) = self.route(r.target()) {
+                let _ = writeln!(w.lock().unwrap(), "{}{}{}", now_us(), sep, line);
+            }
             return;
         }
         match self.route(r.target()) {
@@ -420,6 +509,52 @@ mod tests {
         assert!(!c.complete(100));
         c.add(0, 60);
         assert!(c.complete(100));
+    }
+
+    #[test]
+    fn bottleneck_queue_hand_computed() {
+        // 1.6 Mbit/s = 200_000 B/s, min_rtt 150 ms -> one round trip holds 30_000 B.
+        assert!((bottleneck_queue_bytes(50_000.0, 200_000.0, 150_000.0) - 20_000.0).abs() < 1e-6);
+        // Less in flight than the pipe holds: no queue.
+        assert_eq!(bottleneck_queue_bytes(10_000.0, 200_000.0, 150_000.0), 0.0);
+    }
+
+    #[test]
+    fn send_tracker_counts_new_bytes_only() {
+        // Two parts of one frame: 1000 B on path A (stream 2), 600 B on B (stream 6).
+        let a: IpAddr = "10.10.1.1".parse().unwrap();
+        let b: IpAddr = "10.10.2.1".parse().unwrap();
+        let mut t = SendTracker::default();
+        t.set_conn_of_ip(a, 0);
+        t.set_conn_of_ip(b, 0);
+        t.register(0, 2, 0, 1000);
+        t.register(0, 6, 1, 600);
+        assert_eq!((t.unsent(0), t.unsent(1)), (1000, 600));
+        t.on_sent(a, 2, 0, 400); // first 400 B of stream 2
+        t.on_sent(a, 2, 0, 400); // retransmission: no new bytes
+        assert_eq!(t.unsent(0), 600);
+        t.on_log_line("2,0,400,600,1,10.10.1.1:5000"); // rest of stream 2
+        assert_eq!(t.unsent(0), 0);
+        t.on_sent(a, 6, 0, 600); // stream 6 (assigned to B) sent from A: still B's bytes
+        assert_eq!((t.unsent(0), t.unsent(1)), (0, 0));
+        t.on_sent(a, 99, 0, 100); // unknown stream: ignored
+        assert_eq!(t.unsent(0), 0);
+    }
+
+    #[test]
+    fn send_tracker_two_connections() {
+        // A1: the same stream id on two connections, told apart by local address.
+        let a: IpAddr = "10.10.1.1".parse().unwrap();
+        let b: IpAddr = "10.10.2.1".parse().unwrap();
+        let mut t = SendTracker::default();
+        t.set_conn_of_ip(a, 0);
+        t.set_conn_of_ip(b, 1);
+        t.register(0, 2, 0, 500);
+        t.register(1, 2, 1, 300);
+        t.on_sent(b, 2, 0, 300);
+        assert_eq!((t.unsent(0), t.unsent(1)), (500, 0));
+        t.on_sent(a, 2, 0, 200);
+        assert_eq!(t.unsent(0), 300);
     }
 
     // Reassembly and clip-rotation tests from the original streamer (restored at merge).

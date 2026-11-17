@@ -42,16 +42,11 @@ paired experiment harness (`scripts/`), and a deadline- and decode-aware
 playout model with paired statistics (`analysis/`, 15 hand-computed tests).
 
 **Code status (18 Nov):** every configuration runs from this repository with
-`scripts/run.sh`, and S0-S4 and R1 reproduce (MinRTT re-run on 17 Nov: 85.7 %
-on time vs 83.8 % recorded). **F2 does not reproduce yet:** the recorded
-F1/F2/A1/R2 runs were built from commit `096c4a8` (see their `meta.json`), which
-is not in this repository; re-running the F2 code in this repository on
-rtt_asym gave 17.9 %, 2.8 % and 38.6 % frames on time (3 runs) vs 95.7 % recorded.
-The exact code is being recovered. F1/F2/A1/R2 are placement policies
-in the streamer (`streamer/src/lib.rs`, `streamer/src/bin/mpq_sender.rs`). Raw
-per-run data for all runs is in `results/`. Tests: TQUIC 564 + 1, streamer 9,
-analysis 15, all passing. Tables, tests and figures:
-`PYTHONPATH=analysis analysis/.venv/bin/python analysis/generate_report_artifacts.py`.
+`scripts/run.sh`. On 17 Nov three bugs in the F1/F2/A1/R2 code were fixed (the
+per-path queue estimate, rescue bookkeeping, and stream ids of two connections
+mixed up at the receiver), and all F1/F2/A1/R2/R1 runs were redone overnight
+with the fixed code. Runs made with earlier builds are kept, unchanged, in
+`results/_superseded/`.
 
 ## Team
 

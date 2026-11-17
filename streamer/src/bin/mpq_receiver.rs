@@ -80,7 +80,9 @@ struct State {
     conn: Option<u64>,
     closed: bool,
     first_stream: Option<Instant>,
-    parts: HashMap<u64, PartRx>,
+    /// Keyed by (connection index, stream id): with A1 the sender opens two
+    /// connections, and their stream ids overlap.
+    parts: HashMap<(u64, u64), PartRx>,
     frames: HashMap<u32, FrameRx>,
     complete: usize,
     qlog_dir: Option<PathBuf>,
@@ -123,11 +125,12 @@ impl TransportHandler for Handler {
     fn on_stream_readable(&mut self, conn: &mut Connection, stream_id: u64) {
         let mut st = self.st.borrow_mut();
         st.first_stream.get_or_insert_with(Instant::now);
+        let key = (conn.index().unwrap_or(0), stream_id);
         loop {
             match conn.stream_read(stream_id, &mut self.buf) {
                 Ok((n, fin)) => {
                     let now = now_us();
-                    let part = st.parts.entry(stream_id).or_default();
+                    let part = st.parts.entry(key).or_default();
                     let need = HEADER_LEN - part.header.len();
                     part.header.extend_from_slice(&self.buf[..n.min(need)]);
                     part.payload += n.saturating_sub(need) as u64;
@@ -145,7 +148,7 @@ impl TransportHandler for Handler {
                     if !fin {
                         continue;
                     }
-                    let part = st.parts.remove(&stream_id).unwrap();
+                    let part = st.parts.remove(&key).unwrap();
                     if part.header.len() < HEADER_LEN {
                         warn!("stream {stream_id} ended without a full header");
                         break;
