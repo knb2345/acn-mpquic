@@ -1,23 +1,23 @@
 <section id="plan" data-transition="fade" style="background:#EEF1F4;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:40px">
-<p style="font-size:28px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">10 · Takeaways &amp; Lessons Learned</p>
-<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:62px;font-weight:600;line-height:1.1">What frame-aware MPQUIC teaches us for live video</h2>
+<p style="font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">10 · What we learned</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:60px;font-weight:600;line-height:1.1">Frames, queues and a strong simple baseline</h2>
 <div style="display:flex;gap:24px">
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:34px;border-top:8px solid #2F6FB0;border-radius:16px">
-<h3 style="font-size:30px;font-weight:600">1. Splitting works when the link is busy</h3>
-<p style="font-size:25px;line-height:1.45;color:#4A5568">At 2.6 Mbit/s, splitting each frame so both parts finish together (F2) is within 0.2–3.4 pp of the ideal link’s on-time ratio on steady paths and ~10 pp better than MinRTT/ECF.</p>
+<h3 style="font-size:30px;font-weight:600">1. Place frames, not packets</h3>
+<p style="font-size:24px;line-height:1.45;color:#4A5568">Knowing where a frame starts and ends lets the sender split it so both parts arrive together. That cut freezing by 7 to 10 points against MinRTT and ECF; placing whole frames was clearly worse on steady links.</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:34px;border-top:8px solid #2F6FB0;border-radius:16px">
-<h3 style="font-size:30px;font-weight:600">2. Low bitrates and outages break it</h3>
-<p style="font-size:25px;line-height:1.45;color:#4A5568">F2 freezes at 1.0–2.2 Mbit/s; even with true link rates (R2) it fails at 1.0–1.6, so the rate estimate is not the only cause. Under outages a one-timeout rescue duplicates too much.</p>
+<h3 style="font-size:30px;font-weight:600">2. Watch the queues</h3>
+<p style="font-size:24px;line-height:1.45;color:#4A5568">MinRTT and ECF kept about 130 ms of video waiting in the fast link’s buffer. F2 only worked once it counted the bytes already waiting on each link; true link rates (R2) would save another 2 to 3 points on the asymmetric pairs.</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:34px;border-top:8px solid #2F6FB0;border-radius:16px">
-<h3 style="font-size:30px;font-weight:600">3. Compare with simple baselines</h3>
-<p style="font-size:25px;line-height:1.45;color:#4A5568">Plain round-robin beats MinRTT and ECF by 3–14 pp of on-time frames and rivals F2. Any new scheduler must be measured against it, not only against MinRTT.</p>
+<h3 style="font-size:30px;font-weight:600">3. Compare with round-robin</h3>
+<p style="font-size:24px;line-height:1.45;color:#4A5568">On steady links plain round-robin beat MinRTT and ECF by 3 to 14 points of frames on time, and under outages it was the best scheduler we tried. Any new scheduler should be measured against it.</p>
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:10px;background:#F7EDE3;padding:28px 36px;border-radius:16px">
-<h3 style="font-size:28px;font-weight:600;color:#9A4D12">Artifacts &amp; Reproducibility</h3>
-<p style="font-size:25px;line-height:1.45;color:#3C4658">609 paired runs (run ids 1–8), raw per-run data in <code>results/</code>, summary <code>analysis/summary_final.csv</code> · tests pass: TQUIC 564 + 1, streamer 9, analysis 15 · paired Wilcoxon + Holm, bootstrap CIs.</p>
+<h3 style="font-size:28px;font-weight:600;color:#9A4D12">Code and data</h3>
+<p style="font-size:24px;line-height:1.45;color:#3C4658">{RUNS} paired runs with raw per-run data, scripts and analysis on GitHub (knb2345/acn-mpquic). Tests: 565 in TQUIC, 12 in the streamer, 15 in the analysis.</p>
 </div>
-<aside>Three lessons. Be clear that the low-bitrate failure is not fully explained: R2 uses the true rates and still fails at 1.0 and 1.6 Mbit/s.</aside>
+<aside>Three lessons. The second one is also a warning: a frame scheduler is only as good as its picture of what is already queued on each link.</aside>
 </section>

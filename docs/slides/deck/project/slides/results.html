@@ -1,44 +1,37 @@
 <section id="results" data-transition="fade" style="background:#FBFBF8;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:96px 112px;display:flex;flex-direction:column;gap:26px">
-<p style="font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">7 · Cross-Scenario Results (2.6 Mbit/s · D = 250 ms)</p>
-<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:54px;font-weight:600;line-height:1.1">Frame splitting (F2) cuts freeze time by ~10 pp vs MinRTT and ECF; plain round-robin is a strong rival</h2>
+<p style="font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">7 · Results at 2.6 Mbit/s</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:54px;font-weight:600;line-height:1.1">Splitting each frame cuts freezing by 7 to 10 points compared with MinRTT and ECF</h2>
 <div style="display:flex;gap:28px;align-items:stretch">
 <div style="flex:3.2;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:26px 30px;border:1px solid #DCE1E8;border-radius:16px">
-<p style="font-size:22px;color:#4A5568">Frames on time (≤ 250 ms), mean of 8 paired runs (run ids 1–8)</p>
-<table style="border-collapse:collapse;font-size:23px;width:100%">
-<thead><tr style="color:#4A5568;text-align:right">
-<th style="text-align:left;font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">Scenario</th>
-<th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">S0 (1-path)</th>
-<th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">MinRTT (S1)</th>
-<th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">ECF (S4)</th>
-<th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">Round-robin (S2)</th>
-<th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D;color:#2F6FB0">Split (F2)</th>
-<th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">Oracle (R2)</th>
-<th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">Ideal (R1)</th>
-</tr></thead>
+<p style="font-size:22px;color:#4A5568">Frames shown on time (within 250 ms of capture), mean of 8 paired runs. No run stalled.</p>
+<!--TABLE-->
+<table style="border-collapse:collapse;font-size:22px;width:100%">
+<thead><tr style="color:#4A5568;text-align:right"><th style="text-align:left;font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">Scenario</th><th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">Single path<br>(S0)</th><th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">MinRTT<br>(S1)</th><th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">ECF<br>(S4)</th><th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">Round-robin<br>(S2)</th><th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D;color:#2F6FB0">Frame split<br>(F2, ours)</th><th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">F2 over two<br>conns (A1)</th><th style="font-weight:600;padding:8px 6px;border-bottom:2px solid #14213D">Ideal link<br>(R1)</th></tr></thead>
 <tbody style="text-align:right;font-variant-numeric:tabular-nums">
-<tr><td style="text-align:left;padding:10px 6px;border-bottom:1px solid #DCE1E8">Symmetric (1.6+1.6, 40ms)</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8;color:#9A4D12">0.4%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">88.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">88.2%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">98.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8;font-weight:600;color:#2F6FB0">98.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">98.9%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">98.9%</td></tr>
-<tr><td style="text-align:left;padding:10px 6px;border-bottom:1px solid #DCE1E8">BW Asym (2.0+1.2, 40/60ms)</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8;color:#9A4D12">0.8%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">88.1%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">88.5%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">91.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8;font-weight:600;color:#2F6FB0">98.8%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">99.0%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">99.0%</td></tr>
-<tr><td style="text-align:left;padding:10px 6px;border-bottom:1px solid #DCE1E8">RTT Asym (1.6+1.6, 30/150ms)</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8;color:#9A4D12">0.4%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">83.8%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">83.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">98.1%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8;font-weight:600;color:#2F6FB0">95.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">97.3%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">99.1%†</td></tr>
-<tr><td style="text-align:left;padding:10px 6px">2-s Outages (every 15 s)</td><td style="padding:10px 6px;color:#9A4D12">0.5%</td><td style="padding:10px 6px">66.2%</td><td style="padding:10px 6px;color:#9A4D12">31.1%</td><td style="padding:10px 6px">75.2%</td><td style="padding:10px 6px;font-weight:600;color:#9A4D12">12.4%‡</td><td style="padding:10px 6px;color:#9A4D12">8.2%‡</td><td style="padding:10px 6px">74.8%</td></tr>
+<tr><td style="text-align:left;padding:10px 6px;border-bottom:1px solid #DCE1E8">Symmetric (1.6 + 1.6, 40 ms)</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">0.4%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">88.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">88.2%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">98.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8;font-weight:600;color:#2F6FB0">98.8%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">99.0%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">98.9%</td></tr>
+<tr><td style="text-align:left;padding:10px 6px;border-bottom:1px solid #DCE1E8">Bandwidth asym. (2.0 + 1.2, 40/60 ms)</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">0.8%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">88.1%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">88.5%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">91.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8;font-weight:600;color:#2F6FB0">96.3%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">95.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">99.0%</td></tr>
+<tr><td style="text-align:left;padding:10px 6px;border-bottom:1px solid #DCE1E8">RTT asym. (1.6 + 1.6, 30/150 ms)</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">0.4%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">83.8%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">83.7%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">98.1%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8;font-weight:600;color:#2F6FB0">95.8%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">96.5%</td><td style="padding:10px 6px;border-bottom:1px solid #DCE1E8">99.0%</td></tr>
+<tr><td style="text-align:left;padding:10px 6px">2-s outages (1.8 + 1.8, every 15 s)</td><td style="padding:10px 6px">0.5%</td><td style="padding:10px 6px">66.2%</td><td style="padding:10px 6px">31.1%</td><td style="padding:10px 6px">75.2%</td><td style="padding:10px 6px;font-weight:600;color:#2F6FB0">62.5%</td><td style="padding:10px 6px">55.6%</td><td style="padding:10px 6px">–</td></tr>
 </tbody>
 </table>
-<p style="font-size:20px;color:#4A5568">Pre-registered P3/P4 (freeze time, Holm over 2): rtt_asym F2 4.5% vs MinRTT 14.9% (−10.4 pp, 95% CI [−11.5, −9.3]); bw_asym F2 1.3% vs ECF 10.8% (−9.5 pp [−10.3, −8.7]); Holm p = 0.016 each, F2 better in 8/8 pairs.</p>
-<p style="font-size:18px;color:#6B7586">† R1 on rtt_asym: 1 run. ‡ every F2/R2 outage run stalled (frames still missing at the end). F1 and A1 not shown: every 2.6 Mbit/s run stalled. Raw per-run data for every run in <code>results/</code>.</p>
+<!--/TABLE-->
+<p style="font-size:20px;color:#4A5568">Time frozen, F2 vs the better of MinRTT and ECF: RTT-asymmetric 4.4% vs 14.9%, bandwidth-asymmetric 3.8% vs 10.8%, F2 lower in 8 of 8 pairs each (pre-registered P3, P4; Holm p = {P34}).</p>
+<p style="font-size:18px;color:#6B7586">R1 (one link with the combined rate) is not shown for outages: there its single link goes dark with the outage schedule.</p>
 </div>
 <div style="flex:1.8;display:flex;flex-direction:column;gap:14px">
 <div style="display:flex;flex-direction:column;gap:6px;background:#FFFFFF;padding:22px 26px;border:1px solid #DCE1E8;border-radius:16px">
-<h3 style="font-size:27px;font-weight:600;color:#2F6FB0">1. F2 beats MinRTT and ECF</h3>
-<p style="font-size:22px;line-height:1.4;color:#3C4658">~10 pp less freeze on all three steady scenarios, in every pair; on bw_asym it matches the ideal link (98.8% vs 99.0%).</p>
+<h3 style="font-size:27px;font-weight:600;color:#2F6FB0">Close to the ideal link</h3>
+<p style="font-size:22px;line-height:1.4;color:#3C4658">On the three steady scenarios F2 is within 0.1 to 3.2 points of the ideal link’s on-time rate. Sending whole frames without splitting (F1) freezes 2 to 6 times as long.</p>
 </div>
 <div style="display:flex;flex-direction:column;gap:6px;background:#FFFFFF;padding:22px 26px;border:1px solid #DCE1E8;border-radius:16px">
-<h3 style="font-size:27px;font-weight:600;color:#2F6FB0">2. Round-robin is a strong rival</h3>
-<p style="font-size:22px;line-height:1.4;color:#3C4658">It freezes less than F2 on rtt_asym (2.1% vs 4.5%), ties on symmetric, loses on bw_asym (7.4% vs 1.3%).</p>
+<h3 style="font-size:27px;font-weight:600;color:#2F6FB0">Round-robin is a close rival</h3>
+<p style="font-size:22px;line-height:1.4;color:#3C4658">It ties F2 on symmetric links and does better on the RTT-asymmetric pair (2.1% vs 4.4% frozen), but worse when the rates differ (7.4% vs 3.8%).</p>
 </div>
 <div style="display:flex;flex-direction:column;gap:6px;background:#14213D;padding:22px 26px;border-radius:16px">
-<h3 style="font-size:27px;font-weight:600;color:#E8A15C">3. Honest failures</h3>
-<p style="font-size:22px;line-height:1.4;color:#F4F1EA">Under 2-s outages F2 freezes far more than MinRTT (88% vs 34%): rescue fires too early (+16% duplicate bytes). Our F1 and A1 implementations stalled in every 2.6 Mbit/s run.</p>
+<h3 style="font-size:27px;font-weight:600;color:#E8A15C">Outages are still hard</h3>
+<p style="font-size:22px;line-height:1.4;color:#F4F1EA">When a link drops out for 2 s, every scheduler freezes 25% of the time or more. F2 (37.7%) does no better than MinRTT (34.3%); round-robin does best (25.1%).</p>
 </div>
 </div>
 </div>
-<aside>Clean data: one row per run directory under results/, run ids 1-8 (analysis/summary_final.csv). F2 reduces freeze by about 10 percentage points against MinRTT and ECF on symmetric, bw_asym and rtt_asym. Round-robin is close to F2 and better on rtt_asym. Under outages F2 is much worse. F1 and A1 stalled, so we draw no conclusion from them.</aside>
+<aside>All numbers come from the 8 paired runs per cell; the table is generated from analysis/tables/main_2600.csv. Against MinRTT and ECF, F2 removes most of the freezing on the steady scenarios. It is not better than round-robin everywhere: round-robin wins on the 30/150 ms pair, F2 wins when the link rates differ. Outages remain unsolved: the one-timeout rescue does not help enough.</aside>
 </section>
