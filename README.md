@@ -13,27 +13,26 @@ recover what packet-level schedulers waste?
 | Design, hypotheses H1-H5, metrics | [`docs/proposal.md`](docs/proposal.md) |
 | Lab log: what was built, what failed, evidence | [`docs/PROGRESS.md`](docs/PROGRESS.md) |
 | Testbed calibration | [`docs/calibration.md`](docs/calibration.md) |
-| Per-run summary (609 runs, run ids 1-8; one row per run directory) | [`analysis/summary_final.csv`](analysis/summary_final.csv) (supersedes `summary_all.csv`, which mixed in duplicate, pre-fix and dev runs) |
-| Raw per-run data (all runs, calibration) | `results/` (`frames.csv`, `paths.csv`, `meta.json` per run; batch logs in `results/batches/`) |
+| Per-run summary (one row per run directory, run ids 1-8) and result tables | [`analysis/summary_final.csv`](analysis/summary_final.csv), [`analysis/tables/`](analysis/tables) |
+| Raw per-run data (every run, calibration) | `results/` (`frames.csv`, `paths.csv`, `meta.json` per run; batch logs in `results/batches/`) |
 
 ![Cross-scenario results](analysis/plots/fig1_cross_scenario_ontime.png)
 
-## Results in one minute (609 paired runs, 60 s NPTEL lecture, D = 250 ms)
+## Main results ({RUNS} paired runs, 60 s NPTEL lecture, D = 250 ms)
 
-- **One weak path is not enough:** the better single 1.6 Mbit/s path shows
-  <1 % of frames on time at 2.6 Mbit/s.
-- **Packet-level MPQUIC wastes capacity (H2 supported):** on paths with
-  30 ms vs 150 ms RTT, MinRTT and ECF sustain only 1.0 Mbit/s with <= 1 %
-  freeze, vs 2.6 Mbit/s on an ideal link of the same total capacity (38 %).
-  They miss 11-16 % of frame deadlines even with 23 % spare capacity.
-- **Frame-aware splitting (F2) helps at the main bitrate:** ~10 pp less freeze
-  than the better of MinRTT/ECF at 2.6 Mbit/s (rtt_asym 4.5 % vs 14.9 %,
-  bw_asym 1.3 % vs 10.8 %; Holm p = 0.016, 8 of 8 pairs), matching the ideal
-  link on bw_asym.
-- **Honest negative results:** F2 fails at 1.0-2.2 Mbit/s and under 2 s
-  outages, and plain round-robin is as good or better on two of three steady
-  scenarios, so H3 is only partly supported. Our F1 and A1 implementations
-  stalled in every 2.6 Mbit/s run, so H4 is untested; H1 and H5 were not run.
+- **Packet schedulers waste capacity.** At 2.6 Mbit/s over two links with 23 %
+  spare capacity, MinRTT and ECF freeze the video 11-15 % of the time: they
+  keep about 130 ms of video waiting in the fast link's buffer. {H2_README}
+- **Splitting frames helps.** F2 splits each frame so that both parts arrive
+  together. It freezes 7-10 points less than the better of MinRTT and ECF on
+  the asymmetric pairs (4.4 % vs 14.9 %, 3.8 % vs 10.8 %; 8 of 8 pairs each) and
+  comes within 0.1-3.2 points of an ideal single link. Placing whole frames
+  without splitting (F1) freezes 2-6 times as long.
+- **Round-robin is a strong baseline.** It ties F2 on symmetric links, beats it
+  on the 30/150 ms pair and under 2 s outages, and loses when the link rates
+  differ. Under outages no scheduler does well; F2 is no better than MinRTT.
+- {H4_README}
+- Not tested: H1 (no phone traces were recorded) and H5 (no keyframe encoding).
 
 What we built: a calibrated two-path netem/htb testbed (`testbed/`), a frame
 streamer on TQUIC that sends each frame part as a QUIC stream (`streamer/`),

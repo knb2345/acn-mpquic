@@ -4,16 +4,16 @@
 <div style="display:flex;gap:28px">
 <div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px;border:1px solid #DCE1E8;border-radius:16px">
 <h3 style="font-size:34px;font-weight:600;color:#2F6FB0">What runs</h3>
-<p style="font-size:27px;line-height:1.45;color:#3C4658">Two emulated links on this laptop: 1.6 Mbit/s each, 30 ms and 150 ms round trip, 200 ms buffers. The 60-s NPTEL lecture at 2.6 Mbit/s, live with MinRTT, then round-robin (about 65 s each); then our F2 from its recorded runs.</p>
+<p style="font-size:27px;line-height:1.45;color:#3C4658">Two emulated links on this laptop: 1.6 Mbit/s each, 30 ms and 150 ms round trip, 200 ms buffers. The 60-s NPTEL lecture at 2.6 Mbit/s, live with MinRTT, then with our F2, on the same part of the clip (about 65 s each).</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#FFFFFF;padding:36px;border:1px solid #DCE1E8;border-radius:16px">
 <h3 style="font-size:34px;font-weight:600;color:#2F6FB0">What to watch</h3>
-<p style="font-size:27px;line-height:1.45;color:#3C4658">Frames on time (250 ms deadline), time frozen, the delay of every frame (green on time, red late) and the bytes on each link. Over 8 runs: MinRTT 83.8% on time, round-robin 98.1%.</p>
+<p style="font-size:27px;line-height:1.45;color:#3C4658">Frames on time (250 ms deadline), time frozen, the delay of every frame (green on time, red late) and the bytes on each link. Over 8 runs: MinRTT 83.8% on time, F2 95.8%.</p>
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:12px;background:#14213D;padding:32px 40px;border-radius:16px">
-<p style="font-size:28px;line-height:1.5;color:#F4F1EA;font-family:'IBM Plex Mono', Consolas, monospace">scripts/demo.sh &nbsp;&nbsp;<span style="color:#8F9BB0">live: MinRTT vs round-robin, then a side-by-side figure</span></p>
-<p style="font-size:28px;line-height:1.5;color:#F4F1EA;font-family:'IBM Plex Mono', Consolas, monospace">scripts/demo.sh replay &nbsp;&nbsp;<span style="color:#8F9BB0">recorded runs: MinRTT vs F2</span></p>
+<p style="font-size:28px;line-height:1.5;color:#F4F1EA;font-family:'IBM Plex Mono', Consolas, monospace">scripts/demo.sh &nbsp;&nbsp;<span style="color:#8F9BB0">live: MinRTT, then F2, then a side-by-side figure</span></p>
+<p style="font-size:28px;line-height:1.5;color:#F4F1EA;font-family:'IBM Plex Mono', Consolas, monospace">scripts/demo.sh replay &nbsp;&nbsp;<span style="color:#8F9BB0">the same from recorded runs (no network needed)</span></p>
 </div>
-<aside>Switch to the VS Code terminal and run scripts/demo.sh. While MinRTT runs, point at the red marks in the delay line: frames queued behind the fast link's 200 ms buffer. While round-robin runs, point at the even split of bytes and the on-time number. Then run scripts/demo.sh replay to show F2 from its recorded runs; say that it is a replay.</aside>
+<aside>Switch to the VS Code terminal and run scripts/demo.sh. While MinRTT runs, point at the red marks in the delay line: frames stuck behind the fast link's full buffer. While F2 runs, point at how the bytes split across the two links and at the on-time number. If anything goes wrong, press Ctrl+C and run scripts/demo.sh replay, which shows the same dashboard from recorded runs.</aside>
 </section>
