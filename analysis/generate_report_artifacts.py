@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from stats import paired, wilcoxon_p, holm, tost_paired, bootstrap_ci
 
@@ -19,6 +21,62 @@ for cfg in ["S1", "S2", "S4", "F1", "F2", "A1", "R2", "R1"]:
     print(f"Config {cfg:3s}: usable_cap = {usable} kbps")
     for _, r in sub.iterrows():
         print(f"   {int(r.bitrate_kbps):4d} kbps | on_time_250={r.on_time_250:.3f} | freeze_250={r.freeze_frac_250:.3f} | req_delay={r.required_delay_ms:.1f}ms")
+
+
+# Usable capacity per run id (paired design: run id k streams the same clip
+# segment under every config): the highest swept bitrate at which run k froze
+# for <= 1 % of the time at D = 250 ms.
+def usable_by_run(cfg):
+    sub = df_sweep[df_sweep["config"] == cfg]
+    out = {}
+    for rid, g in sub.groupby("run_id"):
+        ok = g[g["freeze_frac_250"] <= 0.01]["bitrate_kbps"]
+        out[rid] = float(ok.max()) if len(ok) else 0.0
+    return out
+
+def full_sweep(cfg):
+    sub = df_sweep[df_sweep["config"] == cfg]
+    return sub["bitrate_kbps"].nunique() >= 5 and sub.groupby("bitrate_kbps").size().min() >= 8
+
+print("\n=== 1b. PRE-REGISTERED PRIMARY COMPARISONS P1-P5 (Holm over those run) ===")
+primary = []  # (name, description, p)
+r1 = usable_by_run("R1")
+for name, cfg in [("P1", "S1"), ("P2", "S4")]:
+    if full_sweep(cfg) and full_sweep("R1"):
+        u = usable_by_run(cfg)
+        ids = sorted(set(u) & set(r1))
+        ratio = np.array([u[i] / r1[i] for i in ids if r1[i] > 0])
+        # H2: ratio < 0.8. One-sided Wilcoxon signed-rank of 0.8 - ratio.
+        from scipy import stats as _st
+        p = float(_st.wilcoxon(0.8 - ratio, alternative="greater").pvalue) if np.any(ratio != 0.8) else 1.0
+        primary.append((name, f"usable capacity {cfg}/R1 on rtt_asym: median {np.median(ratio):.2f} (n={len(ratio)}), H2 bar < 0.80", p))
+for name, scen in [("P3", "rtt_asym"), ("P4", "bw_asym")]:
+    sub = df_main[df_main["scenario"] == scen]
+    best = min(["S1", "S4"], key=lambda c: sub[sub["config"] == c]["freeze_frac_250"].mean())
+    da = dict(zip(sub[sub.config == "F2"].run_id, sub[sub.config == "F2"].freeze_frac_250))
+    db = dict(zip(sub[sub.config == best].run_id, sub[sub.config == best].freeze_frac_250))
+    xa, xb, ids = paired(da, db)
+    if len(ids) >= 2:
+        md, lo, hi = bootstrap_ci(xa, xb)
+        primary.append((name, f"{scen} freeze F2 {xa.mean()*100:.1f}% vs {best} {xb.mean()*100:.1f}% (n={len(ids)}), diff {md*100:+.1f} pp [{lo*100:+.1f}, {hi*100:+.1f}], F2 lower in {(xa < xb).sum()}/{len(ids)}", wilcoxon_p(xa, xb)))
+# P5 (H4): F2 and A1 equivalent within 5 % of usable capacity (TOST). If the A1
+# sweep is incomplete, the same test on freeze time at 2.6 Mbit/s on rtt_asym.
+if full_sweep("A1") and full_sweep("F2"):
+    uf, ua = usable_by_run("F2"), usable_by_run("A1")
+    xa, xb, ids = paired(uf, ua)
+    tp, eq = tost_paired(xa, xb, margin_frac=0.05)
+    primary.append(("P5", f"usable capacity F2 {xa.mean():.0f} vs A1 {xb.mean():.0f} kbps (n={len(ids)}), TOST 5 %: equivalent={eq}", tp))
+else:
+    sub = df_main[df_main["scenario"] == "rtt_asym"]
+    da = dict(zip(sub[sub.config == "F2"].run_id, sub[sub.config == "F2"].on_time_250))
+    db = dict(zip(sub[sub.config == "A1"].run_id, sub[sub.config == "A1"].on_time_250))
+    xa, xb, ids = paired(da, db)
+    if len(ids) >= 2:
+        tp, eq = tost_paired(xa, xb, margin_frac=0.05)
+        primary.append(("P5*", f"rtt_asym 2.6 Mbit/s on-time F2 {xa.mean()*100:.1f}% vs A1 {xb.mean()*100:.1f}% (n={len(ids)}), TOST 5 %: equivalent={eq} (A1 sweep incomplete)", tp))
+if primary:
+    for (name, desc, p_raw), ph in zip(primary, holm([x[2] for x in primary])):
+        print(f"{name:4s} raw p={p_raw:.4f} Holm={ph:.4f} | {desc}")
 
 print("\n=== 2. PAIRED STATISTICAL TESTS (Wilcoxon + Holm + Bootstrap CI + TOST) ===")
 def run_pair(scen, cfg_a, cfg_b, metric="freeze_frac_250"):
