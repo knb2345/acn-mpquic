@@ -520,3 +520,23 @@ Open issues
   primary bottleneck" was replaced by "the estimate is not the only cause".
 - Slide 5 (method) no longer says phone recordings are "next"; they were not
   done. Slides, report, README and both PDFs rebuilt. Tests: analysis 15 OK.
+
+## 2026-11-17 night: team slide removed, live demo added; F2 does not reproduce
+- Slides: team/equal-contribution slide and "Questions?" removed (user);
+  "Live demo" slide added (slide 12).
+- `scripts/demo.sh` + `scripts/demo_dashboard.py`: live terminal dashboard
+  (frames on time at 250 ms, time frozen, per-frame delay, bytes per link)
+  while scripts/run.sh streams, then a side-by-side figure
+  (results/demo/<time>/demo.png); `replay` mode shows recorded runs without the
+  network. Live runs use run ids >= 900 (never analysed).
+- First live attempt failed: streamer/target/release was built before PR #5
+  and lacked --policy; demo.sh now always rebuilds.
+- **F2 does not reproduce from the repository.** All 352 recorded F1/F2/A1/R2
+  runs were built from commit 096c4a8 (meta.json), which is not in this repo or
+  in Prasanna's fork; PR #5 re-created the code on top of a39ac4e. Re-running
+  F2 on rtt_asym, 2.6 Mbit/s with main (f329f44): run ids 901-903 gave 17.9 %,
+  2.8 %, 38.6 % on time (recorded runs 1-8: 95.7 %). S1 rerun (run id 900/901):
+  85.7 % vs 83.8 % recorded, so the testbed is fine. Asked Prasanna to push
+  096c4a8 exactly. Until then the live demo uses S1 vs S2 (built-in, they
+  reproduce) and shows F2 only as a replay of recorded runs; the README says
+  F2 does not reproduce yet; the results slide no longer claims it does.

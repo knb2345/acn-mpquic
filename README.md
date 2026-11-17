@@ -9,7 +9,7 @@ recover what packet-level schedulers waste?
 | Deliverable | Where |
 | --- | --- |
 | Final report (problem, related work, method, results, analysis) | [`docs/Team7-final-report.pdf`](docs/Team7-final-report.pdf) · [`docs/report.md`](docs/report.md) |
-| Final slides (13) | [`docs/slides/Team7-final.pdf`](docs/slides/Team7-final.pdf) (source: `docs/slides/deck/`) |
+| Final slides (13, incl. live demo) | [`docs/slides/Team7-final.pdf`](docs/slides/Team7-final.pdf) (source: `docs/slides/deck/`) |
 | Design, hypotheses H1-H5, metrics | [`docs/proposal.md`](docs/proposal.md) |
 | Lab log: what was built, what failed, evidence | [`docs/PROGRESS.md`](docs/PROGRESS.md) |
 | Testbed calibration | [`docs/calibration.md`](docs/calibration.md) |
@@ -41,8 +41,13 @@ three unit-tested TQUIC hooks plus an ECF scheduler (fork `team7` branch), a
 paired experiment harness (`scripts/`), and a deadline- and decode-aware
 playout model with paired statistics (`analysis/`, 15 hand-computed tests).
 
-**Code status (18 Nov):** every configuration (S0-S4, F1, F2, A1, R1, R2) runs
-from this repository with `scripts/run.sh`. F1/F2/A1/R2 are placement policies
+**Code status (18 Nov):** every configuration runs from this repository with
+`scripts/run.sh`, and S0-S4 and R1 reproduce (MinRTT re-run on 17 Nov: 85.7 %
+on time vs 83.8 % recorded). **F2 does not reproduce yet:** the recorded
+F1/F2/A1/R2 runs were built from commit `096c4a8` (see their `meta.json`), which
+is not in this repository; re-running the F2 code in this repository on
+rtt_asym gave 17.9 %, 2.8 % and 38.6 % frames on time (3 runs) vs 95.7 % recorded.
+The exact code is being recovered. F1/F2/A1/R2 are placement policies
 in the streamer (`streamer/src/lib.rs`, `streamer/src/bin/mpq_sender.rs`). Raw
 per-run data for all runs is in `results/`. Tests: TQUIC 564 + 1, streamer 9,
 analysis 15, all passing. Tables, tests and figures:
@@ -53,6 +58,20 @@ analysis 15, all passing. Tables, tests and figures:
 Kabir Nawal Bajaj, Prasanna Bhavan and Divyanshu contributed equally. We worked
 together on one shared laptop testbed, so the commit author names do not reflect
 who did what (see report section 9).
+
+## Live demo (about 3 minutes)
+
+```bash
+scripts/demo.sh            # live: MinRTT, then round-robin, on the rtt_asym links (~65 s each)
+scripts/demo.sh replay     # recorded runs: MinRTT vs F2, no network needed
+```
+
+The terminal shows, while the lecture streams: frames on time (250 ms
+deadline), time frozen, the delay of every frame and the bytes on each link.
+At the end a figure with every frame's delay for both schedulers opens
+(`results/demo/<time>/demo.png`). Other scenarios or schedulers:
+`scripts/demo.sh live bw_asym S1 S4`. Live runs use run ids >= 900, so they
+never enter the analysis.
 
 ## Get the code
 

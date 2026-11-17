@@ -336,6 +336,13 @@ is 62.5 %) with 0.3 % extra bytes; redundant (S3) sends 61-100 % extra bytes.
 - F1 and A1 stalled in every run at 2.6 Mbit/s; we treat this as an
   implementation failure and draw no conclusion about whole-frame placement
   (F1) or about one vs two connections (H4).
+- Reproducibility of F1/F2/A1/R2: their recorded runs were built from commit
+  `096c4a8` (in each run's `meta.json`), which is not in the repository; the
+  code in the repository was re-created from it. Re-running that F2 code on
+  rtt_asym at 2.6 Mbit/s on 17 Nov gave 17.9 %, 2.8 % and 38.6 % frames on time
+  (3 runs) instead of the recorded 95.7 %, while MinRTT reproduced (85.7 % vs
+  83.8 %). Until the exact code is recovered, the F2 results rest on the
+  recorded raw data only.
 - CUBIC only; BBR and smaller buffers were stretch goals.
 
 ## 7. Conclusion

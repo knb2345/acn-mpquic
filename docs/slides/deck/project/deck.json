@@ -19,7 +19,7 @@
     "sweep",
     "ablation",
     "plan",
-    "team",
+    "demo",
     "close"
   ],
   "sections": {
@@ -36,7 +36,7 @@
       "start": "test"
     },
     "s4": {
-      "description": "Takeaways, team, questions",
+      "description": "Takeaways and live demo",
       "start": "plan"
     }
   },

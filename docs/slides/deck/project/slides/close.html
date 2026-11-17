@@ -1,6 +1,6 @@
 <section id="close" data-transition="fade" style="background:#14213D;color:#F4F1EA;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:40px">
-<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:96px;font-weight:600;line-height:1.1;color:#F4F1EA">Thank you. Questions?</h2>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:96px;font-weight:600;line-height:1.1;color:#F4F1EA">Thank you</h2>
 <p style="font-size:36px;line-height:1.45;color:#BFC8D6;max-width:1500px">Problem: one weak uplink. Existing fix: split packets over two links. Our bet: split by whole frames, timed to finish together.</p>
 <p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F9BB0">Video: Prof. V. Balakrishnan, IIT Madras, NPTEL (CC BY-SA). Stack: TQUIC (Tencent), Linux netem/htb, ffmpeg/x264.</p>
-<aside>Recap in one breath, then questions. Likely questions: why emulation (control and repeatability; real traces replayed); why not just lower the bitrate (we measure the highest bitrate each scheduler sustains); is this new (the parts are known; the deadline- and decoding-aware evaluation at the sender's uplink is the contribution).</aside>
+<aside>Recap in one breath: one weak uplink is not enough; packet-level multipath schedulers waste capacity; splitting each frame so both parts finish together cuts freezing by about 10 points at 2.6 Mbit/s, but not at lower bitrates or under outages.</aside>
 </section>
