@@ -13,7 +13,8 @@ command below is run from the repo root (`~/acn-mpquic`) in WSL.
 The client reaches the server address over A or B depending on which local
 address a socket is bound to (policy routing tables 101 and 102), so each QUIC
 path is pinned to one veth pair. Every veth end shapes its egress: `netem`
-adds RTT/2 of delay, then `tbf` limits the rate with a bottleneck queue of
+adds RTT/2 of delay, then an `htb` class limits the rate, with a plug queue as
+the bottleneck buffer of
 `QUEUE_MS` (default 200 ms) worth of bytes. Both directions of a path therefore
 see the same link.
 

@@ -8,9 +8,9 @@
 </div>
 <div style="width:620px;display:flex;flex-direction:column;gap:16px;background:#F7EDE3;padding:44px;border-radius:16px">
 <h3 style="font-size:40px;font-weight:600;color:#9A4D12">The weak spot</h3>
-<p style="font-size:32px;line-height:1.45;color:#3C4658">Packets of one video frame land on both links. The frame can only be shown when its <b>last</b> packet arrives, so the slow link decides when every frame appears.</p>
+<p style="font-size:32px;line-height:1.45;color:#3C4658">The scheduler does not know where a frame begins and ends. It can keep one link’s buffer full while the other has room, or make a frame wait for its <b>last</b> packet on the slower link. Either way the frame is late.</p>
 </div>
 </div>
-<p style="font-size:22px;line-height:1.4;color:#6B7586;border-top:1px solid #DCE1E8;padding-top:20px">Lim et al., ECF, CoNEXT 2017 · DEMS (decoupled multipath scheduling) · Multipath QUIC (IETF draft-ietf-quic-multipath; RFC 9000/9002) · MoMQ frame scheduling at a relay (2026) · COMPACT (two-device uplink) · LiveU bonding · Media over QUIC (objects as streams)</p>
-<aside>Existing schedulers were designed for bulk data, where only total throughput matters. For live video a frame is useful only when complete and on time. If one frame's packets are spread over a 30 ms link and a 150 ms link, the frame waits for the 150 ms link. ECF, the best transport scheduler (Lim et al., CoNEXT 2017), estimates completion time but still per packet, and does not know where frames begin and end. We implemented ECF ourselves as the strongest baseline.</aside>
+<p style="font-size:22px;line-height:1.4;color:#6B7586;border-top:1px solid #DCE1E8;padding-top:20px">ECF (Lim et al., CoNEXT 2017) · BLEST (IFIP Networking 2016) · DEMS (Guo et al., MobiCom 2017) · Multipath QUIC (De Coninck and Bonaventure, CoNEXT 2017; IETF draft) · XLINK (SIGCOMM 2021) · Converge (SIGCOMM 2023) · MoMQ (2026) · COMPACT (MMSys 2025) · Media over QUIC</p>
+<aside>Existing schedulers were designed for bulk data, where only total throughput matters. For live video a frame is useful only when complete and on time. If one frame's packets are spread over a 30 ms link and a 150 ms link, the frame waits for the 150 ms link. ECF (Lim et al., CoNEXT 2017) estimates completion time, but per packet, and does not know where frames begin and end. We implemented ECF ourselves as the strongest baseline.</aside>
 </section>

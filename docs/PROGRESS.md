@@ -540,3 +540,41 @@ Open issues
   096c4a8 exactly. Until then the live demo uses S1 vs S2 (built-in, they
   reproduce) and shows F2 only as a replay of recorded runs; the README says
   F2 does not reproduce yet; the results slide no longer claims it does.
+
+## 2026-11-18 00:00 IST: F1/F2/A1 fixed; everything F-related rerun overnight
+Done
+- Why PR #5's F2 did not reproduce (3-39 % on time vs 95.7 % recorded), found
+  by comparing per-path bytes and RTTs with the recorded runs:
+  1. U_p was bytes in flight, so bytes waiting in the stream send buffer were
+     invisible and F2 kept loading path A (2.56 MB vs 18.6 KB on B in the first
+     200 frames of run 902). Now U_p = bytes assigned and not yet sent
+     (SendTracker in streamer/src/lib.rs, fed by TQUIC's frame_path lines,
+     unit-tested). With only that, F2 reached 31-33 % and R2 (true rates)
+     68.9 %: srtt - min_rtt lags the bottleneck queue because CUBIC's window
+     is several BDPs. The queueing term is now the bytes in flight beyond one
+     round trip (bottleneck_queue_bytes, unit-tested). R2: 98.3 % (recorded
+     97.4 %, same 58.5 % byte share on path A); F2: 94.7 %, 96.1 %.
+     This is a change to the 1 Nov design formula (CLAUDE.md, report 3.4, 6).
+  2. Rescue retired parts on a cumulative-ACK shortcut; a part now stays
+     unfinished until its stream closes.
+  3. Receiver keyed partial streams by stream id only; A1's two connections
+     reuse ids and their parts were mixed ("payload bytes, header says ...").
+     Keyed by (connection, stream) now. F1: 90.9 %, A1: 97.5 % (both stalled
+     in every recorded run before).
+  Dev runs 900-910: results/_superseded/dev_fix_20261117/ (never analysed).
+- All F1/F2/A1/R2/R1 runs and the S1/S2/S4 sweep points built from 096c4a8 /
+  f63e606 moved unchanged to results/_superseded/build096c4a8/; their
+  summaries, figures and the draft slides to .../analysis_artifacts/.
+  (The 16 Nov entry's "H4 rejected" was based on those runs.)
+- .gitignore: dropped the blanket "results/" line from 7337b80.
+- Analysis rules fixed before the final batch was analysed (commit b04bcc0):
+  stalled runs reported, never averaged in; one Holm family P1-P5; R1 not
+  used for outage; H3 symmetric part tested as pre-registered.
+- Independent read-only review of docs/slides/code; its points are being
+  worked through (premise reframed around queueing: MinRTT/ECF keep path A's
+  srtt at 159-160 ms median vs 39 ms under round-robin, min RTT 30 ms).
+
+Running (laptop must stay on): batch final_main_2600 (5 scenarios x F2 R1 R2
+F1 A1 x run ids 1-8, build da6f450), then scripts/overnight_20261118b.sh:
+rtt_asym sweep S1 S4 R1 F2 A1 at 1.0-2.8 Mbit/s, then 0.5 and 3.5, then
+extras (S2 R2 F1). Logs: results/batches/final_*.log.

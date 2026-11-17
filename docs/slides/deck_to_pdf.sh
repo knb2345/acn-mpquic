@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Usage: deck_to_pdf.sh [out.pdf] (default Team7-midterm.pdf). Print the slide deck (docs/slides/deck/project, the same files as
+# Usage: deck_to_pdf.sh [out.pdf]  (final deck: deck_to_pdf.sh Team7-final.pdf;
+# default Team7-midterm.pdf). Print the slide deck (docs/slides/deck/project, the same files as
 # the claude.ai Slides artifact) to docs/slides/Team7-midterm.pdf with the
 # Windows Chrome in headless mode: one 1920x1080 page per slide, deck order,
 # speaker notes left out. Needs internet for the Google Fonts.

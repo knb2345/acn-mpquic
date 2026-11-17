@@ -1,5 +1,8 @@
 # Recording two-operator uplink traces
 
+Status (18 Nov 2026): this collection was planned but not carried out; no
+phone traces were recorded, so H1 and the real_pairs scenario are untested.
+
 How to record the cellular traces the project needs: two phones on two
 different operators, both sending to one cloud server at the same time, at
 three sites. These recordings answer RQ1 (is one uplink enough for a 2.6 Mbit/s

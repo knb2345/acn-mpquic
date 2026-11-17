@@ -38,7 +38,7 @@ are reported, not hidden.
 - QUIC: TQUIC (Rust), https://github.com/Tencent/tquic, git submodule at
   `third_party/tquic`; our changes on branch `team7`. Fallback only if TQUIC
   multipath fails by the week-1 gate: picoquic (C).
-- Emulation: network namespaces, veth pairs, `tc netem` (delay) + `tbf` (rate,
+- Emulation: network namespaces, veth pairs, `tc netem` (delay) + `htb` + plug queue (rate,
   buffer = 200 ms of the path's rate); trace replay changes rate every 100 ms.
 - Workload: ffmpeg/x264 + ffprobe (frame sizes, types, timestamps).
 - Analysis: Python (pandas, matplotlib, scipy) in a venv at `analysis/.venv`.
@@ -173,7 +173,7 @@ results/             raw runs, never edited by hand
 docs/                proposal.md, PROGRESS.md, trace_collection.md
 ```
 
-## Plan and gates (final demo 17 Nov 2026)
+## Plan and gates (final evaluation 18/20 Nov 2026)
 - Week 1 (to Nov 4), gate = calibrated two-path testbed: TQUIC builds, tests
   pass; `testbed/up.sh`/`down.sh`; calibration report; multipath transfer using
   both paths under MinRTT and round-robin; `docs/trace_collection.md` (cloud VM
@@ -185,7 +185,7 @@ docs/                proposal.md, PROGRESS.md, trace_collection.md
   Nov 9). Report H1 and H2 outcomes to the user before building F1/F2.
 - Week 3 (Nov 12-14): F1, F2, A1, R2; full matrix; sweeps; stress case
   (overnight batches).
-- Nov 15-17: statistics, plots, report, slides; final demo 17 Nov. Stretch
+- Nov 15-17: statistics, plots, report, slides; final evaluation 18/20 Nov. Stretch
   items (BBR, 50 ms buffer, real-world spot check) only if time is left.
 
 ## Rules

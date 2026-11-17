@@ -48,8 +48,12 @@ know of their cause.
   designed for bulk transfer, where only total throughput matters. For
   interactive video a frame is useful only if it is *complete* and *on time*,
   and with intra-refresh coding every frame depends on all earlier frames. A
-  scheduler that ignores frame boundaries lets the slower path decide when every
-  frame appears.
+  scheduler that does not know where frames begin and end can go wrong in two
+  ways: it can spread a frame so that the frame waits for its last packet on
+  the slower path, and it can keep one path's buffer full while the other has
+  room (MinRTT prefers the low-RTT path until its window is full). Either way,
+  frames queue and miss their deadline although the two paths together have
+  capacity to spare.
 - **Question.** How much of two weak uplinks can an interactive live lecture
   actually use over Multipath QUIC, and does placing *whole video frames* (or
   frame parts timed to finish together) on paths recover what packet-level
@@ -67,29 +71,29 @@ Hypotheses (fixed before experiments, `docs/proposal.md` section 2):
 
 ## 2. Related work
 
-- **Multipath transport.** MPTCP and Multipath QUIC (IETF
-  draft-ietf-quic-multipath, on RFC 9000/9002) let one connection use several
-  paths; a *scheduler* picks the path for each packet. Common schedulers:
-  MinRTT (lowest smoothed RTT with congestion window space), round-robin,
-  redundant (every packet on every path).
-- **Completion-time schedulers.** ECF (Lim et al., CoNEXT 2017) waits for the
-  fast path when it would finish sooner than the slow path; it is the strongest
-  packet-level baseline and we implemented it ourselves in TQUIC (S4). DEMS
-  (decoupled multipath scheduling) splits a chunk so both paths finish together;
-  our F2 split formula is the same idea applied per video frame with a
-  queue-aware finish-time estimate.
-- **Video over multipath.** Stream-aware MPQUIC mappings and Media over QUIC
-  (objects carried as streams) motivate our design of one QUIC stream per frame
-  part. MoMQ (2026) schedules whole frames, but only on a relay's last hop and
-  names the publisher's cellular first hop as future work: that sender-side
-  uplink case is ours. COMPACT uses two devices for one uplink; LiveU bonding is
-  the commercial (proprietary) counterpart.
-- **What is new here.** The individual mechanisms are known. Our contribution
-  is a deadline- and decode-dependency-aware evaluation at the sender's uplink,
-  with a paired design, an ideal-link reference (R1) to measure *how much
-  capacity is wasted*, an oracle (R2) to separate estimator error from placement,
-  and a direct test of whether the logic belongs inside MPQUIC or in the
-  application (A1).
+- **Multipath transport.** MPTCP and Multipath QUIC [3, 4] let one connection
+  use several paths; a *scheduler* picks the path for each packet. Common
+  schedulers: MinRTT (lowest smoothed RTT with congestion-window space),
+  round-robin, and redundant (every packet on every path).
+- **Schedulers for paths that differ.** BLEST [5] and ECF [1] hold packets
+  back from the slow path when the fast path would deliver them sooner; ECF
+  compares expected completion times and is the scheduler we implemented in
+  TQUIC as a baseline (S4). DEMS [6] splits a chunk so that both paths finish
+  it at the same time; our F2 split applies the same idea to each video frame,
+  with a finish-time estimate that counts what is already queued on each path.
+- **Video over multipath.** XLINK [7] schedules video traffic over Multipath
+  QUIC in a large deployment, using QoE feedback from the player; Converge [8]
+  does multipath video conferencing over WebRTC with video-aware scheduling;
+  the stream-aware MPQUIC scheduler [9] and Media over QUIC [10] (objects as
+  streams) motivate our design of one QUIC stream per frame part. MoMQ [11]
+  schedules whole frames on a relay's last hop; COMPACT [12] combines two
+  devices' uplinks; LiveU bonding is the commercial, closed counterpart.
+- **What this project adds.** The mechanisms are known. We measure them
+  together at the sender's uplink with a deadline- and decode-aware score,
+  in a paired design, against an ideal link (R1) that shows how much capacity
+  is lost, an oracle (R2) that separates rate-estimation error from placement,
+  and a version of the same logic over two separate connections (A1) that tests
+  whether it needs Multipath QUIC at all.
 
 ## 3. Methodology
 
@@ -153,21 +157,39 @@ ffprobe.
 | R1 | Ideal link: one path, rate = sum of both, RTT = lower of the two |
 | R2 | F2 with the true link rates instead of estimates (oracle) |
 
-Finish-time estimate for S bytes on path p, with U_p bytes queued, R_p the
-measured delivery rate (max over 1 s of bytes ACKed per interval):
-`T_p = (U_p + S)/R_p + (srtt_p - min_rtt_p) + min_rtt_p/2`. F2 splits a frame
-so both parts finish together:
-`S_a = ((U_b + S)/R_b + d_b - U_a/R_a - d_a) / (1/R_a + 1/R_b)`, clamped to
-[0, S], used whenever it lowers the predicted finish. Rescue: if a path shows no
-ACK progress for one PTO, its unfinished frame parts are resent as new streams
-on the other path.
+Finish-time estimate for a frame part of S bytes on path p:
+`T_p = (W_p + S)/R_p + min_rtt_p/2`, where R_p is the measured delivery rate
+(bytes acknowledged per interval, maximum over the last second) and W_p is
+everything ahead of the part on that path: the bytes assigned to p that QUIC
+has not sent yet (U_p, counted from TQUIC's per-stream send log) plus the bytes
+already sent that are waiting in the path's bottleneck buffer, taken as bytes
+in flight beyond one round trip at rate R_p (`inflight_p - R_p * min_rtt_p`).
+The second term is the quantity that the design's `srtt_p - min_rtt_p` term
+estimates; we take it from bytes in flight because srtt is smoothed and lags,
+and CUBIC's window here is several times the path's bandwidth-delay product,
+so bytes leave the send buffer at once and queue in the 200 ms buffer. F2
+splits a frame so both parts finish together:
+`S_a = ((W_b + S)/R_b + d_b - W_a/R_a - d_a) / (1/R_a + 1/R_b)` with
+`d_p = min_rtt_p/2`, clamped to [0, S], and used whenever it lowers the
+predicted finish; otherwise the whole frame goes to the path that finishes
+first. Rescue: if a path shows no ACK progress for one PTO, its unfinished frame
+parts (streams not yet fully acknowledged) are resent as new streams on the
+other path.
+
+F1, F2 and R2 run on one Multipath QUIC connection with TQUIC's round-robin
+scheduler underneath, so that TQUIC offers every path in turn; each frame-part
+stream is pinned to the path F1/F2 chose (hook a), so the placement is ours,
+not round-robin's. A1 uses two single-path connections. R1 uses the same
+shaping code with one link at the combined rate and the lower RTT.
 
 F1, F2, A1 and R2 are sender-side placement policies in the streamer
-(`streamer/src/lib.rs`: delivery-rate estimator, finish-time estimate, balanced
-split; `streamer/src/bin/mpq_sender.rs`: placement, rescue, A1's two
-connections, R2's true-rate oracle), selected with `--policy`; they use hook (a)
-to pin each frame-part stream to its path. Estimator, split and reassembly have
-hand-computed unit tests (streamer: 9 tests).
+(`streamer/src/lib.rs`: delivery-rate estimator, send tracker, finish-time
+estimate, balanced split; `streamer/src/bin/mpq_sender.rs`: placement, rescue,
+A1's two connections, R2's true-rate oracle), selected with `--policy`; they use
+hook (a) to pin each frame-part stream to its path. The receiver keys partial
+streams by (connection, stream id), so A1's two connections can reuse stream
+ids. Estimator, send tracker, queue term, split and reassembly have
+hand-computed unit tests (streamer: 12 tests).
 
 ### 3.5 Metrics (`analysis/playout.py`)
 - **On time:** frame i is on time iff the latest completion time over i and
@@ -178,20 +200,48 @@ hand-computed unit tests (streamer: 9 tests).
   fraction = total freeze time / clip length.
 - **Required playout delay:** smallest D with >= 99 % of frames on time.
 - **Usable capacity:** highest swept bitrate with freeze <= 1 % at D = 250 ms,
-  relative to R1 in the same scenario.
+  relative to R1 in the same scenario. The sweep bitrates are 0.5, 1.0, 1.6,
+  2.2, 2.6, 2.8 and 3.5 Mbit/s, so a usable capacity is a bracket: the true
+  value lies between the reported bitrate and the next one.
+- **Bytes sent beyond the frame bytes:** stream bytes delivered on both paths
+  minus the frame bytes, as a share of the frame bytes (part headers,
+  retransmissions, rescue and redundant copies).
 
-### 3.6 Experimental design and statistics (`scripts/`, `analysis/stats.py`)
+### 3.6 Experimental design and statistics (`scripts/`, `analysis/`)
 One command per run (`scripts/run.sh <scenario> <config> <bitrate> <encoding>
 <clip> <run_id>`); each run logs one row per frame (`frames.csv`), per-path
-stats every 100 ms, CPU, and `meta.json` (git hashes, seeds, offsets, tool
-versions). **Paired design:** the clip start and trace/outage offset are drawn
-from a seed that depends only on run_id, so every scheduler sees identical
-conditions. 8 paired runs per cell (run ids 1-8; run ids 0 and 91 are development runs and are
-never analysed). Runs with sender or receiver CPU > 80 % are
-discarded and rerun (one such run, caused by laptop sleep, is logged). Paired
-Wilcoxon signed-rank with Holm correction, TOST for equivalence (5 % margin),
-95 % bootstrap CIs. The playout model and the statistics have 15 hand-computed
-unit tests.
+stats every 100 ms (`paths.csv`), CPU, and `meta.json` (git hashes of the repo
+and TQUIC, binary hashes, seeds, offsets, tool versions). Batches
+(`scripts/batch.sh`) build the streamer once, refuse to start with uncommitted
+code, and record the build in every run.
+
+- **Paired design.** The clip start (a multiple of 2 s) and the outage-schedule
+  offset are drawn from a seed that depends only on the run id, so every
+  scheduler sees the same conditions in run k. 8 paired runs per cell (run ids
+  1-8; ids 0, 91 and >= 900 are development and demo runs, never analysed).
+  The links themselves are deterministic, so the spread between runs comes
+  from which 60 s of the lecture is streamed (its frame-size pattern) and from
+  the timing of each connection, not from network randomness.
+- **Builds.** S0-S4 come from the 1-2 Nov batch (streamer build 52bcb82).
+  F1, F2, A1, R1, R2 and the bitrate sweep come from the 18 Nov batch (build
+  da6f450, same TQUIC commit 4d7481d). The S-configurations use the same
+  transport code in both builds; MinRTT and round-robin re-run with the newer
+  build gave 83.1-85.7 % and 98.1 % frames on time on rtt_asym, against 83.8 %
+  and 98.1 % in the 8-run means.
+- **Rules (fixed before the final batch was analysed).** Runs above 80 % CPU
+  are discarded and rerun (one such run, caused by laptop sleep, is logged).
+  A *stalled* run, one that ended with frames still missing, is counted and
+  reported but left out of means, tests and figures; a cell with 4 or more of
+  8 runs stalled is reported as stalled. R1 is not shown for the outage
+  scenario: its single combined link follows the outage schedule and goes fully
+  dark, so it is no upper bound there.
+- **Statistics.** The pre-registered primary comparisons that could be run
+  (P1-P5; P6 needs the keyframe encoding, which was not run) form one family
+  with Holm correction: paired Wilcoxon signed-rank tests, and paired TOST for
+  the equivalence claims (margin 5 % of the reference mean, as pre-registered;
+  stated in absolute terms with each result). Everything else is exploratory
+  and reported as 95 % bootstrap confidence intervals. The playout model and
+  the statistics have 15 hand-computed unit tests.
 
 ## 4. Results
 
@@ -327,23 +377,24 @@ is 62.5 %) with 0.3 % extra bytes; redundant (S3) sends 61-100 % extra bytes.
 
 ## 6. Threats to validity and limitations
 
-- Emulation only: no real two-operator traces (H1 and the real_pairs scenario
-  are untested); only a public Mahimahi trace was used for calibration.
-- One main clip and the intra-refresh encoding; the keyframe stress case (H5)
-  and content controls were not run.
-- Sweep points other than 2.6 Mbit/s have one run each for S1, S2, S4 and R1,
-  and R1 on rtt_asym has one run at 2.6 Mbit/s too.
-- F1 and A1 stalled in every run at 2.6 Mbit/s; we treat this as an
-  implementation failure and draw no conclusion about whole-frame placement
-  (F1) or about one vs two connections (H4).
-- Reproducibility of F1/F2/A1/R2: their recorded runs were built from commit
-  `096c4a8` (in each run's `meta.json`), which is not in the repository; the
-  code in the repository was re-created from it. Re-running that F2 code on
-  rtt_asym at 2.6 Mbit/s on 17 Nov gave 17.9 %, 2.8 % and 38.6 % frames on time
-  (3 runs) instead of the recorded 95.7 %, while MinRTT reproduced (85.7 % vs
-  83.8 %). Until the exact code is recovered, the F2 results rest on the
-  recorded raw data only.
-- CUBIC only; BBR and smaller buffers were stretch goals.
+- **Emulation only.** No real two-operator traces were collected, so H1 and
+  the real_pairs scenario are untested; a public Mahimahi trace was used only
+  to calibrate the emulator. The R1 mode (one link at the combined rate) uses
+  the same shaping code as the calibrated two-link setup but was not
+  calibrated separately.
+- **Workload.** One main clip with intra-refresh encoding; the keyframe stress
+  case (H5, P6) and the content controls were not run. The 8 runs per cell
+  differ in which part of the clip is streamed, not in network conditions.
+- **F2's queue estimate.** The design (1 Nov) estimated queueing on a path
+  from srtt - min_rtt. Before the final batch we replaced that term with the
+  bytes in flight beyond one round trip (section 3.4), because srtt lagged the
+  bottleneck queue. The change was chosen by looking at a few development runs
+  of F2 and R2 on rtt_asym at 2.6 Mbit/s (run ids 901-910, kept in
+  `results/_superseded/dev_fix_20261117/`); that is the cell P3 tests, so P3
+  is not fully independent of the choice. No other scenario or bitrate was
+  looked at before the final batch.
+- **Usable capacity is bracketed** by the sweep grid (section 3.5).
+- **CUBIC only;** BBR and smaller buffers were stretch goals.
 
 ## 7. Conclusion
 
@@ -378,15 +429,25 @@ report and the slides.
 1. Y. Lim, E. Nahum, D. Towsley, R. Gibbens. ECF: An MPTCP Path Scheduler to
    Manage Heterogeneous Paths. ACM CoNEXT 2017.
 2. J. Iyengar, M. Thomson. QUIC: A UDP-Based Multiplexed and Secure Transport.
-   RFC 9000, 2021. J. Iyengar, I. Swett. QUIC Loss Detection and Congestion
+   RFC 9000, 2021; J. Iyengar, I. Swett. QUIC Loss Detection and Congestion
    Control. RFC 9002, 2021.
-3. Y. Liu, Q. De Coninck, et al. Multipath Extension for QUIC. IETF
-   draft-ietf-quic-multipath.
-4. DEMS: decoupled multipath scheduling (balanced chunk split so paths finish
-   together).
-5. MoMQ: frame scheduling for Media over QUIC at a relay (2026).
-6. Media over QUIC (IETF moq working group): objects carried as QUIC streams.
-7. COMPACT: two-device uplink aggregation for live video.
-8. Tencent TQUIC, https://github.com/Tencent/tquic (v1.6.0).
-9. Opensignal, India mobile network experience report, Feb 2026; Zoom bandwidth
-   requirements; LiveU bonding.
+3. Q. De Coninck, O. Bonaventure. Multipath QUIC: Design and Evaluation. ACM
+   CoNEXT 2017.
+4. Multipath Extension for QUIC. IETF draft-ietf-quic-multipath-21, 2026.
+5. S. Ferlin, O. Alay, O. Mehani, R. Boreli. BLEST: Blocking Estimation-based
+   MPTCP Scheduler for Heterogeneous Networks. IFIP Networking 2016.
+6. Y. E. Guo, A. Nikravesh, Z. M. Mao, F. Qian, S. Sen. Accelerating Multipath
+   Transport Through Balanced Subflow Completion (DEMS). ACM MobiCom 2017.
+7. Z. Zheng et al. XLINK: QoE-Driven Multi-Path QUIC Transport in Large-scale
+   Video Services. ACM SIGCOMM 2021.
+8. S. D. Sathyanarayana, K. Lee, D. Grunwald, S. Ha. Converge: QoE-driven
+   Multipath Video Conferencing over WebRTC. ACM SIGCOMM 2023.
+9. A. Rabitsch, P. Hurtig, A. Brunstrom. A Stream-Aware Multipath QUIC
+   Scheduler for Heterogeneous Paths. ACM EPIQ workshop 2018.
+10. Media over QUIC Transport. IETF draft-ietf-moq-transport, 2026.
+11. MoMQ. arXiv:2608.10741, 2026.
+12. COMPACT. ACM MMSys 2025.
+13. Tencent TQUIC, https://github.com/Tencent/tquic (v1.6.0).
+14. Opensignal, India mobile network experience report, February 2026; Zoom
+    bandwidth requirements (support documentation); LiveU bonding (product
+    documentation).
