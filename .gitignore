@@ -4,7 +4,7 @@
 # Generated certificate and transfer input file (testbed/run_transfer.sh)
 .cache/
 
-# Large raw outputs; summary.csv, meta.env and logs stay tracked
+# Large raw outputs (qlogs, dumps); per-run CSVs, meta.json and logs stay tracked
 results/**/qlog_*/
 results/**/dump/
 results/**/*.log.gz
@@ -26,4 +26,3 @@ docs/slides/*.nav
 docs/slides/*.out
 docs/slides/*.snm
 docs/slides/*.toc
-results/
