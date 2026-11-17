@@ -3,15 +3,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from stats import paired, wilcoxon_p, holm, tost_paired, bootstrap_ci
 
-df = pd.read_csv("analysis/summary_all.csv")
-
-# Filter primary runs (run_id 0..8, 8 or 9 paired runs per cell)
-df_main = df[(df["bitrate_kbps"] == 2600) & (df["run_id"].isin(range(9)))].copy()
-df_sweep = df[(df["scenario"] == "rtt_asym") & (df["run_id"].isin(range(9)))].copy()
+# summary_final.csv = analysis/summarize.py over results/<scenario>/ (one row per run
+# directory, so no duplicates), run_id 1-8 only (run 0 and 91 are dev runs, never
+# analysed). It supersedes summary_all.csv, which mixed in duplicate, pre-fix and dev runs.
+df = pd.read_csv("analysis/summary_final.csv")
+df = df[df["run_id"].between(1, 8)]
+df_main = df[df["bitrate_kbps"] == 2600].copy()
+df_sweep = df[df["scenario"] == "rtt_asym"].copy()
 
 print("=== 1. USABLE CAPACITY ON rtt_asym (Highest bitrate with freeze_frac_250 <= 0.01) ===")
 sweep_agg = df_sweep.groupby(["config", "bitrate_kbps"])[["on_time_250", "freeze_frac_250", "required_delay_ms"]].mean().reset_index()
-for cfg in ["S1", "S4", "F1", "F2", "R2", "R1"]:
+for cfg in ["S1", "S2", "S4", "F1", "F2", "A1", "R2", "R1"]:
     sub = sweep_agg[sweep_agg["config"] == cfg].sort_values("bitrate_kbps")
     usable = sub[sub["freeze_frac_250"] <= 0.01]["bitrate_kbps"].max()
     print(f"Config {cfg:3s}: usable_cap = {usable} kbps")
@@ -29,18 +31,16 @@ def run_pair(scen, cfg_a, cfg_b, metric="freeze_frac_250"):
     tost_p, eq = tost_paired(xa, xb, margin_frac=0.05)
     return len(ids), xa.mean(), xb.mean(), mean_d, lo, hi, p, tost_p, eq
 
+# P3, P4 (proposal section 2): F2 vs the better of MinRTT/ECF on the asymmetric
+# scenarios. These two form the Holm family; the rest are exploratory (CIs).
 comparisons = [
     ("rtt_asym", "F2", "S1", "freeze_frac_250"),
-    ("rtt_asym", "F2", "S4", "freeze_frac_250"),
-    ("bw_asym",  "F2", "S1", "freeze_frac_250"),
     ("bw_asym",  "F2", "S4", "freeze_frac_250"),
-    ("outage",   "F2", "S1", "freeze_frac_250"),
-    ("outage",   "F2", "S4", "freeze_frac_250"),
-    ("symmetric","F2", "S1", "freeze_frac_250"),
-    ("symmetric","F2", "S2", "freeze_frac_250"),
-    ("rtt_asym", "F2", "F1", "freeze_frac_250"),
-    ("rtt_asym", "F2", "R2", "freeze_frac_250"),
-    ("bw_asym",  "F2", "R1", "freeze_frac_250"),
+]
+exploratory = [
+    ("symmetric", "F2", "S1"), ("symmetric", "F2", "S2"), ("rtt_asym", "F2", "S2"),
+    ("bw_asym", "F2", "S2"), ("rtt_asym", "F2", "R2"), ("rtt_asym", "S2", "S1"),
+    ("outage", "F2", "S1"), ("outage", "S4", "S1"),
 ]
 
 rows = []
@@ -52,21 +52,25 @@ adj_p = holm([r[8] for r in rows])
 for r, hp in zip(rows, adj_p):
     scen, pair, n, ma, mb, md, lo, hi, p, tp, eq = r
     print(f"{scen:10s} | {pair:9s} (n={n}) | {ma:.3f} vs {mb:.3f} | diff={md:+.3f} [{lo:+.3f}, {hi:+.3f}] | p={p:.4f} (Holm={hp:.4f}) | TOST_eq={eq} (p={tp:.3f})")
+print("exploratory (95% bootstrap CI; no multiple-comparison claim):")
+for scen, a, b in exploratory:
+    n, ma, mb, md, lo, hi, p, tp, eq = run_pair(scen, a, b)
+    print(f"{scen:10s} | {a} vs {b} (n={n}) | {ma:.3f} vs {mb:.3f} | diff={md:+.3f} [{lo:+.3f}, {hi:+.3f}] | raw p={p:.4f}")
 
 # --- PLOTS ---
 plt.rcParams.update({"font.size": 11, "figure.dpi": 200})
 
 # Plot 1: Cross-Scenario On-Time Display Ratio @ D=250ms (2600 kbps)
 scenarios = ["symmetric", "bw_asym", "rtt_asym", "outage", "control"]
-cfgs = ["S0", "S1", "S4", "S2", "F1", "F2", "R2", "R1"]
+cfgs = ["S0", "S1", "S4", "S2", "F2", "R2", "R1"]  # F1, A1 omitted: every run stalled
 piv = df_main.pivot_table(index="scenario", columns="config", values="on_time_250").reindex(index=scenarios, columns=cfgs)
-ax = piv.plot(kind="bar", figsize=(11, 4.8), width=0.82, edgecolor="black", linewidth=0.5)
+ax = piv.plot(kind="bar", figsize=(11, 5.4), width=0.82, edgecolor="black", linewidth=0.5)
 ax.set_ylabel("On-Time Frame Ratio (D = 250 ms)")
 ax.set_title("Cross-Scenario Frame Delivery @ 2.6 Mbps (Higher is Better)")
 ax.set_ylim(0, 1.08)
 ax.grid(axis="y", linestyle="--", alpha=0.4)
 plt.xticks(rotation=0)
-plt.legend(title="Scheduler", ncol=4, loc="lower right", framealpha=0.9)
+plt.legend(title="Scheduler", ncol=7, loc="upper center", bbox_to_anchor=(0.5, -0.12), framealpha=0.9)
 plt.tight_layout()
 plt.savefig("analysis/plots/fig1_cross_scenario_ontime.png")
 plt.savefig("docs/slides/deck/project/slides/assets/fig1_cross_scenario_ontime.png")
@@ -74,7 +78,7 @@ plt.close()
 
 # Plot 2: rtt_asym Bitrate Sweep (Freeze Fraction & On-Time)
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11.5, 4.5))
-sweep_cfgs = [("S1", "MinRTT (S1)", "o--"), ("S4", "ECF (S4)", "s--"), ("F1", "Frame Pin (F1)", "^:"), ("F2", "Frame Split+Rescue (F2)", "D-"), ("R2", "Oracle Split (R2)", "v-.")]
+sweep_cfgs = [("S1", "MinRTT (S1, n=1)", "o--"), ("S4", "ECF (S4, n=1)", "s--"), ("S2", "Round-robin (S2, n=1)", "^:"), ("F2", "Frame split+rescue (F2, n=8)", "D-"), ("R2", "Oracle split (R2, n=8)", "v-."), ("R1", "Ideal link (R1, n=1)", "k-")]
 for cfg, label, style in sweep_cfgs:
     sub = sweep_agg[sweep_agg["config"] == cfg].sort_values("bitrate_kbps")
     if len(sub) > 1:
@@ -101,7 +105,7 @@ plt.close()
 
 # Plot 3: Path Split (share_a) & Overhead (extra_bytes_frac) across scenarios @ 2600 kbps
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11.5, 4.5))
-piv_share = df_main.pivot_table(index="scenario", columns="config", values="share_a").reindex(index=scenarios, columns=["S1", "S4", "S2", "F1", "F2", "R2"])
+piv_share = df_main.pivot_table(index="scenario", columns="config", values="share_a").reindex(index=scenarios, columns=["S1", "S4", "S2", "F2", "R2"])
 piv_share.plot(kind="bar", ax=ax1, width=0.8, edgecolor="black", linewidth=0.5)
 ax1.axhline(0.5, color="gray", linestyle="--", linewidth=1)
 ax1.set_title("Traffic Share on Path A (Fast/Primary Path)")

@@ -13,28 +13,27 @@ recover what packet-level schedulers waste?
 | Design, hypotheses H1-H5, metrics | [`docs/proposal.md`](docs/proposal.md) |
 | Lab log: what was built, what failed, evidence | [`docs/PROGRESS.md`](docs/PROGRESS.md) |
 | Testbed calibration | [`docs/calibration.md`](docs/calibration.md) |
-| Per-run summary of all 758 runs | [`analysis/summary_all.csv`](analysis/summary_all.csv) |
+| Per-run summary (609 runs, run ids 1-8; one row per run directory) | [`analysis/summary_final.csv`](analysis/summary_final.csv) (supersedes `summary_all.csv`, which mixed in duplicate, pre-fix and dev runs) |
 | Raw per-run data (all runs, calibration) | `results/` (`frames.csv`, `paths.csv`, `meta.json` per run; batch logs in `results/batches/`) |
 
 ![Cross-scenario results](analysis/plots/fig1_cross_scenario_ontime.png)
 
-## Results in one minute (758 paired runs, 60 s NPTEL lecture, D = 250 ms)
+## Results in one minute (609 paired runs, 60 s NPTEL lecture, D = 250 ms)
 
 - **One weak path is not enough:** the better single 1.6 Mbit/s path shows
   <1 % of frames on time at 2.6 Mbit/s.
 - **Packet-level MPQUIC wastes capacity (H2 supported):** on paths with
   30 ms vs 150 ms RTT, MinRTT and ECF sustain only 1.0 Mbit/s with <= 1 %
   freeze, vs 2.6 Mbit/s on an ideal link of the same total capacity (38 %).
-  They miss 11-17 % of frame deadlines even with 23 % spare capacity; plain
-  round-robin misses only 1-2 %.
+  They miss 11-16 % of frame deadlines even with 23 % spare capacity.
 - **Frame-aware splitting (F2) helps at the main bitrate:** ~10 pp less freeze
-  than MinRTT/ECF at 2.6 Mbit/s on symmetric, bandwidth- and RTT-asymmetric
-  paths (rtt_asym 4.5 % vs 14.9 %, Holm p = 0.043), matching the ideal link on
-  bw_asym. Pinning whole frames to one path (F1) fails.
-- **Honest negative results:** F2's delivery-rate estimate is too low when the
-  sender is application-limited (1.0-2.2 Mbit/s) and its one-PTO rescue
-  misfires under 2 s outages, so H3 is only partly supported; two separate QUIC
-  connections (A1) stall, so one MPQUIC connection wins (H4 rejected).
+  than the better of MinRTT/ECF at 2.6 Mbit/s (rtt_asym 4.5 % vs 14.9 %,
+  bw_asym 1.3 % vs 10.8 %; Holm p = 0.016, 8 of 8 pairs), matching the ideal
+  link on bw_asym.
+- **Honest negative results:** F2 fails at 1.0-2.2 Mbit/s and under 2 s
+  outages, and plain round-robin is as good or better on two of three steady
+  scenarios, so H3 is only partly supported. Our F1 and A1 implementations
+  stalled in every 2.6 Mbit/s run, so H4 is untested; H1 and H5 were not run.
 
 What we built: a calibrated two-path netem/htb testbed (`testbed/`), a frame
 streamer on TQUIC that sends each frame part as a QUIC stream (`streamer/`),
@@ -46,7 +45,8 @@ playout model with paired statistics (`analysis/`, 15 hand-computed tests).
 from this repository with `scripts/run.sh`. F1/F2/A1/R2 are placement policies
 in the streamer (`streamer/src/lib.rs`, `streamer/src/bin/mpq_sender.rs`). Raw
 per-run data for all runs is in `results/`. Tests: TQUIC 564 + 1, streamer 9,
-analysis 15, all passing.
+analysis 15, all passing. Tables, tests and figures:
+`PYTHONPATH=analysis analysis/.venv/bin/python analysis/generate_report_artifacts.py`.
 
 ## Team
 

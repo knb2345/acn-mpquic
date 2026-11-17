@@ -16,25 +16,26 @@ SIMs, or Wi-Fi plus cellular), neither of which can carry a 720p camera feed
 *packets*, not *video frames*: a frame whose packets are spread over a 30 ms and
 a 150 ms path is only displayable when the slow path delivers its last packet.
 We built a calibrated two-path emulation testbed, a frame-level video streamer on
-TQUIC with three small transport hooks, an ECF scheduler, and a deadline- and
-decode-aware playout model, and ran **758 paired runs** of a real 60 s NPTEL
-lecture clip across five network scenarios.
+TQUIC with three small transport hooks, an ECF scheduler, frame-aware placement
+policies, and a deadline- and decode-aware playout model, and ran **609 paired
+runs** (8 per cell) of a real 60 s NPTEL lecture clip across five network
+scenarios.
 
-Key findings: (1) a single 1.6 Mbit/s path cannot carry the stream at all (S0:
-<1 % of frames on time). (2) Packet-level multipath schedulers waste capacity:
-on paths with a 5x RTT difference, MinRTT and ECF sustain only **1.0 Mbit/s**
-with <=1 % freeze at a 250 ms playout deadline, versus **2.6 Mbit/s** for an
-ideal link of the same total capacity (**38 % of ideal; H2 supported**). Plain
-round-robin beats both by 10-14 pp of on-time frames. (3) Splitting each frame
-across paths so both parts finish together (F2) cuts freeze time by **~10 pp at
-2.6 Mbit/s** on symmetric, bandwidth-asymmetric and RTT-asymmetric paths
-(e.g. 4.5 % vs 14.9 % on rtt_asym, Holm-corrected p = 0.043) and matches the
-ideal link on bw_asym, while pinning whole frames to one path (F1) fails
-completely. (4) F2 is not a general win: its delivery-rate estimator
-under-predicts capacity when the sender is application-limited (1.0-2.2 Mbit/s)
-and its one-PTO rescue misfires under 2 s outages, so its usable capacity on the
-sweep is not better than MinRTT's (H3 only partly supported). We report these
-negative results with their cause.
+Key findings: (1) a single 1.6 Mbit/s path cannot carry the stream (<1 % of
+frames on time). (2) Packet-level multipath schedulers waste capacity: on paths
+with a 5x RTT difference, MinRTT and ECF sustain only **1.0 Mbit/s** with <= 1 %
+freeze at a 250 ms playout deadline, versus **2.6 Mbit/s** for an ideal link of
+the same total capacity (**38 %; H2 supported**, sweep points with one run each).
+(3) Splitting each frame across both paths so the parts finish together (F2)
+freezes **~10 pp less** than the better of MinRTT and ECF at 2.6 Mbit/s on the
+asymmetric scenarios (rtt_asym 4.5 % vs 14.9 %, bw_asym 1.3 % vs 10.8 %; Holm
+p = 0.016, F2 better in 8 of 8 pairs each) and matches the ideal link on
+bw_asym. (4) F2 is not a general win: it fails at 1.0-2.2 Mbit/s, so its usable
+capacity is not higher than MinRTT's, it is much worse under 2 s outages, and
+plain round-robin is as good or better on two of three steady scenarios. H3 is
+therefore only partly supported; H4 could not be tested because our
+two-connection variant stalled. We report these negative results with what we
+know of their cause.
 
 ## 1. Problem statement
 
@@ -185,7 +186,8 @@ One command per run (`scripts/run.sh <scenario> <config> <bitrate> <encoding>
 stats every 100 ms, CPU, and `meta.json` (git hashes, seeds, offsets, tool
 versions). **Paired design:** the clip start and trace/outage offset are drawn
 from a seed that depends only on run_id, so every scheduler sees identical
-conditions. 8 paired runs per cell. Runs with sender or receiver CPU > 80 % are
+conditions. 8 paired runs per cell (run ids 1-8; run ids 0 and 91 are development runs and are
+never analysed). Runs with sender or receiver CPU > 80 % are
 discarded and rerun (one such run, caused by laptop sleep, is logged). Paired
 Wilcoxon signed-rank with Holm correction, TOST for equivalence (5 % margin),
 95 % bootstrap CIs. The playout model and the statistics have 15 hand-computed
@@ -193,37 +195,45 @@ unit tests.
 
 ## 4. Results
 
-All numbers below come from `analysis/summary_all.csv` (one row per run;
-regenerate tables and figures with `analysis/generate_report_artifacts.py`).
-S0-S4 at 2.6 Mbit/s are the 200-run batch `week2_s0s4_v2`, whose raw per-run
-data is in `results/`. Raw per-run data (`frames.csv`, `paths.csv`,
-`meta.json`) for every run, including F1/F2/A1/R2, R1 and the sweep, is in
-`results/`; recomputing the summaries from it reproduces `summary_all.csv`
-exactly.
+All numbers come from `analysis/summary_final.csv`: one row per run directory
+under `results/` (produced by `analysis/summarize.py`), run ids 1-8, so every
+cell has exactly 8 paired runs unless stated. Tables, tests and figures:
+`analysis/generate_report_artifacts.py`. Raw per-run data (`frames.csv`,
+`paths.csv`, `meta.json`) for every run is in `results/`. An earlier summary,
+`analysis/summary_all.csv` (758 rows), also contained duplicate reruns, runs
+from before two bug fixes, and development runs; it is kept for the record but
+superseded, and our first slide draft quoted it (e.g. 86.2 % instead of 95.7 %
+for F2 on rtt_asym). A **stalled** run is one that ended with frames still
+missing; following our protocol it is reported, not averaged into a claim.
 
 ### 4.1 One weak path is not enough; packet schedulers leave frames late
 
 ![Cross-scenario on-time ratio](../analysis/plots/fig1_cross_scenario_ontime.png)
 
-Frames on time at D = 250 ms, 2.6 Mbit/s, mean of 8-9 paired runs:
+Frames on time at D = 250 ms, 2.6 Mbit/s, mean of 8 paired runs:
 
-| Scenario | S0 | S1 MinRTT | S2 RR | S3 Red. | S4 ECF | F1 | F2 | R2 | R1 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| control 4+4 | 99.9 % | 100 % | 100 % | 100 % | 100 % | 1.1 % | 11.5 % | 44.7 % | 100 % |
-| symmetric 1.6+1.6 | 0.4 % | 88.7 % | 98.7 % | 0.4 % | 88.3 % | 23.8 % | 98.7 % | 98.9 % | 98.9 % |
-| bw_asym 2.0+1.2 | 0.8 % | 88.2 % | 91.9 % | 0.7 % | 88.3 % | 2.4 % | 98.8 % | 99.0 % | 99.0 % |
-| rtt_asym 1.6+1.6 @30/150 | 0.4 % | 83.3 % | 98.2 % | 0.4 % | 83.6 % | 1.8 % | 86.2 % | 97.1 % | 99.1 % |
-| outage | 0.5 % | 55.2 % | 75.2 % | 0.6 % | 31.1 % | 6.2 % | 12.7 % | 10.9 % | 75.1 % |
+| Scenario | S0 | S1 MinRTT | S2 RR | S3 Red. | S4 ECF | F2 | R2 | R1 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| control 4+4 | 99.9 % | 100 % | 100 % | 100 % | 100 % | 12.2 % (4 stalled) | 50.2 % (3 stalled) | 100 % |
+| symmetric 1.6+1.6 | 0.4 % | 88.7 % | 98.7 % | 0.4 % | 88.2 % | 98.7 % | 98.9 % | 98.9 % |
+| bw_asym 2.0+1.2 | 0.8 % | 88.1 % | 91.7 % | 0.7 % | 88.5 % | 98.8 % | 99.0 % | 99.0 % |
+| rtt_asym 1.6+1.6 @30/150 | 0.4 % | 83.8 % | 98.1 % | 0.4 % | 83.7 % | 95.7 % | 97.3 % | 99.1 % (1 run) |
+| outage | 0.5 % | 66.2 % | 75.2 % | 0.6 % | 31.1 % | 12.4 % (8 stalled) | 8.2 % (8 stalled) | 74.8 % |
+
+F1 (whole frame on one path) and A1 (F2 logic over two separate connections)
+stalled in every 2.6 Mbit/s run in every scenario and are left out of the table
+(F1 put 98 % of bytes on one path; A1 delivered < 1 % of frames on time).
 
 - S0 (better single path) and S3 (redundant) fail by construction whenever one
-  path is below 2.6 Mbit/s: their queue grows for the whole run.
-- With 23 % spare combined capacity, MinRTT and ECF still miss 11-17 % of frame
-  deadlines; their median required playout delay is 450-580 ms vs ~220 ms for
+  path is below 2.6 Mbit/s: their queue grows for the whole run (required
+  playout delay 21-42 s).
+- With 23 % spare combined capacity, MinRTT and ECF still miss 11-16 % of frame
+  deadlines; their median required playout delay is 453-579 ms vs 219-248 ms for
   R1. Round-robin misses only 1-2 % on equal-rate paths: MinRTT fills the fast
   path's 200 ms buffer first, so frames queue there, while round-robin keeps both
-  queues short.
-- ECF collapses under outages (31 % on time vs 55 % MinRTT): during a 2 s
-  outage the dead path's RTT estimate is stale and ECF keeps waiting for it.
+  queues short. Round-robin is weaker when rates differ (bw_asym 91.7 %).
+- ECF collapses under outages (31 % on time vs 66 % for MinRTT): during a 2 s
+  outage the dead path's estimate is stale and ECF keeps waiting for it.
 
 ### 4.2 H2: packet-level schedulers waste most of the capacity
 
@@ -231,106 +241,119 @@ Frames on time at D = 250 ms, 2.6 Mbit/s, mean of 8-9 paired runs:
 
 On rtt_asym, MinRTT (S1) and ECF (S4) stay within 1 % freeze only up to
 **1.0 Mbit/s**; the ideal link R1 sustains **2.6 Mbit/s**. Usable capacity
-ratio = 1.0 / 2.6 = **38 %, below the 80 % bar: H2 is supported.** Caveat: the
-S1, S4 and R1 sweep points have one run per bitrate; the 2.6 Mbit/s points have
-8-9 paired runs.
+ratio = 1.0 / 2.6 = **38 %, below the 80 % bar: H2 is supported.** Round-robin
+reaches 2.2 Mbit/s (85 %). Caveat: the S1, S2, S4 and R1 sweep points have one
+run per bitrate (R1 also has only one run at 2.6 Mbit/s on rtt_asym), so P1/P2
+are reported descriptively, without a test; at 2.6 Mbit/s S1 and S4 have 8 runs
+each and freeze 14.9 % and 15.2 % of the time.
 
-### 4.3 H3: frame-aware splitting (F2) at 2.6 Mbit/s
+### 4.3 H3: frame-aware splitting (F2)
 
-Paired freeze fraction at D = 250 ms, 2.6 Mbit/s (Wilcoxon, Holm over 11
-comparisons, 95 % bootstrap CI of the paired difference):
+Pre-registered primary comparisons P3 and P4 (freeze fraction at D = 250 ms,
+2.6 Mbit/s, F2 vs the better of MinRTT and ECF; paired Wilcoxon, Holm over the
+two; 95 % bootstrap CI of the paired difference):
 
-| Scenario | Comparison | n | F2 | Other | Difference [95 % CI] | Holm p |
-| --- | --- | --- | --- | --- | --- | --- |
-| rtt_asym | F2 vs S1 | 9 | 4.5 % | 14.9 % | -10.4 pp [-11.4, -9.4] | 0.043 |
-| rtt_asym | F2 vs S4 | 9 | 4.5 % | 15.0 % | -10.5 pp [-11.3, -9.8] | 0.043 |
-| bw_asym | F2 vs S1 | 8 | 1.3 % | 11.6 % | -10.3 pp [-11.2, -9.4] | 0.055 |
-| symmetric | F2 vs S1 | 9 | 1.2 % | 11.4 % | -10.2 pp [-11.3, -9.2] | 0.043 |
-| symmetric | F2 vs S2 | 8 | 1.2 % | 1.3 % | -0.1 pp [-0.4, +0.2] | 0.72 |
-| rtt_asym | F2 vs F1 | 9 | 4.5 % | 99.2 % | -94.7 pp | 0.043 |
-| rtt_asym | F2 vs R2 | 9 | 4.5 % | 3.1 % | +1.4 pp [+0.6, +2.2] | 0.063 |
-| outage | F2 vs S1 | 9 | 87.4 % | 40.3 % | +47.1 pp [+33.2, +56.7] | 0.055 |
+| | Scenario | Comparison | n | F2 | Other | Difference [95 % CI] | Holm p | F2 better |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P3 | rtt_asym | F2 vs S1 | 8 | 4.5 % | 14.9 % | -10.4 pp [-11.5, -9.3] | 0.016 | 8/8 |
+| P4 | bw_asym | F2 vs S4 | 8 | 1.3 % | 10.8 % | -9.5 pp [-10.3, -8.7] | 0.016 | 8/8 |
 
-- **F2 beats MinRTT and ECF by ~10 pp of freeze time at 2.6 Mbit/s** on all
-  three steady scenarios, in every paired run; on bw_asym it matches the ideal
-  link (98.8 % vs 99.0 % on time).
-- **Splitting, not pinning, is what matters:** F1 (whole frame on one path)
-  starves one path and freezes > 75 % of the time.
-- **Estimator error is the main remaining gap:** with true rates (R2), F2's
-  freeze on rtt_asym drops from 4.5 % to 3.1 %.
-- **Where F2 fails (negative results):** (i) at 1.0-2.2 Mbit/s on rtt_asym the
-  sender is application-limited, the 1 s max delivery-rate estimate R_p
-  under-reads the path, predicted finish times are too late, and F2 freezes
-  (so its usable capacity on the sweep is 0.5 Mbit/s, not better than MinRTT);
-  (ii) under 2 s outages and on the 4+4 Mbit/s control, the one-PTO rescue fires
-  too early and resends 17-23 % duplicate bytes, which congests the surviving
-  path. **H3 is therefore only partly supported:** F2 wins at the main bitrate
-  but not on usable capacity or under outages. Equivalence on symmetric paths
-  (vs round-robin) could not be shown with TOST at n = 8 (difference -0.1 pp).
+Exploratory comparisons (bootstrap CIs, no multiple-comparison claim):
+
+| Scenario | Comparison | F2 / first | Other | Difference [95 % CI] |
+| --- | --- | --- | --- | --- |
+| symmetric | F2 vs S1 | 1.2 % | 11.5 % | -10.3 pp [-11.5, -9.2] |
+| symmetric | F2 vs S2 | 1.2 % | 1.3 % | -0.1 pp [-0.4, +0.2] |
+| rtt_asym | F2 vs S2 | 4.5 % | 2.1 % | +2.4 pp [+1.9, +3.0] |
+| bw_asym | F2 vs S2 | 1.3 % | 7.4 % | -6.1 pp [-6.9, -5.3] |
+| rtt_asym | F2 vs R2 | 4.5 % | 2.8 % | +1.7 pp [+1.0, +2.4] |
+| rtt_asym | S2 vs S1 | 2.1 % | 14.9 % | -12.8 pp [-13.7, -12.0] |
+| outage | F2 vs S1 | 87.7 % | 34.3 % | +53.4 pp [+47.6, +57.8] |
+
+- **At the main bitrate F2 clearly beats MinRTT and ECF** (P3, P4 and
+  symmetric), and on bw_asym it is within 0.2 pp of the ideal link.
+- **Round-robin is a strong baseline:** it beats F2 on rtt_asym, ties on
+  symmetric, and loses only on bw_asym, where equal turns ignore the rate
+  difference.
+- **With true link rates (R2) F2 does a little better** at 2.6 Mbit/s
+  (2.8 % vs 4.5 % freeze), so estimation error costs about 1.7 pp there.
+- **Where F2 fails (negative results):** (i) on the rtt_asym sweep F2 freezes
+  41-90 % of the time at 1.0-2.2 Mbit/s and recovers at 2.6-2.8, so its usable
+  capacity (0.5 Mbit/s) is not better than MinRTT's. R2, which uses the true
+  rates, also fails at 1.0-1.6 Mbit/s, so the rate estimate is not the only
+  cause; the placement and rescue logic when the sender is
+  application-limited is the next suspect, not yet isolated. (ii) Under 2 s
+  outages every F2 run stalled and its rescue resent 15.5 % duplicate bytes;
+  on the 4+4 Mbit/s control 4 of 8 F2 runs stalled. **H3 is therefore only
+  partly supported:** F2 wins at the main bitrate on asymmetric paths, but not
+  on usable capacity or under outages. Its "equivalent on symmetric paths" part
+  holds against round-robin only as a point estimate (-0.1 pp); TOST at n = 8
+  could not show equivalence.
 
 ### 4.4 H4: one MPQUIC connection vs two QUIC connections
 
-A1 (the F2 logic over two separate single-path QUIC connections) stalls at
-2.6 Mbit/s in every scenario (0 % on time on symmetric, bw_asym, outage).
-Equivalence with F2 is rejected; one connection with shared stream ordering and
-per-path congestion state is clearly better in our implementation.
+Not tested. Our A1 implementation (F2 logic over two separate single-path QUIC
+connections) stalled in every 2.6 Mbit/s run in all five scenarios, and on the
+rtt_asym sweep it stays within 1 % freeze only up to 1.0 Mbit/s. A stall in our
+own code is not evidence about where the logic belongs, so we do not claim that
+one MPQUIC connection is better.
 
 ### 4.5 Path share and overhead
 
 ![Path share and overhead](../analysis/plots/fig3_path_share_overhead.png)
 
-On bw_asym F2 puts 66 % of bytes on the 2.0 Mbit/s path (its capacity share is
-62.5 %) with 0.3 % extra bytes; redundant (S3) sends ~100 % extra bytes.
+On bw_asym F2 puts 65.8 % of bytes on the 2.0 Mbit/s path (its capacity share
+is 62.5 %) with 0.3 % extra bytes; redundant (S3) sends 61-100 % extra bytes.
 
 ## 5. Analysis and discussion
 
-1. **The waste is real and large.** With two 1.6 Mbit/s paths, the standard
-   MPQUIC schedulers deliver a 2.6 Mbit/s lecture with 11-17 % frozen time,
-   and on RTT-asymmetric paths they can only sustain 38 % of the ideal link's
-   bitrate. Their failure is about *where queueing happens*, not total
-   capacity: MinRTT fills the low-RTT path's buffer before using the other.
+1. **The waste is real and large.** With two 1.6 Mbit/s paths, MinRTT and ECF
+   deliver a 2.6 Mbit/s lecture with 11-16 % frozen time, and on RTT-asymmetric
+   paths they sustain only 38 % of the ideal link's bitrate. Their failure is
+   about *where queueing happens*, not total capacity: MinRTT fills the
+   low-RTT path's buffer before using the other.
 2. **Frame-awareness helps when the sender is capacity-limited.** Splitting
    each frame so both parts finish together removes the "slow path decides"
    effect and brings freeze to 1-5 %, close to the ideal link.
-3. **The finish-time model is only as good as its rate estimate.** A
-   delivery-rate estimate taken from ACKs is low when the sender is not filling
-   the path, which is exactly the regime of a CBR video below capacity. This is
-   why F2 is non-monotone in bitrate and why the oracle R2 helps. A rate probe
-   or a capacity estimate that ignores application-limited intervals is the
-   obvious next step.
-4. **Rescue needs hysteresis.** A one-PTO trigger is right for an isolated
-   stall but wrong for a multi-second outage, where it duplicates a large
-   backlog onto the surviving path.
-5. **Simple can be strong.** Plain round-robin is within 0.1 pp of F2 on
-   symmetric paths and beats MinRTT/ECF everywhere except outages; any new
-   scheduler should be compared with it, not only with MinRTT.
+3. **It breaks below capacity and under outages.** F2 is non-monotone in
+   bitrate. That even the oracle R2 fails at 1.0-1.6 Mbit/s rules out the rate
+   estimate as the sole cause; the most likely candidates are the placement and
+   rescue decisions when paths are idle between frames. Under outages a
+   one-timeout rescue duplicates a large backlog onto the surviving path; it
+   needs hysteresis.
+4. **Simple can be strong.** Plain round-robin beats MinRTT and ECF by 3-14 pp
+   of on-time frames and rivals F2. Any new scheduler should be compared with
+   it, not only with MinRTT.
 
 ## 6. Threats to validity and limitations
 
-- Emulation only: no real two-operator traces yet (H1 and the real_pairs
-  scenario are untested); only a public Mahimahi trace was used for calibration.
+- Emulation only: no real two-operator traces (H1 and the real_pairs scenario
+  are untested); only a public Mahimahi trace was used for calibration.
 - One main clip and the intra-refresh encoding; the keyframe stress case (H5)
   and content controls were not run.
-- Sweep points for S1, S4 and R1 have one run per bitrate.
+- Sweep points other than 2.6 Mbit/s have one run each for S1, S2, S4 and R1,
+  and R1 on rtt_asym has one run at 2.6 Mbit/s too.
+- F1 and A1 stalled in every run at 2.6 Mbit/s; we treat this as an
+  implementation failure and draw no conclusion about whole-frame placement
+  (F1) or about one vs two connections (H4).
 - CUBIC only; BBR and smaller buffers were stretch goals.
 
 ## 7. Conclusion
 
 Packet-level Multipath QUIC schedulers use two weak uplinks poorly for live
-video: on RTT-asymmetric paths they sustain only 38 % of an ideal link's
-bitrate at a 250 ms deadline. Splitting each frame so its parts finish together
-on both paths recovers most of that loss at the main 2.6 Mbit/s operating
-point (~10 pp less freeze, p = 0.043 after Holm), but only when its delivery-rate
-estimate is accurate; at application-limited bitrates and during outages the
-same logic is worse than MinRTT. A frame-aware scheduler for live lectures
-therefore needs a better capacity estimator and outage-aware rescue before it
-can replace the standard schedulers.
+video: on RTT-asymmetric paths MinRTT and ECF sustain only 38 % of an ideal
+link's bitrate at a 250 ms deadline. Splitting each frame so its parts finish
+together recovers most of that loss at the 2.6 Mbit/s operating point (~10 pp
+less freeze than MinRTT/ECF, Holm p = 0.016, 8 of 8 pairs), but it fails at
+lower bitrates and under outages, and plain round-robin is a strong rival. A
+frame-aware scheduler for live lectures needs robust behaviour below capacity
+and outage-aware rescue before it can replace the standard schedulers.
 
 ## 8. Reproducing
 
 See `README.md` (build, test, run). One run:
 `scripts/run.sh rtt_asym S1 2600 intra stochastic 1`. Summaries:
-`analysis/summarize.py`; tables, tests and figures:
+`analysis/summarize.py` (writes `analysis/summary_final.csv` from `results/`); tables, tests and figures:
 `PYTHONPATH=analysis python analysis/generate_report_artifacts.py`.
 
 ## 9. Team and contributions

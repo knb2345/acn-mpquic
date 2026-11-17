@@ -492,3 +492,31 @@ Open issues
   TQUIC 564 + 1 and analysis 15 also pass.
 - Removed the "code being merged" notes from slides, report and README;
   report section 3.4 now says where F1/F2/A1/R2 live. Report PDF rebuilt.
+
+## 2026-11-17 late: sanity check found a bad summary; all numbers recomputed
+- `analysis/summary_all.csv` (758 rows, from PR #4) had only 667 distinct
+  (scenario, config, bitrate, run_id) keys: 91 duplicate rows (reruns, runs
+  from before two bug fixes, e.g. a pre-fix F2 rtt_asym run 2 with 0.1 % on
+  time next to the valid 96.2 %; the superseded outage/S1/1 run that stalled)
+  and 80 development-run rows (run ids 0, 91). The slides' means and the
+  11-comparison Holm tests (n = 9 incl. run 0) were computed from it.
+- New `analysis/summary_final.csv`: `analysis/summarize.py` over each
+  `results/<scenario>/` (one row per run directory, so no duplicates), run ids
+  1-8 only: 609 runs, 8 per cell, except the rtt_asym sweep points for S1, S2,
+  S4 and R1 (1 run each, R1 also at 2.6 Mbit/s). `summary_all.csv` is kept,
+  marked superseded. `generate_report_artifacts.py` now reads the new file,
+  tests P3/P4 (F2 vs the better of S1/S4 on rtt_asym, bw_asym) as the Holm
+  family and reports the rest as bootstrap CIs; figures regenerated.
+- Corrections: F2 rtt_asym on time 95.7 % (was 86.2 %), S1 outage 66.2 % (was
+  54.4 %); P3 rtt_asym F2 4.5 % vs S1 14.9 % freeze, P4 bw_asym 1.3 % vs S4
+  10.8 %, Holm p = 0.016 each, 8/8 pairs (was p = 0.043 over 11 tests).
+- F1 and A1 stalled in all 8 runs of every 2.6 Mbit/s cell (and F2/R2 in every
+  outage run, F2 4/8 and R2 3/8 in control). Per protocol, stalled runs are
+  reported, not averaged into claims: the "splitting beats pinning" and
+  "H4 rejected, MPQUIC wins" claims were removed; H4 is now "not tested".
+- Round-robin (S2) is a strong baseline: better than F2 on rtt_asym (2.1 % vs
+  4.5 % freeze), tied on symmetric, worse on bw_asym; added to the slides.
+- R2 (true rates) also fails at 1.0-1.6 Mbit/s, so "rate estimation is the
+  primary bottleneck" was replaced by "the estimate is not the only cause".
+- Slide 5 (method) no longer says phone recordings are "next"; they were not
+  done. Slides, report, README and both PDFs rebuilt. Tests: analysis 15 OK.
