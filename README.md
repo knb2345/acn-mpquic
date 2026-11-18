@@ -55,7 +55,7 @@ with the fixed code. Runs made with earlier builds are kept, unchanged, in
 
 Kabir Nawal Bajaj, Prasanna Bhavan and Divyanshu contributed equally. We worked
 together on one shared laptop testbed, so the commit author names do not reflect
-who did what (see report section 9).
+who did what (see the report).
 
 ## Live demo (about 3 minutes)
 

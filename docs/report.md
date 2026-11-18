@@ -2,7 +2,7 @@
 
 **CS6048 Advanced Computer Networks (Jul-Nov 2026) · Team 7 · Final report, 18 November 2026**
 
-**Team:** Kabir Nawal Bajaj · Prasanna Bhavan · Divyanshu (equal contribution, see section 9)
+**Team:** Kabir Nawal Bajaj · Prasanna Bhavan · Divyanshu (contributions below)
 **Code and data:** https://github.com/knb2345/acn-mpquic (TQUIC fork: https://github.com/knb2345/tquic, branch `team7`)
 **Slides:** `docs/slides/Team7-final.pdf` · **Full design:** `docs/proposal.md` · **Lab log:** `docs/PROGRESS.md`
 
@@ -31,6 +31,28 @@ freezes 2-6 times as long. Plain round-robin is a strong rival: it ties F2 on
 symmetric links, beats it on the RTT-asymmetric pair and under 2 s outages,
 and loses only when the link rates differ. Under outages no scheduler does
 well, and F2 is no better than MinRTT. At low bitrates our single-connection F2 stalls (data for the idle fast path waits about 120 ms in the sender), so its usable capacity is lower than MinRTT's; the same logic over two separate QUIC connections does not stall and matches F2 at 2.6 Mbit/s.
+
+## Team and contributions
+
+All three of us contributed equally and worked together on one shared laptop
+testbed, so commit authorship on GitHub does not show who did what. Each
+member's main work:
+
+- **Kabir Nawal Bajaj** built the two-path emulation testbed (network
+  namespaces, netem/htb shaping, trace replay) and calibrated it, and made our
+  TQUIC changes: the three hooks, the connection-stall fix and the ECF
+  scheduler, each with unit tests. He also wrote the frame streamer (one QUIC
+  stream per frame part, receiver reassembly) and the problem statement and
+  related work.
+- **Prasanna Bhavan** implemented the frame-aware placement policies F1, F2,
+  A1 and R2 and the ideal-link reference R1, and ran the evaluation batches:
+  the five-scenario matrix and the bitrate sweep. He produced the result
+  figures and the analysis of what each scheduler does on each scenario.
+- **Divyanshu** worked on the methodology: the finish-time and split model,
+  the playout scoring (frames on time and freeze time under decoding
+  dependencies) and the paired statistics (Wilcoxon with Holm, TOST,
+  bootstrap CIs) with their hand-computed tests. He also prepared the live
+  demo and the slides.
 
 ## 1. Problem statement
 
@@ -457,15 +479,10 @@ See `README.md` (build, test, run). One run:
 `results/`); tables, tests and figures:
 `PYTHONPATH=analysis python analysis/generate_report_artifacts.py`.
 
-## 9. Team and contributions
-
-Kabir Nawal Bajaj, Prasanna Bhavan and Divyanshu contributed **equally**. We
-worked together on one shared laptop testbed throughout, so the commit author
-names on GitHub do not reflect who did what. All three of us worked on the
-problem definition and hypotheses, the testbed and its calibration, the TQUIC
-hooks and the ECF scheduler, the frame streamer, the frame-aware schedulers and
-references, the experiment batches, the playout model and statistics, and this
-report and the slides.
+**Demo.** `scripts/demo.sh` streams the lecture live over the two emulated
+links, first with MinRTT and then with F2, shows a live dashboard (frames on
+time, time frozen, per-frame delay, bytes per link) and then a side-by-side
+figure; `scripts/demo.sh replay` shows the same from recorded runs.
 
 ## References
 
