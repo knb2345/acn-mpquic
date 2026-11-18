@@ -22,7 +22,7 @@ recover what packet-level schedulers waste?
 
 - **Packet schedulers waste capacity.** At 2.6 Mbit/s over two links with 23 %
   spare capacity, MinRTT and ECF freeze the video 11-15 % of the time: they
-  keep about 130 ms of video waiting in the fast link's buffer. {H2_README}
+  keep about 130 ms of video waiting in the fast link's buffer. On the 30/150 ms pair they stay smooth only up to 1.0 Mbit/s, against 2.6 Mbit/s for an ideal link of the same capacity (38 %; H2 supported).
 - **Splitting frames helps.** F2 splits each frame so that both parts arrive
   together. It freezes 7-10 points less than the better of MinRTT and ECF on
   the asymmetric pairs (4.4 % vs 14.9 %, 3.8 % vs 10.8 %; 8 of 8 pairs each) and
@@ -31,7 +31,11 @@ recover what packet-level schedulers waste?
 - **Round-robin is a strong baseline.** It ties F2 on symmetric links, beats it
   on the 30/150 ms pair and under 2 s outages, and loses when the link rates
   differ. Under outages no scheduler does well; F2 is no better than MinRTT.
-- {H4_README}
+- **One or two connections.** At 2.6 Mbit/s the same frame logic over two
+  separate QUIC connections (A1) does as well as F2. At 1.0-1.6 Mbit/s our
+  single-connection F2 stalls (data for the idle fast link waits about 120 ms
+  in the sender), so its usable capacity is only 0.5 Mbit/s; H4 is not
+  supported as stated.
 - Not tested: H1 (no phone traces were recorded) and H5 (no keyframe encoding).
 
 What we built: a calibrated two-path netem/htb testbed (`testbed/`), a frame

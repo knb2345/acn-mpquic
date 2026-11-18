@@ -22,7 +22,7 @@ a real 60 s NPTEL lecture across five network scenarios.
 At 2.6 Mbit/s, MinRTT and ECF freeze the video 11-15 % of the time even though
 the two links have 23 % more capacity than the video needs; the per-path RTTs
 show why: they keep about 130 ms of video queued in the fast link's buffer.
-{H2_ABSTRACT} Splitting each frame across both links so that the parts finish
+On RTT-asymmetric links (30 and 150 ms) MinRTT and ECF stay smooth only up to 1.0 Mbit/s, against 2.6 Mbit/s for an ideal single link of the same capacity (38 %, pre-registered H2 supported). Splitting each frame across both links so that the parts finish
 together (F2) cuts the frozen time by 7-10 points against the better of MinRTT
 and ECF on the asymmetric pairs (4.4 % vs 14.9 % and 3.8 % vs 10.8 %, F2 lower in
 8 of 8 pairs each; pre-registered P3 and P4) and comes within 0.1-3.2 points of
@@ -30,7 +30,7 @@ an ideal single link's on-time rate. Placing whole frames without splitting
 freezes 2-6 times as long. Plain round-robin is a strong rival: it ties F2 on
 symmetric links, beats it on the RTT-asymmetric pair and under 2 s outages,
 and loses only when the link rates differ. Under outages no scheduler does
-well, and F2 is no better than MinRTT. {H4_ABSTRACT}
+well, and F2 is no better than MinRTT. At low bitrates our single-connection F2 stalls (data for the idle fast path waits about 120 ms in the sender), so its usable capacity is lower than MinRTT's; the same logic over two separate QUIC connections does not stall and matches F2 at 2.6 Mbit/s.
 
 ## 1. Problem statement
 
@@ -278,7 +278,30 @@ outage scenario, see 3.6):
 
 ![rtt_asym bitrate sweep](../analysis/plots/fig2_rtt_asym_sweep.png)
 
-{H2_SECTION}
+On rtt_asym (minimum RTTs 30 and 150 ms), with 8 paired runs per point:
+
+{SWEEP_TABLE}
+
+MinRTT and ECF stay within 1 % freeze up to **1.0 Mbit/s**; the ideal link R1
+up to **2.6 Mbit/s**. Per run id, the ratio of usable capacities is
+{P12_TEXT}, below the 0.8 bar in every run (P1, P2, Holm p = {P12}). On this grid
+the true ratio lies between 1.0/2.8 and 1.6/2.6 (36-62 %), below 80 % either
+way. **H2 is supported.**
+
+F2 is better than MinRTT and ECF from 2.2 Mbit/s up (97.7 % and 95.8 % of
+frames on time at 2.2 and 2.6 Mbit/s, against 83.7-89.2 % for MinRTT and ECF),
+but it freezes 7.9 % and 6.6 % of the time at 1.0 and 1.6 Mbit/s, where MinRTT,
+ECF and the ideal link freeze 0-5.5 %. Its usable capacity on this grid is
+therefore only 0.5 Mbit/s. The send logs show why: at 1.0 Mbit/s, a frame part
+assigned to the fast path waits a median 120 ms (90th percentile 192 ms, all
+8 runs) in the sender before its first byte is sent, although that path is
+idle (median smoothed RTT 31 ms), while parts assigned to the slow path leave
+within 0.3 ms. At 2.6 Mbit/s the wait is 0.2 ms. A1, which runs the same logic
+over two separate connections, has no such wait at 1.0 Mbit/s (0.1 ms). The
+stall is therefore in how our single multipath connection picks the next path
+to send on when only one path has data: the data waits until another event,
+about one round trip of the slow path later, wakes the sender. We did not have
+time to fix this in TQUIC's send loop and measure again.
 
 ### 4.3 H3: frame-aware splitting (F2)
 
@@ -340,7 +363,16 @@ help under outages.
 
 ### 4.4 H4: one Multipath QUIC connection vs two QUIC connections
 
-{H4_SECTION}
+Pre-registered P5: F2 and A1 equivalent within 5 % of usable capacity. On
+the rtt_asym sweep A1 stays usable up to 1.0 Mbit/s in every run and F2 only up
+to 0.5 Mbit/s (the stall in 4.2), so equivalence fails (TOST, margin +-50 kbit/s;
+Holm p = 1). At the 2.6 Mbit/s operating point the two are close: on rtt_asym
+F2 freezes 4.4 % and A1 3.6 % of the time (difference +0.8 pp [+0.1, +1.6]),
+on bw_asym 3.8 % and 4.5 %, on symmetric 1.2 % and 1.1 %; under outages A1 is
+worse (44.8 % vs 37.7 %). **H4 is not supported as stated:** the frame logic
+works as well over two plain QUIC connections at the target bitrate, and our
+single-connection version is worse at low bitrates because of the send-loop
+stall, not because of the frame logic.
 
 ### 4.5 Where the bytes go
 
@@ -398,12 +430,12 @@ of F2 and A1 (6-8 %).
 
 Packet-level Multipath QUIC schedulers use two weak uplinks poorly for live
 video: MinRTT and ECF keep the fast link's buffer full, and the video freezes
-11-15 % of the time even with spare capacity. {H2_CONCLUSION} Placing each frame
+11-15 % of the time even with spare capacity. On RTT-asymmetric links they stay smooth only up to 38 % of the bitrate an ideal link of the same capacity carries. Placing each frame
 with a finish-time estimate and splitting it so that both parts arrive together
 removes most of that loss at the 2.6 Mbit/s operating point (7-10 points less
 freezing, 8 of 8 pairs), and comes close to an ideal single link. It does not
 help when a link drops out, and a plain round-robin scheduler is nearly as good
-on steady links. {H4_CONCLUSION}
+on steady links. At low bitrates our single-connection implementation stalls, which a fix in how the connection picks its next path should remove; the same logic over two plain QUIC connections already works at both ends of the range.
 
 ## 8. Reproducing
 

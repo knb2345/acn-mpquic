@@ -12,7 +12,7 @@
 <p style="font-size:22px;line-height:1.4;color:#3C4658">Usable up to: ideal link 2.6 Mbit/s, MinRTT 1.0, ECF 1.0. That is 38% of the ideal; our bar was 80% (P1, P2, Holm p = {P12}).</p>
 </div>
 <div style="display:flex;flex-direction:column;gap:6px;background:#FFFFFF;padding:22px 26px;border:1px solid #DCE1E8;border-radius:16px">
-<h3 style="font-size:27px;font-weight:600;color:#2F6FB0">F2 is best at 2.2 to 2.6 Mbit/s</h3>
+<h3 style="font-size:27px;font-weight:600;color:#2F6FB0">F2 beats MinRTT and ECF at 2.2 to 2.6 Mbit/s</h3>
 <p style="font-size:22px;line-height:1.4;color:#3C4658">There F2 shows 96 to 98% of frames on time, MinRTT and ECF 84 to 89%.</p>
 </div>
 <div style="display:flex;flex-direction:column;gap:6px;background:#14213D;padding:22px 26px;border-radius:16px">
@@ -21,5 +21,5 @@
 </div>
 </div>
 </div>
-<aside>The sweep answers H2. MinRTT and ECF are fine at 1.0 Mbit/s and start freezing at 1.6. The ideal link is fine up to 2.6. F2 is the best multipath scheduler from 2.2 Mbit/s up, but it stalls at low load: when only the fast link has data, our single connection does not send it until something else wakes it up, about one round trip of the slow link later. A fix belongs in how the connection picks the next path to send on; we did not have time to make and re-measure it.</aside>
+<aside>The sweep answers H2. MinRTT and ECF are fine at 1.0 Mbit/s and start freezing at 1.6. The ideal link is fine up to 2.6. F2 beats MinRTT and ECF from 2.2 Mbit/s up (round-robin was not part of the sweep), but it stalls at low load: when only the fast link has data, our single connection does not send it until something else wakes it up, about one round trip of the slow link later. A fix belongs in how the connection picks the next path to send on; we did not have time to make and re-measure it.</aside>
 </section>
