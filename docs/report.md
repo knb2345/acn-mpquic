@@ -34,25 +34,19 @@ well, and F2 is no better than MinRTT. At low bitrates our single-connection F2 
 
 ## Team and contributions
 
-All three of us contributed equally and worked together on one shared laptop
-testbed, so commit authorship on GitHub does not show who did what. Each
-member's main work:
+All three of us worked together at one laptop on every part of the project,
+and the work was shared evenly. Each member led these parts:
 
-- **Kabir Nawal Bajaj** built the two-path emulation testbed (network
-  namespaces, netem/htb shaping, trace replay) and calibrated it, and made our
-  TQUIC changes: the three hooks, the connection-stall fix and the ECF
-  scheduler, each with unit tests. He also wrote the frame streamer (one QUIC
-  stream per frame part, receiver reassembly) and the problem statement and
-  related work.
-- **Prasanna Bhavan** implemented the frame-aware placement policies F1, F2,
-  A1 and R2 and the ideal-link reference R1, and ran the evaluation batches:
-  the five-scenario matrix and the bitrate sweep. He produced the result
-  figures and the analysis of what each scheduler does on each scenario.
-- **Divyanshu** worked on the methodology: the finish-time and split model,
-  the playout scoring (frames on time and freeze time under decoding
-  dependencies) and the paired statistics (Wilcoxon with Holm, TOST,
-  bootstrap CIs) with their hand-computed tests. He also prepared the live
-  demo and the slides.
+- **Kabir Nawal Bajaj** led the two-path emulation testbed (namespaces,
+  netem/htb shaping, outage schedule) and its calibration, and the small TQUIC
+  changes: the three hooks and the connection-stall fix. He also wrote the
+  problem statement.
+- **Prasanna Bhavan** led the frame streamer and the frame-aware placement
+  policies (F1, F2, A1, R2, and the R1 reference), and ran the evaluation
+  batches and the bitrate sweep. He also analysed the results.
+- **Divyanshu** led the ECF scheduler, the playout scoring (frames on time
+  and freeze time) and the paired statistics with their tests, and built the
+  live demo. He also wrote the related work.
 
 ## 1. Problem statement
 
