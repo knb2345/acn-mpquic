@@ -4,11 +4,11 @@
 <div style="display:flex;gap:24px">
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:34px;border-top:8px solid #2F6FB0;border-radius:16px">
 <h3 style="font-size:30px;font-weight:600">1. Place frames, not packets</h3>
-<p style="font-size:24px;line-height:1.45;color:#4A5568">Knowing where a frame starts and ends lets the sender split it so both parts arrive together. That cut freezing by 7 to 10 points against MinRTT and ECF; placing whole frames was clearly worse on steady links.</p>
+<p style="font-size:24px;line-height:1.45;color:#4A5568">Knowing where a frame starts and ends lets the sender split it so both parts arrive together. At the target bitrate that cut freezing by 7 to 10 points against MinRTT and ECF; placing whole frames was clearly worse on steady links. At low bitrates our version still stalls.</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:34px;border-top:8px solid #2F6FB0;border-radius:16px">
 <h3 style="font-size:30px;font-weight:600">2. Watch the queues</h3>
-<p style="font-size:24px;line-height:1.45;color:#4A5568">MinRTT and ECF kept about 130 ms of video waiting in the fast link’s buffer. F2 only worked once it counted the bytes already waiting on each link; true link rates (R2) would save another 2 to 3 points on the asymmetric pairs.</p>
+<p style="font-size:24px;line-height:1.45;color:#4A5568">MinRTT and ECF kept about 130 ms of video waiting in the fast link’s buffer. A frame scheduler has to count the bytes already waiting on each link, including those in the network’s buffer; the smoothed RTT reacts too slowly. With the true link rates (R2) F2 would freeze 2 to 3 points less.</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:34px;border-top:8px solid #2F6FB0;border-radius:16px">
 <h3 style="font-size:30px;font-weight:600">3. Compare with round-robin</h3>
