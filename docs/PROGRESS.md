@@ -610,3 +610,11 @@ Results (analysis/summary_final.csv, 576 runs; analysis/tables/):
 - Live demo (scripts/demo.sh, run ids 900+) re-tested: MinRTT 83.9 %, F2
   94.6 % on time; replay mode works.
 - Slides, report (11 pages), README filled from analysis/tables; PDFs rebuilt.
+
+## 2026-11-18 09:30 IST: final submission
+- Report now opens with team contributions (even split, per the course's
+  submission instructions); demo note in section 8. PDF rebuilt (12 pages).
+- Submitted on Moodle (user): Team7_final_submission.zip = report PDF, slides
+  PDF, code (streamer, testbed, scripts, analysis, workload), TQUIC team7
+  patches (7 commits on v1.6.0), README with the GitHub link.
+- Repo shared with mukulika-maity (collaborator invite, project repo only).
