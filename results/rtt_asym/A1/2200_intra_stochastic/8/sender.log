@@ -1,0 +1,5 @@
+62014356524 INFO mpq_sender: CLIENT-7c237d73b3791519 established
+62014596229 INFO mpq_sender: CLIENT-1dbac77513f0d6d0 established
+62015356914 INFO mpq_sender: streaming 1500 frames (policy=A1)
+62076292078 INFO mpq_sender: CLIENT-7c237d73b3791519 closed
+62076292156 INFO mpq_sender: sent 1500 of 1500 frames

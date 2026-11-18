@@ -1,0 +1,4 @@
+61260235781 INFO mpq_sender: CLIENT-3f53a0b3e9c55651 established
+61261236389 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+61321472083 INFO mpq_sender: CLIENT-3f53a0b3e9c55651 closed
+61321472238 INFO mpq_sender: sent 1500 of 1500 frames

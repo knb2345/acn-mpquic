@@ -1,0 +1,5 @@
+63463025056 INFO mpq_sender: CLIENT-a337920cd8146aed established
+63463025077 INFO mpq_sender: added path 10.10.2.1:54632 -> 10.10.0.1:4433
+63464025829 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+63525309243 INFO mpq_sender: CLIENT-a337920cd8146aed closed
+63525309407 INFO mpq_sender: sent 1500 of 1500 frames

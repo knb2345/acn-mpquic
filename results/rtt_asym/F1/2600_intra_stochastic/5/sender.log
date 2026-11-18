@@ -1,0 +1,5 @@
+46898058857 INFO mpq_sender: CLIENT-7b13a1c360b698e7 established
+46898058869 INFO mpq_sender: added path 10.10.2.1:39551 -> 10.10.0.1:4433
+46899059576 INFO mpq_sender: streaming 1500 frames (policy=F1)
+46959920800 INFO mpq_sender: CLIENT-7b13a1c360b698e7 closed
+46959920877 INFO mpq_sender: sent 1500 of 1500 frames

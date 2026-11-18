@@ -1,0 +1,5 @@
+55982204084 INFO mpq_sender: CLIENT-ce79ca4f903f14ee established
+55982204096 INFO mpq_sender: added path 10.10.2.1:59244 -> 10.10.0.1:4433
+55983204722 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+56044726517 INFO mpq_sender: CLIENT-ce79ca4f903f14ee closed
+56044726621 INFO mpq_sender: sent 1500 of 1500 frames

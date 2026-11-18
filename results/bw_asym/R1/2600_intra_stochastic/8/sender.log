@@ -1,0 +1,4 @@
+51875899192 INFO mpq_sender: CLIENT-1fcac7a05d521a1a established
+51876899688 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+51937179717 INFO mpq_sender: CLIENT-1fcac7a05d521a1a closed
+51937179799 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+50560224093 INFO mpq_sender: CLIENT-675cbf0facebece1 established
+50560224104 INFO mpq_sender: added path 10.10.2.1:48909 -> 10.10.0.1:4433
+50561224908 INFO mpq_sender: streaming 1500 frames (policy=F2)
+50621471196 INFO mpq_sender: CLIENT-675cbf0facebece1 closed
+50621471256 INFO mpq_sender: sent 1500 of 1500 frames

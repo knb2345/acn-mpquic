@@ -16,7 +16,7 @@ SIMs, or Wi-Fi plus mobile data), neither of which can carry a 720p camera feed
 *packets*, not *video frames*. We built a calibrated two-path emulation
 testbed, a frame-level video streamer on TQUIC with three small transport
 hooks, an ECF scheduler, frame-aware placement policies, and a deadline- and
-decode-aware playout model, and measured {RUNS} paired runs (8 per setting) of
+decode-aware playout model, and measured 576 paired runs (8 per setting) of
 a real 60 s NPTEL lecture across five network scenarios.
 
 At 2.6 Mbit/s, MinRTT and ECF freeze the video 11-15 % of the time even though
@@ -255,7 +255,13 @@ matrix or the sweep stalled; one run was discarded for CPU above 80 % and rerun
 Frames on time at D = 250 ms, mean of 8 paired runs (R1 is not shown for the
 outage scenario, see 3.6):
 
-{MAIN_TABLE}
+| Scenario | S0 | S1 MinRTT | S4 ECF | S2 RR | S3 Red. | F1 | F2 | A1 | R2 | R1 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| symmetric 1.6+1.6 | 0.4 % | 88.7 % | 88.2 % | 98.7 % | 0.4 % | 92.6 % | 98.8 % | 99.0 % | 98.9 % | 98.9 % |
+| bw_asym 2.0+1.2 | 0.8 % | 88.1 % | 88.5 % | 91.7 % | 0.7 % | 87.9 % | 96.3 % | 95.7 % | 98.9 % | 99.0 % |
+| rtt_asym 1.6+1.6 @30/150 | 0.4 % | 83.8 % | 83.7 % | 98.1 % | 0.4 % | 91.4 % | 95.8 % | 96.5 % | 98.3 % | 99.0 % |
+| outage 1.8+1.8 | 0.5 % | 66.2 % | 31.1 % | 75.2 % | 0.6 % | 71.5 % | 62.5 % | 55.6 % | 61.3 % | - |
+| control 4+4 | 99.9 % | 100.0 % | 100.0 % | 100.0 % | 100.0 % | 92.2 % | 100.0 % | 100.0 % | 100.0 % | 100.0 % |
 
 - The single better path (S0) and the redundant scheduler (S3) cannot carry
   2.6 Mbit/s whenever a link is below that rate; this is expected by
@@ -280,11 +286,17 @@ outage scenario, see 3.6):
 
 On rtt_asym (minimum RTTs 30 and 150 ms), with 8 paired runs per point:
 
-{SWEEP_TABLE}
+| Time frozen | 0.5 Mbit/s | 1.0 Mbit/s | 1.6 Mbit/s | 2.2 Mbit/s | 2.6 Mbit/s | 2.8 Mbit/s | usable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| S1 MinRTT | - | 0.0 % | 5.4 % | 9.3 % | 14.9 % | 19.2 % | 1.0 Mbit/s |
+| S4 ECF | - | 0.0 % | 5.5 % | 9.1 % | 15.2 % | 19.2 % | 1.0 Mbit/s |
+| F2 | 0.0 % | 7.9 % | 6.6 % | 2.2 % | 4.4 % | 10.6 % | 0.5 Mbit/s |
+| A1 | 0.0 % | 0.0 % | 9.6 % | 3.8 % | 3.6 % | 8.8 % | 1.0 Mbit/s |
+| R1 | - | 0.0 % | 0.0 % | 0.0 % | 1.0 % | 2.1 % | 2.6 Mbit/s |
 
 MinRTT and ECF stay within 1 % freeze up to **1.0 Mbit/s**; the ideal link R1
 up to **2.6 Mbit/s**. Per run id, the ratio of usable capacities is
-{P12_TEXT}, below the 0.8 bar in every run (P1, P2, Holm p = {P12}). On this grid
+0.42 for MinRTT (range 0.38-0.45) and 0.42 for ECF (range 0.38-0.45), below the 0.8 bar in every run (P1, P2, Holm p = 0.020 each). On this grid
 the true ratio lies between 1.0/2.8 and 1.6/2.6 (36-62 %), below 80 % either
 way. **H2 is supported.**
 
@@ -311,8 +323,8 @@ bootstrap CI of the paired difference):
 
 | | Scenario | F2 | Better of S1/S4 | Difference [95 % CI] | F2 lower | Holm p |
 | --- | --- | --- | --- | --- | --- | --- |
-| P3 | rtt_asym | 4.4 % | 14.9 % (S1) | -10.5 pp [-11.5, -9.5] | 8/8 | {P3} |
-| P4 | bw_asym | 3.8 % | 10.8 % (S4) | -7.0 pp [-8.1, -6.0] | 8/8 | {P4} |
+| P3 | rtt_asym | 4.4 % | 14.9 % (S1) | -10.5 pp [-11.5, -9.5] | 8/8 | 0.023 |
+| P4 | bw_asym | 3.8 % | 10.8 % (S4) | -7.0 pp [-8.1, -6.0] | 8/8 | 0.023 |
 
 The symmetric part of H3, as pre-registered, says F2 is *equivalent* (within
 5 %) to the better of MinRTT and ECF on symmetric links. It is not: F2 freezes

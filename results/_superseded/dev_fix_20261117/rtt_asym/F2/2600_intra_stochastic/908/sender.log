@@ -1,0 +1,5 @@
+39574219900 INFO mpq_sender: CLIENT-6e9162ae0d640bb0 established
+39574219911 INFO mpq_sender: added path 10.10.2.1:34235 -> 10.10.0.1:4433
+39575220478 INFO mpq_sender: streaming 1500 frames (policy=F2)
+39635941359 INFO mpq_sender: CLIENT-6e9162ae0d640bb0 closed
+39635941436 INFO mpq_sender: sent 1500 of 1500 frames

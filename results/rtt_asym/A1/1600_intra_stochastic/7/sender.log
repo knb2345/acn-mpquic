@@ -1,0 +1,5 @@
+58119616136 INFO mpq_sender: CLIENT-2d3ae62b2991d15a established
+58119858925 INFO mpq_sender: CLIENT-c710609675f476ca established
+58120616946 INFO mpq_sender: streaming 1500 frames (policy=A1)
+58181233251 INFO mpq_sender: CLIENT-2d3ae62b2991d15a closed
+58181233346 INFO mpq_sender: sent 1500 of 1500 frames

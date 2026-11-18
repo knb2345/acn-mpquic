@@ -1,0 +1,5 @@
+48470403795 INFO mpq_sender: CLIENT-ff1fe4c90dc49401 established
+48470403806 INFO mpq_sender: added path 10.10.2.1:46554 -> 10.10.0.1:4433
+48471404690 INFO mpq_sender: streaming 1500 frames (policy=F1)
+48532015771 INFO mpq_sender: CLIENT-ff1fe4c90dc49401 closed
+48532015828 INFO mpq_sender: sent 1500 of 1500 frames

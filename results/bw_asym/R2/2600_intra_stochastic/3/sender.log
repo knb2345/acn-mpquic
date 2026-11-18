@@ -1,0 +1,5 @@
+44010866232 INFO mpq_sender: CLIENT-cb70f7a4566cfb72 established
+44010866244 INFO mpq_sender: added path 10.10.2.1:58914 -> 10.10.0.1:4433
+44011866545 INFO mpq_sender: streaming 1500 frames (policy=R2)
+44072091106 INFO mpq_sender: CLIENT-cb70f7a4566cfb72 closed
+44072091185 INFO mpq_sender: sent 1500 of 1500 frames

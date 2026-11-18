@@ -1,0 +1,4 @@
+57994765152 INFO mpq_sender: CLIENT-7f0fd1b876a4c11a established
+57995765782 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+58055924555 INFO mpq_sender: CLIENT-7f0fd1b876a4c11a closed
+58055924638 INFO mpq_sender: sent 1500 of 1500 frames

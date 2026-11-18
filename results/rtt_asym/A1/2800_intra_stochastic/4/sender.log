@@ -1,0 +1,5 @@
+63336954913 INFO mpq_sender: CLIENT-90ad33609de07eba established
+63337191889 INFO mpq_sender: CLIENT-62e5698b6bbb744a established
+63337955657 INFO mpq_sender: streaming 1500 frames (policy=A1)
+63398720594 INFO mpq_sender: CLIENT-90ad33609de07eba closed
+63398720681 INFO mpq_sender: sent 1500 of 1500 frames

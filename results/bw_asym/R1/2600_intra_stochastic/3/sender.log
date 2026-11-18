@@ -1,0 +1,4 @@
+43948365869 INFO mpq_sender: CLIENT-2babe673c75299fb established
+43949366461 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+44009691940 INFO mpq_sender: CLIENT-2babe673c75299fb closed
+44009692107 INFO mpq_sender: sent 1500 of 1500 frames

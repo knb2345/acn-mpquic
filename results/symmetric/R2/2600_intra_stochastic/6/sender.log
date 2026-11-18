@@ -1,0 +1,5 @@
+49033113187 INFO mpq_sender: CLIENT-26f2e06dcbd39978 established
+49033113197 INFO mpq_sender: added path 10.10.2.1:58397 -> 10.10.0.1:4433
+49034113842 INFO mpq_sender: streaming 1500 frames (policy=R2)
+49094376378 INFO mpq_sender: CLIENT-26f2e06dcbd39978 closed
+49094376459 INFO mpq_sender: sent 1500 of 1500 frames

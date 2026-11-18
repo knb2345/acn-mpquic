@@ -1,0 +1,5 @@
+63022919742 INFO mpq_sender: CLIENT-6ef4fe098193dd8c established
+63023164449 INFO mpq_sender: CLIENT-6f496f648a57e145 established
+63023920262 INFO mpq_sender: streaming 1500 frames (policy=A1)
+63084609355 INFO mpq_sender: CLIENT-6ef4fe098193dd8c closed
+63084609430 INFO mpq_sender: sent 1500 of 1500 frames

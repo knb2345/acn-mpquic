@@ -1,0 +1,5 @@
+59812168282 INFO mpq_sender: CLIENT-370f53731baf653a established
+59812409088 INFO mpq_sender: CLIENT-550bf5e58292937f established
+59813169426 INFO mpq_sender: streaming 1500 frames (policy=A1)
+59873962061 INFO mpq_sender: CLIENT-370f53731baf653a closed
+59873962144 INFO mpq_sender: sent 1500 of 1500 frames

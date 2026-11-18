@@ -1,0 +1,5 @@
+54297290316 INFO mpq_sender: CLIENT-64c082c8f91680a5 established
+54297290327 INFO mpq_sender: added path 10.10.2.1:40437 -> 10.10.0.1:4433
+54298291378 INFO mpq_sender: streaming 1500 frames (policy=F2)
+54358639744 INFO mpq_sender: CLIENT-64c082c8f91680a5 closed
+54358639827 INFO mpq_sender: sent 1500 of 1500 frames

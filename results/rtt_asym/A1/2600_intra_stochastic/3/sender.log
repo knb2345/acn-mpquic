@@ -1,0 +1,5 @@
+43822716626 INFO mpq_sender: CLIENT-93e336a5328b0d34 established
+43822955384 INFO mpq_sender: CLIENT-dedb46f43bfb80cc established
+43823717622 INFO mpq_sender: streaming 1500 frames (policy=A1)
+43884533253 INFO mpq_sender: CLIENT-93e336a5328b0d34 closed
+43884533335 INFO mpq_sender: sent 1500 of 1500 frames

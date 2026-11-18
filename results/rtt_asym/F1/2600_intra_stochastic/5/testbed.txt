@@ -1,0 +1,1 @@
+testbed up: scenario=rtt_asym mode=default A=1600kbit/30ms B=1600kbit/150ms queue=200ms

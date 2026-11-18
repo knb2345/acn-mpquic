@@ -1,0 +1,4 @@
+48345502651 INFO mpq_sender: CLIENT-59defe4f96493e8c established
+48346503958 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+48406788199 INFO mpq_sender: CLIENT-59defe4f96493e8c closed
+48406788307 INFO mpq_sender: sent 1500 of 1500 frames

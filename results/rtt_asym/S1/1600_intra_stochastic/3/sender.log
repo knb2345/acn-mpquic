@@ -1,0 +1,5 @@
+56611073578 INFO mpq_sender: CLIENT-03caada7883bd2b4 established
+56611073588 INFO mpq_sender: added path 10.10.2.1:35518 -> 10.10.0.1:4433
+56612074293 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+56673028972 INFO mpq_sender: CLIENT-03caada7883bd2b4 closed
+56673029059 INFO mpq_sender: sent 1500 of 1500 frames

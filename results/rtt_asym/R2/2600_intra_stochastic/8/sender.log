@@ -1,0 +1,5 @@
+51624537787 INFO mpq_sender: CLIENT-40b1022d1879dfed established
+51624537791 INFO mpq_sender: added path 10.10.2.1:56324 -> 10.10.0.1:4433
+51625540060 INFO mpq_sender: streaming 1500 frames (policy=R2)
+51685979859 INFO mpq_sender: CLIENT-40b1022d1879dfed closed
+51685979971 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+46961285104 INFO mpq_sender: CLIENT-0794854af0895afd established
+46961523624 INFO mpq_sender: CLIENT-f85150ff3547112f established
+46962286237 INFO mpq_sender: streaming 1500 frames (policy=A1)
+47023191172 INFO mpq_sender: CLIENT-0794854af0895afd closed
+47023191253 INFO mpq_sender: sent 1500 of 1500 frames

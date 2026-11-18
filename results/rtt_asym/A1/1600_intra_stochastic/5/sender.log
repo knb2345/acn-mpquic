@@ -1,0 +1,5 @@
+57492559741 INFO mpq_sender: CLIENT-5785efc000cf3ef2 established
+57492797453 INFO mpq_sender: CLIENT-ca34614d47685214 established
+57493560840 INFO mpq_sender: streaming 1500 frames (policy=A1)
+57554235701 INFO mpq_sender: CLIENT-5785efc000cf3ef2 closed
+57554235768 INFO mpq_sender: sent 1500 of 1500 frames

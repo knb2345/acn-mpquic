@@ -1,0 +1,4 @@
+49995394312 INFO mpq_sender: CLIENT-90a62d7a4d6c2299 established
+49996394761 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+50056604668 INFO mpq_sender: CLIENT-90a62d7a4d6c2299 closed
+50056604763 INFO mpq_sender: sent 1500 of 1500 frames

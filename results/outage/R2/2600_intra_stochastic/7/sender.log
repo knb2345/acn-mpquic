@@ -1,0 +1,5 @@
+50997996687 INFO mpq_sender: CLIENT-87c238896040fc62 established
+50997996698 INFO mpq_sender: added path 10.10.2.1:56941 -> 10.10.0.1:4433
+50998996999 INFO mpq_sender: streaming 1500 frames (policy=R2)
+51059232815 INFO mpq_sender: CLIENT-87c238896040fc62 closed
+51059232854 INFO mpq_sender: sent 1500 of 1500 frames

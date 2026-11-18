@@ -1,0 +1,5 @@
+46207241444 INFO mpq_sender: CLIENT-2cabbce32b68ec7d established
+46207241452 INFO mpq_sender: added path 10.10.2.1:56668 -> 10.10.0.1:4433
+46208242333 INFO mpq_sender: streaming 1500 frames (policy=R2)
+46268496886 INFO mpq_sender: CLIENT-2cabbce32b68ec7d closed
+46268497080 INFO mpq_sender: sent 1500 of 1500 frames

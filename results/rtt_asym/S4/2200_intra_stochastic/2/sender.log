@@ -1,0 +1,5 @@
+59938246213 INFO mpq_sender: CLIENT-43aa1b010b225cea established
+59938246232 INFO mpq_sender: added path 10.10.2.1:53357 -> 10.10.0.1:4433
+59939246415 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+60000060609 INFO mpq_sender: CLIENT-43aa1b010b225cea closed
+60000060681 INFO mpq_sender: sent 1500 of 1500 frames

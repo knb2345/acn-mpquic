@@ -1,0 +1,5 @@
+58625736742 INFO mpq_sender: CLIENT-54671cabb2c23b39 established
+58625976124 INFO mpq_sender: CLIENT-5ce28d9d25ad0731 established
+58626737942 INFO mpq_sender: streaming 1500 frames (policy=A1)
+58686833086 INFO mpq_sender: CLIENT-54671cabb2c23b39 closed
+58686833157 INFO mpq_sender: sent 1500 of 1500 frames

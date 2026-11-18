@@ -1,0 +1,5 @@
+52126219737 INFO mpq_sender: CLIENT-d33e24e6181fc849 established
+52126219741 INFO mpq_sender: added path 10.10.2.1:33352 -> 10.10.0.1:4433
+52127220748 INFO mpq_sender: streaming 1500 frames (policy=F2)
+52187474658 INFO mpq_sender: CLIENT-d33e24e6181fc849 closed
+52187474788 INFO mpq_sender: sent 1500 of 1500 frames

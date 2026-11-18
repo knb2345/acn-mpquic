@@ -1,0 +1,5 @@
+45956592662 INFO mpq_sender: CLIENT-8f193dbc0e3c86d0 established
+45956592671 INFO mpq_sender: added path 10.10.2.1:50502 -> 10.10.0.1:4433
+45957593129 INFO mpq_sender: streaming 1500 frames (policy=F1)
+46018076210 INFO mpq_sender: CLIENT-8f193dbc0e3c86d0 closed
+46018076253 INFO mpq_sender: sent 1500 of 1500 frames

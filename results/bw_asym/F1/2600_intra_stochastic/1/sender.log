@@ -1,0 +1,5 @@
+40939177987 INFO mpq_sender: CLIENT-c3d3c20753785dff established
+40939177993 INFO mpq_sender: added path 10.10.2.1:43727 -> 10.10.0.1:4433
+40940178836 INFO mpq_sender: streaming 1500 frames (policy=F1)
+41000727481 INFO mpq_sender: CLIENT-c3d3c20753785dff closed
+41000727564 INFO mpq_sender: sent 1500 of 1500 frames

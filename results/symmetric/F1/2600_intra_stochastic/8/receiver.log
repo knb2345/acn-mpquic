@@ -1,0 +1,5 @@
+52313323830 INFO mpq_receiver: listening on 10.10.0.1:4433
+52313575904 INFO mpq_receiver: SERVER-b7dd4ae45f42300f established
+52374616370 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+52374982588 INFO mpq_receiver: SERVER-b7dd4ae45f42300f closed
+52374983581 INFO mpq_receiver: 1500 of 1500 frames complete

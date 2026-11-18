@@ -1,0 +1,5 @@
+60504498937 INFO mpq_sender: CLIENT-880b24653b3632bf established
+60504498948 INFO mpq_sender: added path 10.10.2.1:57162 -> 10.10.0.1:4433
+60505499414 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+60566448272 INFO mpq_sender: CLIENT-880b24653b3632bf closed
+60566448411 INFO mpq_sender: sent 1500 of 1500 frames

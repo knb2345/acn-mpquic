@@ -1,0 +1,5 @@
+46333539394 INFO mpq_sender: CLIENT-13efe6ad418de8ee established
+46333576878 INFO mpq_sender: CLIENT-1aefdf69614bc052 established
+46334540063 INFO mpq_sender: streaming 1500 frames (policy=A1)
+46394798006 INFO mpq_sender: CLIENT-13efe6ad418de8ee closed
+46394798105 INFO mpq_sender: sent 1500 of 1500 frames

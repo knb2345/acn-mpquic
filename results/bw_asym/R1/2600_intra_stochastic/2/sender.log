@@ -1,0 +1,4 @@
+42380560870 INFO mpq_sender: CLIENT-915567fe0434cbed established
+42381561742 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+42441888060 INFO mpq_sender: CLIENT-915567fe0434cbed closed
+42441888193 INFO mpq_sender: sent 1500 of 1500 frames

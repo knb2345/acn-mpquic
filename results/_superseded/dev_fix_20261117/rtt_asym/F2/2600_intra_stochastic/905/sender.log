@@ -1,0 +1,5 @@
+39158049045 INFO mpq_sender: CLIENT-c10c4082b57a5b3e established
+39158049061 INFO mpq_sender: added path 10.10.2.1:53097 -> 10.10.0.1:4433
+39159049598 INFO mpq_sender: streaming 1500 frames (policy=F2)
+39220113488 INFO mpq_sender: CLIENT-c10c4082b57a5b3e closed
+39220113588 INFO mpq_sender: sent 1500 of 1500 frames

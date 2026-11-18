@@ -1,0 +1,5 @@
+63589725290 INFO mpq_sender: CLIENT-e2612cace856765d established
+63589725302 INFO mpq_sender: added path 10.10.2.1:44147 -> 10.10.0.1:4433
+63590726312 INFO mpq_sender: streaming 1500 frames (policy=F2)
+63651617041 INFO mpq_sender: CLIENT-e2612cace856765d closed
+63651617113 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+49286797130 INFO mpq_sender: CLIENT-cdbb0d029a795973 established
+49286797135 INFO mpq_sender: added path 10.10.2.1:60406 -> 10.10.0.1:4433
+49287798184 INFO mpq_sender: streaming 1500 frames (policy=F2)
+49349745958 INFO mpq_sender: CLIENT-cdbb0d029a795973 closed
+49349746046 INFO mpq_sender: sent 1500 of 1500 frames

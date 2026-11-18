@@ -1,0 +1,5 @@
+42067154729 INFO mpq_receiver: listening on 10.10.0.1:4433
+42067426161 INFO mpq_receiver: SERVER-779b44c4527eae6c established
+42128418314 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+42128635199 INFO mpq_receiver: SERVER-779b44c4527eae6c closed
+42128635736 INFO mpq_receiver: 1500 of 1500 frames complete

@@ -1,0 +1,5 @@
+42129685137 INFO mpq_sender: CLIENT-c6b44542400d45b5 established
+42129685141 INFO mpq_sender: added path 10.10.2.1:60242 -> 10.10.0.1:4433
+42130686129 INFO mpq_sender: streaming 1500 frames (policy=R2)
+42191066836 INFO mpq_sender: CLIENT-c6b44542400d45b5 closed
+42191066917 INFO mpq_sender: sent 1500 of 1500 frames

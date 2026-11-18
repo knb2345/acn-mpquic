@@ -1,0 +1,5 @@
+39693434491 INFO mpq_sender: CLIENT-5f9d01b79323a4f1 established
+39693434496 INFO mpq_sender: added path 10.10.2.1:52735 -> 10.10.0.1:4433
+39694435063 INFO mpq_sender: streaming 1500 frames (policy=F1)
+39755191356 INFO mpq_sender: CLIENT-5f9d01b79323a4f1 closed
+39755191795 INFO mpq_sender: sent 1500 of 1500 frames

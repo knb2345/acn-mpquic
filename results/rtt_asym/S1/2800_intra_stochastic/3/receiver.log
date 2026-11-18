@@ -1,0 +1,5 @@
+62770972303 INFO mpq_receiver: listening on 10.10.0.1:4433
+62771236457 INFO mpq_receiver: SERVER-83cf490b990f860a established
+62832352367 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+62833452221 INFO mpq_receiver: SERVER-83cf490b990f860a closed
+62833453331 INFO mpq_receiver: 1500 of 1500 frames complete

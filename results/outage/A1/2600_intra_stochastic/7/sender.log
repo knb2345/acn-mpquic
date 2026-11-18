@@ -1,0 +1,5 @@
+51123967578 INFO mpq_sender: CLIENT-92e3193b1e5104ee established
+51124006842 INFO mpq_sender: CLIENT-9aea734dea677a4b established
+51124967888 INFO mpq_sender: streaming 1500 frames (policy=A1)
+51185212329 INFO mpq_sender: CLIENT-92e3193b1e5104ee closed
+51185212414 INFO mpq_sender: sent 1500 of 1500 frames

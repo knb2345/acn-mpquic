@@ -1,0 +1,5 @@
+41190171696 INFO mpq_sender: CLIENT-ee036a07b57bf7b0 established
+41190171701 INFO mpq_sender: added path 10.10.2.1:33482 -> 10.10.0.1:4433
+41191172413 INFO mpq_sender: streaming 1500 frames (policy=R2)
+41251440040 INFO mpq_sender: CLIENT-ee036a07b57bf7b0 closed
+41251440107 INFO mpq_sender: sent 1500 of 1500 frames

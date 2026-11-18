@@ -1,0 +1,5 @@
+55358551067 INFO mpq_sender: CLIENT-8aea4ae9f69e82c0 established
+55358551078 INFO mpq_sender: added path 10.10.2.1:50064 -> 10.10.0.1:4433
+55359552201 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+55419698853 INFO mpq_sender: CLIENT-8aea4ae9f69e82c0 closed
+55419698931 INFO mpq_sender: sent 1500 of 1500 frames

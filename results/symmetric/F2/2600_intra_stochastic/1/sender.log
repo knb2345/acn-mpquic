@@ -1,0 +1,5 @@
+41064819208 INFO mpq_sender: CLIENT-f4d896a6fc496852 established
+41064819221 INFO mpq_sender: added path 10.10.2.1:56882 -> 10.10.0.1:4433
+41065819781 INFO mpq_sender: streaming 1500 frames (policy=F2)
+41126087158 INFO mpq_sender: CLIENT-f4d896a6fc496852 closed
+41126087242 INFO mpq_sender: sent 1500 of 1500 frames

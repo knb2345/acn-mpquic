@@ -1,0 +1,5 @@
+43384147342 INFO mpq_sender: CLIENT-46e4b5e0cdf355a5 established
+43384147353 INFO mpq_sender: added path 10.10.2.1:53613 -> 10.10.0.1:4433
+43385148318 INFO mpq_sender: streaming 1500 frames (policy=R2)
+43445326089 INFO mpq_sender: CLIENT-46e4b5e0cdf355a5 closed
+43445326162 INFO mpq_sender: sent 1500 of 1500 frames

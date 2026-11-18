@@ -1,0 +1,5 @@
+47592175330 INFO mpq_sender: CLIENT-3e5ce0e32213bd7c established
+47592175344 INFO mpq_sender: CLIENT-97c5bcac073fe638 established
+47593176385 INFO mpq_sender: streaming 1500 frames (policy=A1)
+47653482468 INFO mpq_sender: CLIENT-3e5ce0e32213bd7c closed
+47653482512 INFO mpq_sender: sent 1500 of 1500 frames

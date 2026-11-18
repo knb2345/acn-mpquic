@@ -1,0 +1,5 @@
+59372895959 INFO mpq_sender: CLIENT-3dcda43f6d3f8291 established
+59373119446 INFO mpq_sender: CLIENT-999f21bdb53b9483 established
+59373896644 INFO mpq_sender: streaming 1500 frames (policy=A1)
+59433985686 INFO mpq_sender: CLIENT-3dcda43f6d3f8291 closed
+59433985779 INFO mpq_sender: sent 1500 of 1500 frames

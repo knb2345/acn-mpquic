@@ -1,0 +1,5 @@
+49932459534 INFO mpq_sender: CLIENT-736a02ec2095b88d established
+49932459542 INFO mpq_sender: added path 10.10.2.1:52964 -> 10.10.0.1:4433
+49933460372 INFO mpq_sender: streaming 1500 frames (policy=F2)
+49994210448 INFO mpq_sender: CLIENT-736a02ec2095b88d closed
+49994210557 INFO mpq_sender: sent 1500 of 1500 frames

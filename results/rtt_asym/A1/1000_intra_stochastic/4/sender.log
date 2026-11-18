@@ -1,0 +1,5 @@
+54671963176 INFO mpq_sender: CLIENT-47f7c32f5591a06b established
+54672202704 INFO mpq_sender: CLIENT-741783013fbb4c5a established
+54672963494 INFO mpq_sender: streaming 1500 frames (policy=A1)
+54733113737 INFO mpq_sender: CLIENT-47f7c32f5591a06b closed
+54733113806 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,4 @@
+49351072161 INFO mpq_sender: CLIENT-2532907df0c5a608 established
+49352072872 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+49414832095 INFO mpq_sender: CLIENT-2532907df0c5a608 closed
+49414832236 INFO mpq_sender: sent 1500 of 1500 frames

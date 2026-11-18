@@ -1,0 +1,5 @@
+42318306794 INFO mpq_sender: CLIENT-e9187140d711c396 established
+42318306799 INFO mpq_sender: added path 10.10.2.1:47501 -> 10.10.0.1:4433
+42319307718 INFO mpq_sender: streaming 1500 frames (policy=F2)
+42379561303 INFO mpq_sender: CLIENT-e9187140d711c396 closed
+42379561463 INFO mpq_sender: sent 1500 of 1500 frames

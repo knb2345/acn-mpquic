@@ -1,0 +1,5 @@
+52313554044 INFO mpq_sender: CLIENT-6a1b6804c7e71382 established
+52313554055 INFO mpq_sender: added path 10.10.2.1:44180 -> 10.10.0.1:4433
+52314555195 INFO mpq_sender: streaming 1500 frames (policy=F1)
+52374800903 INFO mpq_sender: CLIENT-6a1b6804c7e71382 closed
+52374801077 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,4 @@
+52501581902 INFO mpq_sender: CLIENT-111189c360e9959a established
+52502583031 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+52562847244 INFO mpq_sender: CLIENT-111189c360e9959a closed
+52562847455 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+40688679875 INFO mpq_sender: CLIENT-32ffef8de6ec9f91 established
+40688919201 INFO mpq_sender: CLIENT-6eb1adbe85291137 established
+40689680725 INFO mpq_sender: streaming 1500 frames (policy=A1)
+40750416831 INFO mpq_sender: CLIENT-32ffef8de6ec9f91 closed
+40750416893 INFO mpq_sender: sent 1500 of 1500 frames

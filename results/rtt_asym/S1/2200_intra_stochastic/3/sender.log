@@ -1,0 +1,5 @@
+60189527340 INFO mpq_sender: CLIENT-58c31d44e2df40e1 established
+60189527354 INFO mpq_sender: added path 10.10.2.1:35776 -> 10.10.0.1:4433
+60190528305 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+60251612665 INFO mpq_sender: CLIENT-58c31d44e2df40e1 closed
+60251612739 INFO mpq_sender: sent 1500 of 1500 frames

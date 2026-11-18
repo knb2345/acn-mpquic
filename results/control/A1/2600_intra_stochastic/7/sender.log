@@ -1,0 +1,5 @@
+51436536481 INFO mpq_sender: CLIENT-27afcf563ade5053 established
+51436536488 INFO mpq_sender: CLIENT-97cd76af60ceb138 established
+51437537330 INFO mpq_sender: streaming 1500 frames (policy=A1)
+51497753487 INFO mpq_sender: CLIENT-27afcf563ade5053 closed
+51497753562 INFO mpq_sender: sent 1500 of 1500 frames

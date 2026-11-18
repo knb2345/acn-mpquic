@@ -1,0 +1,4 @@
+42067409606 INFO mpq_sender: CLIENT-bfbb7d4a85e4ac60 established
+42068410329 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+42128696131 INFO mpq_sender: CLIENT-bfbb7d4a85e4ac60 closed
+42128696185 INFO mpq_sender: sent 1500 of 1500 frames

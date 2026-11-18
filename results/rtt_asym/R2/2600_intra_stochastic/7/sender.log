@@ -1,0 +1,5 @@
+50057709131 INFO mpq_sender: CLIENT-c5a3edb2850f0cfb established
+50057709142 INFO mpq_sender: added path 10.10.2.1:41392 -> 10.10.0.1:4433
+50058709610 INFO mpq_sender: streaming 1500 frames (policy=R2)
+50119149263 INFO mpq_sender: CLIENT-c5a3edb2850f0cfb closed
+50119149407 INFO mpq_sender: sent 1500 of 1500 frames

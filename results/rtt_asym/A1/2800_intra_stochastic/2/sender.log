@@ -1,0 +1,5 @@
+62708397363 INFO mpq_sender: CLIENT-133b796c81e5cf31 established
+62708637035 INFO mpq_sender: CLIENT-b140d38d7d2e9ed5 established
+62709398486 INFO mpq_sender: streaming 1500 frames (policy=A1)
+62770226386 INFO mpq_sender: CLIENT-133b796c81e5cf31 closed
+62770226539 INFO mpq_sender: sent 1500 of 1500 frames

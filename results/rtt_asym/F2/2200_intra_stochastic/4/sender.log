@@ -1,0 +1,5 @@
+60693242828 INFO mpq_sender: CLIENT-f282a65da5be3e0d established
+60693242839 INFO mpq_sender: added path 10.10.2.1:56276 -> 10.10.0.1:4433
+60694243337 INFO mpq_sender: streaming 1500 frames (policy=F2)
+60754918342 INFO mpq_sender: CLIENT-f282a65da5be3e0d closed
+60754918461 INFO mpq_sender: sent 1500 of 1500 frames

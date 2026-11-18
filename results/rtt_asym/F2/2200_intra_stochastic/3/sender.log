@@ -1,0 +1,5 @@
+60378421308 INFO mpq_sender: CLIENT-8f87e3c59edceea0 established
+60378421318 INFO mpq_sender: added path 10.10.2.1:39874 -> 10.10.0.1:4433
+60379421761 INFO mpq_sender: streaming 1500 frames (policy=F2)
+60440317834 INFO mpq_sender: CLIENT-8f87e3c59edceea0 closed
+60440317920 INFO mpq_sender: sent 1500 of 1500 frames

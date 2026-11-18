@@ -1,0 +1,4 @@
+64471314322 INFO mpq_sender: CLIENT-52ae9e304b42d4cf established
+64472314896 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+64532561855 INFO mpq_sender: CLIENT-52ae9e304b42d4cf closed
+64532562020 INFO mpq_sender: sent 1500 of 1500 frames

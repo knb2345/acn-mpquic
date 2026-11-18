@@ -1,0 +1,5 @@
+45643780694 INFO mpq_sender: CLIENT-9664b96e29badfd9 established
+45643780704 INFO mpq_sender: added path 10.10.2.1:35655 -> 10.10.0.1:4433
+45644781192 INFO mpq_sender: streaming 1500 frames (policy=F1)
+45705434561 INFO mpq_sender: CLIENT-9664b96e29badfd9 closed
+45705434613 INFO mpq_sender: sent 1500 of 1500 frames

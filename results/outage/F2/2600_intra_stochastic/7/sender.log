@@ -1,0 +1,5 @@
+50872730255 INFO mpq_sender: CLIENT-16e8970cc4492552 established
+50872730266 INFO mpq_sender: added path 10.10.2.1:41330 -> 10.10.0.1:4433
+50873730872 INFO mpq_sender: streaming 1500 frames (policy=F2)
+50934128053 INFO mpq_sender: CLIENT-16e8970cc4492552 closed
+50934128107 INFO mpq_sender: sent 1500 of 1500 frames

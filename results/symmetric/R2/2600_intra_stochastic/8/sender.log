@@ -1,0 +1,5 @@
+52251069027 INFO mpq_sender: CLIENT-701c51c58e2ea97f established
+52251069033 INFO mpq_sender: added path 10.10.2.1:40659 -> 10.10.0.1:4433
+52252069706 INFO mpq_sender: streaming 1500 frames (policy=R2)
+52312323043 INFO mpq_sender: CLIENT-701c51c58e2ea97f closed
+52312323178 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+47907299013 INFO mpq_sender: CLIENT-602db4b92ae979c6 established
+47907338187 INFO mpq_sender: CLIENT-55088a09202dd72d established
+47908300236 INFO mpq_sender: streaming 1500 frames (policy=A1)
+47968611678 INFO mpq_sender: CLIENT-602db4b92ae979c6 closed
+47968611747 INFO mpq_sender: sent 1500 of 1500 frames

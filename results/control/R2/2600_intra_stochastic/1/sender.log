@@ -1,0 +1,5 @@
+41817153436 INFO mpq_sender: CLIENT-eda8e20295d8791a established
+41817153442 INFO mpq_sender: added path 10.10.2.1:37312 -> 10.10.0.1:4433
+41818153904 INFO mpq_sender: streaming 1500 frames (policy=R2)
+41878331114 INFO mpq_sender: CLIENT-eda8e20295d8791a closed
+41878331186 INFO mpq_sender: sent 1500 of 1500 frames

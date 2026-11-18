@@ -1,0 +1,5 @@
+59560350607 INFO mpq_sender: CLIENT-28dcff717a6e3c05 established
+59560350617 INFO mpq_sender: added path 10.10.2.1:42985 -> 10.10.0.1:4433
+59561350960 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+59622237690 INFO mpq_sender: CLIENT-28dcff717a6e3c05 closed
+59622237801 INFO mpq_sender: sent 1500 of 1500 frames

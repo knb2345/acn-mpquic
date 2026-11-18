@@ -1,0 +1,4 @@
+62204977114 INFO mpq_sender: CLIENT-6ba59f9c2ff65fa4 established
+62205978027 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+62266329239 INFO mpq_sender: CLIENT-6ba59f9c2ff65fa4 closed
+62266329283 INFO mpq_sender: sent 1500 of 1500 frames

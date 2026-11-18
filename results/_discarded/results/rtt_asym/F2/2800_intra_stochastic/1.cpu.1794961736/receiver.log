@@ -1,0 +1,5 @@
+62267229973 INFO mpq_receiver: listening on 10.10.0.1:4433
+62267520893 INFO mpq_receiver: SERVER-5900e2f637ec2de3 established
+62328631567 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+62329392650 INFO mpq_receiver: SERVER-5900e2f637ec2de3 closed
+62329393094 INFO mpq_receiver: 1500 of 1500 frames complete

@@ -1,0 +1,5 @@
+47466207537 INFO mpq_sender: CLIENT-a97688813482cac4 established
+47466207541 INFO mpq_sender: added path 10.10.2.1:49560 -> 10.10.0.1:4433
+47467207765 INFO mpq_sender: streaming 1500 frames (policy=R2)
+47527515143 INFO mpq_sender: CLIENT-a97688813482cac4 closed
+47527515182 INFO mpq_sender: sent 1500 of 1500 frames

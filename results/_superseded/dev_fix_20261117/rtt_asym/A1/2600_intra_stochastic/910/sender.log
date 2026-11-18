@@ -1,0 +1,5 @@
+40230241016 INFO mpq_sender: CLIENT-7793c34beb1f0be4 established
+40230480943 INFO mpq_sender: CLIENT-47a8779ea60e60e4 established
+40231241763 INFO mpq_sender: streaming 1500 frames (policy=A1)
+40291979052 INFO mpq_sender: CLIENT-7793c34beb1f0be4 closed
+40291979171 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+38059399051 INFO mpq_sender: CLIENT-b0b9af22f05e69c0 established
+38059399062 INFO mpq_sender: added path 10.10.2.1:47813 -> 10.10.0.1:4433
+38060399853 INFO mpq_sender: streaming 1500 frames (policy=F2)
+38151030059 INFO mpq_sender: CLIENT-b0b9af22f05e69c0 closed
+38151030229 INFO mpq_sender: sent 1500 of 1500 frames

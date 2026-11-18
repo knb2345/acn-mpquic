@@ -1,0 +1,5 @@
+44702759106 INFO mpq_sender: CLIENT-11affac7e200917c established
+44702759117 INFO mpq_sender: added path 10.10.2.1:54112 -> 10.10.0.1:4433
+44703760291 INFO mpq_sender: streaming 1500 frames (policy=F1)
+44764257380 INFO mpq_sender: CLIENT-11affac7e200917c closed
+44764257526 INFO mpq_sender: sent 1500 of 1500 frames

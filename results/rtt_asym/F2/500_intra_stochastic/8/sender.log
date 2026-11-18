@@ -1,0 +1,5 @@
+59435201728 INFO mpq_sender: CLIENT-359634441ccdf4e7 established
+59435201737 INFO mpq_sender: added path 10.10.2.1:59086 -> 10.10.0.1:4433
+59436202337 INFO mpq_sender: streaming 1500 frames (policy=F2)
+59496366744 INFO mpq_sender: CLIENT-359634441ccdf4e7 closed
+59496366820 INFO mpq_sender: sent 1500 of 1500 frames

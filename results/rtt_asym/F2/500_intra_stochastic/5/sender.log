@@ -1,0 +1,5 @@
+59061498917 INFO mpq_sender: CLIENT-d4727b91d3e3e834 established
+59061498927 INFO mpq_sender: added path 10.10.2.1:54418 -> 10.10.0.1:4433
+59062499328 INFO mpq_sender: streaming 1500 frames (policy=F2)
+59122673431 INFO mpq_sender: CLIENT-d4727b91d3e3e834 closed
+59122673500 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+61322538659 INFO mpq_sender: CLIENT-1e4f693bd992fa20 established
+61322538673 INFO mpq_sender: added path 10.10.2.1:57893 -> 10.10.0.1:4433
+61323540146 INFO mpq_sender: streaming 1500 frames (policy=F2)
+61384097978 INFO mpq_sender: CLIENT-1e4f693bd992fa20 closed
+61384098090 INFO mpq_sender: sent 1500 of 1500 frames

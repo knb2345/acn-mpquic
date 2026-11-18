@@ -1,0 +1,5 @@
+51938270133 INFO mpq_sender: CLIENT-abc19b33d083ef67 established
+51938270143 INFO mpq_sender: added path 10.10.2.1:37155 -> 10.10.0.1:4433
+51939270455 INFO mpq_sender: streaming 1500 frames (policy=R2)
+51999458827 INFO mpq_sender: CLIENT-abc19b33d083ef67 closed
+51999458957 INFO mpq_sender: sent 1500 of 1500 frames

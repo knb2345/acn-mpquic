@@ -1,0 +1,5 @@
+56171001961 INFO mpq_sender: CLIENT-c838078f874eb8ae established
+56171001972 INFO mpq_sender: added path 10.10.2.1:47613 -> 10.10.0.1:4433
+56172002722 INFO mpq_sender: streaming 1500 frames (policy=F2)
+56232556653 INFO mpq_sender: CLIENT-c838078f874eb8ae closed
+56232556736 INFO mpq_sender: sent 1500 of 1500 frames

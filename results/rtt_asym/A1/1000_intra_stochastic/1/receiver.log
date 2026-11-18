@@ -1,0 +1,6 @@
+53736395367 INFO mpq_receiver: listening on 10.10.0.1:4433
+53736664423 INFO mpq_receiver: SERVER-a39a7240d30a5f23 established
+53797640908 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+53797780748 INFO tquic::connection: SERVER-11302cc02d999e43 idle timeout
+53797913579 INFO mpq_receiver: SERVER-a39a7240d30a5f23 closed
+53797914763 INFO mpq_receiver: 1500 of 1500 frames complete

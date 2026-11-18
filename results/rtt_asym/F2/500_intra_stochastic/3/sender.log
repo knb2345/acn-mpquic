@@ -1,0 +1,5 @@
+58812734995 INFO mpq_sender: CLIENT-8ce64d6745666b08 established
+58812735000 INFO mpq_sender: added path 10.10.2.1:45637 -> 10.10.0.1:4433
+58813736037 INFO mpq_sender: streaming 1500 frames (policy=F2)
+58873830878 INFO mpq_sender: CLIENT-8ce64d6745666b08 closed
+58873830952 INFO mpq_sender: sent 1500 of 1500 frames

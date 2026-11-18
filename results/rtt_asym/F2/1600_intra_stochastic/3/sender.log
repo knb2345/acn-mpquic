@@ -1,0 +1,5 @@
+56799979623 INFO mpq_sender: CLIENT-2151850d3b7b642a established
+56799979628 INFO mpq_sender: added path 10.10.2.1:33179 -> 10.10.0.1:4433
+56800980554 INFO mpq_sender: streaming 1500 frames (policy=F2)
+56861790889 INFO mpq_sender: CLIENT-2151850d3b7b642a closed
+56861790962 INFO mpq_sender: sent 1500 of 1500 frames

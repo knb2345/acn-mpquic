@@ -1,0 +1,5 @@
+45079769686 INFO mpq_sender: CLIENT-5841d9438b205f3f established
+45079769700 INFO mpq_sender: CLIENT-2a17fee877913925 established
+45080770211 INFO mpq_sender: streaming 1500 frames (policy=A1)
+45140926591 INFO mpq_sender: CLIENT-5841d9438b205f3f closed
+45140926685 INFO mpq_sender: sent 1500 of 1500 frames

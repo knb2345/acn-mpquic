@@ -1,0 +1,5 @@
+39511010730 INFO mpq_sender: CLIENT-f9af7c934b441d7f established
+39511010741 INFO mpq_sender: added path 10.10.2.1:42071 -> 10.10.0.1:4433
+39512011366 INFO mpq_sender: streaming 1500 frames (policy=F2)
+39572708777 INFO mpq_sender: CLIENT-f9af7c934b441d7f closed
+39572708889 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+55919620295 INFO mpq_sender: CLIENT-ccda924576133d5c established
+55919857832 INFO mpq_sender: CLIENT-dc89a400fd9f407c established
+55920620891 INFO mpq_sender: streaming 1500 frames (policy=A1)
+55980769073 INFO mpq_sender: CLIENT-ccda924576133d5c closed
+55980769254 INFO mpq_sender: sent 1500 of 1500 frames

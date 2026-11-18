@@ -1,0 +1,5 @@
+54796770429 INFO mpq_sender: CLIENT-b49c65d2419f043b established
+54796770436 INFO mpq_sender: added path 10.10.2.1:43930 -> 10.10.0.1:4433
+54797771132 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+54857922642 INFO mpq_sender: CLIENT-b49c65d2419f043b closed
+54857922765 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+43509424729 INFO mpq_sender: CLIENT-7ae63cd74af0e0cb established
+43509424741 INFO mpq_sender: CLIENT-ada449e08ae78eea established
+43510425814 INFO mpq_sender: streaming 1500 frames (policy=A1)
+43570639673 INFO mpq_sender: CLIENT-7ae63cd74af0e0cb closed
+43570639724 INFO mpq_sender: sent 1500 of 1500 frames

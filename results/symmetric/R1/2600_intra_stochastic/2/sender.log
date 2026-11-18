@@ -1,0 +1,4 @@
+42693222229 INFO mpq_sender: CLIENT-605f909164847be3 established
+42694222480 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+42754547784 INFO mpq_sender: CLIENT-605f909164847be3 closed
+42754547856 INFO mpq_sender: sent 1500 of 1500 frames

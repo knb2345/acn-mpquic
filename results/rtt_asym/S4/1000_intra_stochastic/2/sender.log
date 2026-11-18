@@ -1,0 +1,5 @@
+53861232316 INFO mpq_sender: CLIENT-95a89a9c0dba72ca established
+53861232322 INFO mpq_sender: added path 10.10.2.1:46367 -> 10.10.0.1:4433
+53862233476 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+53922369968 INFO mpq_sender: CLIENT-95a89a9c0dba72ca closed
+53922370034 INFO mpq_sender: sent 1500 of 1500 frames

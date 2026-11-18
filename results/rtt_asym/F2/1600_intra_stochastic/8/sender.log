@@ -1,0 +1,5 @@
+58433325933 INFO mpq_sender: CLIENT-7b74a6b8a2ddcfb2 established
+58433325944 INFO mpq_sender: added path 10.10.2.1:44866 -> 10.10.0.1:4433
+58434326931 INFO mpq_sender: streaming 1500 frames (policy=F2)
+58494631858 INFO mpq_sender: CLIENT-7b74a6b8a2ddcfb2 closed
+58494631907 INFO mpq_sender: sent 1500 of 1500 frames

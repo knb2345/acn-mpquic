@@ -1,0 +1,4 @@
+57052520784 INFO mpq_sender: CLIENT-6bb01e1df6beb402 established
+57053521859 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+57113714574 INFO mpq_sender: CLIENT-6bb01e1df6beb402 closed
+57113714707 INFO mpq_sender: sent 1500 of 1500 frames

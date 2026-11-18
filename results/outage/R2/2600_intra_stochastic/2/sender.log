@@ -1,0 +1,5 @@
+43070424822 INFO mpq_sender: CLIENT-7455467a02c296b8 established
+43070424830 INFO mpq_sender: added path 10.10.2.1:51854 -> 10.10.0.1:4433
+43071425720 INFO mpq_sender: streaming 1500 frames (policy=R2)
+43131666751 INFO mpq_sender: CLIENT-7455467a02c296b8 closed
+43131666912 INFO mpq_sender: sent 1500 of 1500 frames

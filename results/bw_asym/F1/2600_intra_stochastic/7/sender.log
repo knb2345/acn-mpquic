@@ -1,0 +1,5 @@
+50434070643 INFO mpq_sender: CLIENT-c333ba7133726729 established
+50434070657 INFO mpq_sender: added path 10.10.2.1:33350 -> 10.10.0.1:4433
+50435071767 INFO mpq_sender: streaming 1500 frames (policy=F1)
+50495926252 INFO mpq_sender: CLIENT-c333ba7133726729 closed
+50495926330 INFO mpq_sender: sent 1500 of 1500 frames

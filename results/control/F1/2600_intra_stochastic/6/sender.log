@@ -1,0 +1,5 @@
+49807275001 INFO mpq_sender: CLIENT-b4ed6c3550739612 established
+49807275012 INFO mpq_sender: added path 10.10.2.1:50372 -> 10.10.0.1:4433
+49808275780 INFO mpq_sender: streaming 1500 frames (policy=F1)
+49868998426 INFO mpq_sender: CLIENT-b4ed6c3550739612 closed
+49868998503 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+42944905206 INFO mpq_sender: CLIENT-0aa9b27909acc694 established
+42944905218 INFO mpq_sender: added path 10.10.2.1:57769 -> 10.10.0.1:4433
+42945906216 INFO mpq_sender: streaming 1500 frames (policy=F2)
+43006200916 INFO mpq_sender: CLIENT-0aa9b27909acc694 closed
+43006201016 INFO mpq_sender: sent 1500 of 1500 frames

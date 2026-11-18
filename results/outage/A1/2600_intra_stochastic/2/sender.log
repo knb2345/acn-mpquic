@@ -1,0 +1,5 @@
+43196421173 INFO mpq_sender: CLIENT-83c04c9fa56eee0e established
+43196460937 INFO mpq_sender: CLIENT-d00d79766d312ad5 established
+43197421326 INFO mpq_sender: streaming 1500 frames (policy=A1)
+43258258318 INFO mpq_sender: CLIENT-83c04c9fa56eee0e closed
+43258258466 INFO mpq_sender: sent 1500 of 1500 frames

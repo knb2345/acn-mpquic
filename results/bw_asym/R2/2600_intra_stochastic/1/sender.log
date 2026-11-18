@@ -1,0 +1,5 @@
+40876358653 INFO mpq_sender: CLIENT-dad06f8e7fb54159 established
+40876358658 INFO mpq_sender: added path 10.10.2.1:38449 -> 10.10.0.1:4433
+40877358984 INFO mpq_sender: streaming 1500 frames (policy=R2)
+40937603155 INFO mpq_sender: CLIENT-dad06f8e7fb54159 closed
+40937603229 INFO mpq_sender: sent 1500 of 1500 frames

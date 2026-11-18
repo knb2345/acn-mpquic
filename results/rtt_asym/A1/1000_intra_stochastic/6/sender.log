@@ -1,0 +1,5 @@
+55296208771 INFO mpq_sender: CLIENT-206c2b3776ac5e93 established
+55296446832 INFO mpq_sender: CLIENT-c14626f9975404c6 established
+55297209075 INFO mpq_sender: streaming 1500 frames (policy=A1)
+55357397370 INFO mpq_sender: CLIENT-206c2b3776ac5e93 closed
+55357397477 INFO mpq_sender: sent 1500 of 1500 frames

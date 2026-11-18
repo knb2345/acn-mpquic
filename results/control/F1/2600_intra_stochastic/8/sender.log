@@ -1,0 +1,5 @@
+52942201275 INFO mpq_sender: CLIENT-12c3fd3a8112cc9c established
+52942201287 INFO mpq_sender: added path 10.10.2.1:49188 -> 10.10.0.1:4433
+52943202289 INFO mpq_sender: streaming 1500 frames (policy=F1)
+53003588655 INFO mpq_sender: CLIENT-12c3fd3a8112cc9c closed
+53003588743 INFO mpq_sender: sent 1500 of 1500 frames

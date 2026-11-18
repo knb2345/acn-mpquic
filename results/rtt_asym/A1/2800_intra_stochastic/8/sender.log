@@ -1,0 +1,5 @@
+64596663246 INFO mpq_sender: CLIENT-dae53b1548271432 established
+64596902118 INFO mpq_sender: CLIENT-20c7764fcfed4496 established
+64597663947 INFO mpq_sender: streaming 1500 frames (policy=A1)
+64658366624 INFO mpq_sender: CLIENT-dae53b1548271432 closed
+64658366704 INFO mpq_sender: sent 1500 of 1500 frames

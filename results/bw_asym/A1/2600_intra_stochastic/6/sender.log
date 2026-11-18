@@ -1,0 +1,5 @@
+48846141071 INFO mpq_sender: CLIENT-bbbbbb219ff9ce77 established
+48846181833 INFO mpq_sender: CLIENT-a12ba27456635a57 established
+48847141452 INFO mpq_sender: streaming 1500 frames (policy=A1)
+48907394499 INFO mpq_sender: CLIENT-bbbbbb219ff9ce77 closed
+48907394572 INFO mpq_sender: sent 1500 of 1500 frames

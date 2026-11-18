@@ -1,0 +1,5 @@
+43259587435 INFO mpq_sender: CLIENT-f4c716b1faf40b1c established
+43259587449 INFO mpq_sender: added path 10.10.2.1:54627 -> 10.10.0.1:4433
+43260588135 INFO mpq_sender: streaming 1500 frames (policy=F2)
+43320776863 INFO mpq_sender: CLIENT-f4c716b1faf40b1c closed
+43320776897 INFO mpq_sender: sent 1500 of 1500 frames

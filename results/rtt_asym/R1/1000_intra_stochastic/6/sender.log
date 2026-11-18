@@ -1,0 +1,4 @@
+55171397986 INFO mpq_sender: CLIENT-51e518becb48f54f established
+55172398837 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+55232532949 INFO mpq_sender: CLIENT-51e518becb48f54f closed
+55232533068 INFO mpq_sender: sent 1500 of 1500 frames

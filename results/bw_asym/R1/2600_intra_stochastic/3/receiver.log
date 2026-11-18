@@ -1,0 +1,5 @@
+43948089250 INFO mpq_receiver: listening on 10.10.0.1:4433
+43948387736 INFO mpq_receiver: SERVER-52372938ae93e7e5 established
+44009379915 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+44009616489 INFO mpq_receiver: SERVER-52372938ae93e7e5 closed
+44009617241 INFO mpq_receiver: 1500 of 1500 frames complete

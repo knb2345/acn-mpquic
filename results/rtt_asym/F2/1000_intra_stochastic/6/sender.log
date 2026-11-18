@@ -1,0 +1,5 @@
+55233735874 INFO mpq_sender: CLIENT-640e35b00d3e626d established
+55233735884 INFO mpq_sender: added path 10.10.2.1:37885 -> 10.10.0.1:4433
+55234736078 INFO mpq_sender: streaming 1500 frames (policy=F2)
+55295100205 INFO mpq_sender: CLIENT-640e35b00d3e626d closed
+55295100284 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+54609130807 INFO mpq_sender: CLIENT-b18cf7d19439c505 established
+54609130816 INFO mpq_sender: added path 10.10.2.1:51028 -> 10.10.0.1:4433
+54610131865 INFO mpq_sender: streaming 1500 frames (policy=F2)
+54671001068 INFO mpq_sender: CLIENT-b18cf7d19439c505 closed
+54671001147 INFO mpq_sender: sent 1500 of 1500 frames

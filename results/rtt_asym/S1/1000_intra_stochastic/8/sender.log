@@ -1,0 +1,5 @@
+55670522465 INFO mpq_sender: CLIENT-68e89c5addeb1ffe established
+55670522476 INFO mpq_sender: added path 10.10.2.1:45839 -> 10.10.0.1:4433
+55671523400 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+55731674633 INFO mpq_sender: CLIENT-68e89c5addeb1ffe closed
+55731674882 INFO mpq_sender: sent 1500 of 1500 frames

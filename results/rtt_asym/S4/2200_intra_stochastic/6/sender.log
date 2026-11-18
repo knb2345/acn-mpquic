@@ -1,0 +1,5 @@
+61197037436 INFO mpq_sender: CLIENT-d4b529aa1f4e76c3 established
+61197037441 INFO mpq_sender: added path 10.10.2.1:33318 -> 10.10.0.1:4433
+61198038014 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+61258817029 INFO mpq_sender: CLIENT-d4b529aa1f4e76c3 closed
+61258817202 INFO mpq_sender: sent 1500 of 1500 frames

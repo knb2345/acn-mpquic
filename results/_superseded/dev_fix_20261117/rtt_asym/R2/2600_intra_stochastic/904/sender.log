@@ -1,0 +1,5 @@
+39323219720 INFO mpq_sender: CLIENT-760d524c75812d10 established
+39323219729 INFO mpq_sender: added path 10.10.2.1:41940 -> 10.10.0.1:4433
+39324220728 INFO mpq_sender: streaming 1500 frames (policy=R2)
+39385776555 INFO mpq_sender: CLIENT-760d524c75812d10 closed
+39385776615 INFO mpq_sender: sent 1500 of 1500 frames

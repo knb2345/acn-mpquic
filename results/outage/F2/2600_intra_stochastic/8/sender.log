@@ -1,0 +1,5 @@
+52438520248 INFO mpq_sender: CLIENT-fce31ec8e31d92d0 established
+52438520252 INFO mpq_sender: added path 10.10.2.1:53100 -> 10.10.0.1:4433
+52439521624 INFO mpq_sender: streaming 1500 frames (policy=F2)
+52499755222 INFO mpq_sender: CLIENT-fce31ec8e31d92d0 closed
+52499755364 INFO mpq_sender: sent 1500 of 1500 frames

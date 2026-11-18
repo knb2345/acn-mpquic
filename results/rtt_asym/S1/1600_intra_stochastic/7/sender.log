@@ -1,0 +1,5 @@
+57868742128 INFO mpq_sender: CLIENT-c07ddf1a37455fbc established
+57868742138 INFO mpq_sender: added path 10.10.2.1:33646 -> 10.10.0.1:4433
+57869742891 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+57930103143 INFO mpq_sender: CLIENT-c07ddf1a37455fbc closed
+57930103270 INFO mpq_sender: sent 1500 of 1500 frames

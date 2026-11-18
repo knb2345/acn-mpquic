@@ -1,0 +1,4 @@
+46771824400 INFO mpq_sender: CLIENT-d6209ee94bbb5e11 established
+46772824659 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+46833070425 INFO mpq_sender: CLIENT-d6209ee94bbb5e11 closed
+46833070487 INFO mpq_sender: sent 1500 of 1500 frames

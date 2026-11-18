@@ -1,0 +1,5 @@
+51750201051 INFO mpq_sender: CLIENT-3069c8e110ecbaf9 established
+51750444379 INFO mpq_sender: CLIENT-01a4a2be44af954c established
+51751202373 INFO mpq_sender: streaming 1500 frames (policy=A1)
+51812048382 INFO mpq_sender: CLIENT-3069c8e110ecbaf9 closed
+51812048453 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+49870075843 INFO mpq_sender: CLIENT-d99c58a56dc3ef45 established
+49870075857 INFO mpq_sender: CLIENT-e4fef7b7e9878100 established
+49871076851 INFO mpq_sender: streaming 1500 frames (policy=A1)
+49931237844 INFO mpq_sender: CLIENT-d99c58a56dc3ef45 closed
+49931237912 INFO mpq_sender: sent 1500 of 1500 frames

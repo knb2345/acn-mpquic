@@ -1,0 +1,5 @@
+52063382845 INFO mpq_receiver: listening on 10.10.0.1:4433
+52063696881 INFO mpq_receiver: SERVER-a20b1f6484b2defa established
+52124695900 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+52124970792 INFO mpq_receiver: SERVER-a20b1f6484b2defa closed
+52124971526 INFO mpq_receiver: 1500 of 1500 frames complete

@@ -1,0 +1,5 @@
+51311657095 INFO mpq_sender: CLIENT-8028b47fefb24d69 established
+51311657106 INFO mpq_sender: added path 10.10.2.1:44947 -> 10.10.0.1:4433
+51312658177 INFO mpq_sender: streaming 1500 frames (policy=R2)
+51372820327 INFO mpq_sender: CLIENT-8028b47fefb24d69 closed
+51372820461 INFO mpq_sender: sent 1500 of 1500 frames

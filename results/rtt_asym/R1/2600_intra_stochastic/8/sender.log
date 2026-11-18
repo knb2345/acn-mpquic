@@ -1,0 +1,4 @@
+51562241918 INFO mpq_sender: CLIENT-adc292de45330960 established
+51563242949 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+51623484622 INFO mpq_sender: CLIENT-adc292de45330960 closed
+51623484680 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+62960083039 INFO mpq_sender: CLIENT-46bd192f7c46e62e established
+62960083044 INFO mpq_sender: added path 10.10.2.1:34984 -> 10.10.0.1:4433
+62961083395 INFO mpq_sender: streaming 1500 frames (policy=F2)
+63021765384 INFO mpq_sender: CLIENT-46bd192f7c46e62e closed
+63021765868 INFO mpq_sender: sent 1500 of 1500 frames

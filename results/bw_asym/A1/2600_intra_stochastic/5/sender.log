@@ -1,0 +1,5 @@
+47277124517 INFO mpq_sender: CLIENT-dfc5a62b6513e7f2 established
+47277162678 INFO mpq_sender: CLIENT-714422c2adf70041 established
+47278125610 INFO mpq_sender: streaming 1500 frames (policy=A1)
+47338618782 INFO mpq_sender: CLIENT-dfc5a62b6513e7f2 closed
+47338618874 INFO mpq_sender: sent 1500 of 1500 frames

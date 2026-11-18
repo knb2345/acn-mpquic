@@ -1,0 +1,5 @@
+40562004761 INFO mpq_sender: CLIENT-f88dd6a4214bc643 established
+40562004767 INFO mpq_sender: added path 10.10.2.1:59100 -> 10.10.0.1:4433
+40563005685 INFO mpq_sender: streaming 1500 frames (policy=R2)
+40623488136 INFO mpq_sender: CLIENT-f88dd6a4214bc643 closed
+40623488376 INFO mpq_sender: sent 1500 of 1500 frames

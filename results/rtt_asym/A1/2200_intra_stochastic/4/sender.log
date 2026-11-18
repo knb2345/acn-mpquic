@@ -1,0 +1,5 @@
+60756020504 INFO mpq_sender: CLIENT-12408acfce02f82f established
+60756261609 INFO mpq_sender: CLIENT-20152682cffaa640 established
+60757020602 INFO mpq_sender: streaming 1500 frames (policy=A1)
+60817705791 INFO mpq_sender: CLIENT-12408acfce02f82f closed
+60817705822 INFO mpq_sender: sent 1500 of 1500 frames

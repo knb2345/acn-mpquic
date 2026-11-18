@@ -1,0 +1,5 @@
+59497607743 INFO mpq_sender: CLIENT-e839e1d81a93046c established
+59497847328 INFO mpq_sender: CLIENT-cad0ce12f9850423 established
+59498608281 INFO mpq_sender: streaming 1500 frames (policy=A1)
+59558698053 INFO mpq_sender: CLIENT-e839e1d81a93046c closed
+59558698191 INFO mpq_sender: sent 1500 of 1500 frames

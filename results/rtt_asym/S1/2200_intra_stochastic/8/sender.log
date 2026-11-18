@@ -1,0 +1,5 @@
+61763164299 INFO mpq_sender: CLIENT-ccaca14ad1f8998b established
+61763164309 INFO mpq_sender: added path 10.10.2.1:34506 -> 10.10.0.1:4433
+61764164980 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+61824973754 INFO mpq_sender: CLIENT-ccaca14ad1f8998b closed
+61824973804 INFO mpq_sender: sent 1500 of 1500 frames

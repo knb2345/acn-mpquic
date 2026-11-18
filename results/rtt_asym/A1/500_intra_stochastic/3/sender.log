@@ -1,0 +1,5 @@
+58874955908 INFO mpq_sender: CLIENT-48716436dd1f6521 established
+58875194055 INFO mpq_sender: CLIENT-0325eb161b17cfc8 established
+58875957304 INFO mpq_sender: streaming 1500 frames (policy=A1)
+58936046974 INFO mpq_sender: CLIENT-48716436dd1f6521 closed
+58936047053 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,4 @@
+60945194721 INFO mpq_sender: CLIENT-d39b78970b92040c established
+60946195458 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+61006427887 INFO mpq_sender: CLIENT-d39b78970b92040c closed
+61006428118 INFO mpq_sender: sent 1500 of 1500 frames

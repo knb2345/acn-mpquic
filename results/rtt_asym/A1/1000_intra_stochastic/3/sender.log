@@ -1,0 +1,5 @@
+54359945434 INFO mpq_sender: CLIENT-ca02970097b4fb36 established
+54360186732 INFO mpq_sender: CLIENT-f8e7a6909068d8d5 established
+54360946017 INFO mpq_sender: streaming 1500 frames (policy=A1)
+54421093747 INFO mpq_sender: CLIENT-ca02970097b4fb36 closed
+54421093821 INFO mpq_sender: sent 1500 of 1500 frames

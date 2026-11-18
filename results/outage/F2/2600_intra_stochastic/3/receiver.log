@@ -1,0 +1,5 @@
+44512719621 INFO mpq_receiver: listening on 10.10.0.1:4433
+44512964743 INFO mpq_receiver: SERVER-852960c4f6141dbd established
+44573949286 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+44575066375 INFO mpq_receiver: SERVER-852960c4f6141dbd closed
+44575067256 INFO mpq_receiver: 1500 of 1500 frames complete

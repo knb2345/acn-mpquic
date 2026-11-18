@@ -1,0 +1,5 @@
+49417089112 INFO mpq_sender: CLIENT-815c4c638ed5218e established
+49417089123 INFO mpq_sender: added path 10.10.2.1:58701 -> 10.10.0.1:4433
+49418089876 INFO mpq_sender: streaming 1500 frames (policy=R2)
+49479696898 INFO mpq_sender: CLIENT-815c4c638ed5218e closed
+49479697137 INFO mpq_sender: sent 1500 of 1500 frames

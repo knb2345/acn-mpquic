@@ -1,0 +1,5 @@
+59623750426 INFO mpq_sender: CLIENT-7f46dcaa2437401b established
+59623750436 INFO mpq_sender: added path 10.10.2.1:40044 -> 10.10.0.1:4433
+59624750567 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+59685597190 INFO mpq_sender: CLIENT-7f46dcaa2437401b closed
+59685597232 INFO mpq_sender: sent 1500 of 1500 frames

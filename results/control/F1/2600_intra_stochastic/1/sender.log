@@ -1,0 +1,5 @@
+41879576953 INFO mpq_sender: CLIENT-8454219080a1557c established
+41879576962 INFO mpq_sender: added path 10.10.2.1:45855 -> 10.10.0.1:4433
+41880578150 INFO mpq_sender: streaming 1500 frames (policy=F1)
+41940840589 INFO mpq_sender: CLIENT-8454219080a1557c closed
+41940840633 INFO mpq_sender: sent 1500 of 1500 frames

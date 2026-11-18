@@ -1,0 +1,5 @@
+51374092394 INFO mpq_sender: CLIENT-baf176f9167436a2 established
+51374092406 INFO mpq_sender: added path 10.10.2.1:50178 -> 10.10.0.1:4433
+51375092846 INFO mpq_sender: streaming 1500 frames (policy=F1)
+51435361616 INFO mpq_sender: CLIENT-baf176f9167436a2 closed
+51435361775 INFO mpq_sender: sent 1500 of 1500 frames

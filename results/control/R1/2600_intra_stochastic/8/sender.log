@@ -1,0 +1,4 @@
+52817152955 INFO mpq_sender: CLIENT-d3045a9b626007db established
+52818153293 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+52878336272 INFO mpq_sender: CLIENT-d3045a9b626007db closed
+52878336438 INFO mpq_sender: sent 1500 of 1500 frames

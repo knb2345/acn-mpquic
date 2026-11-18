@@ -1,0 +1,5 @@
+48095365990 INFO mpq_sender: CLIENT-3cedcb80eb69b353 established
+48095366002 INFO mpq_sender: added path 10.10.2.1:33361 -> 10.10.0.1:4433
+48096366328 INFO mpq_sender: streaming 1500 frames (policy=R2)
+48156540509 INFO mpq_sender: CLIENT-3cedcb80eb69b353 closed
+48156540649 INFO mpq_sender: sent 1500 of 1500 frames

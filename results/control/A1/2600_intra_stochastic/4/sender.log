@@ -1,0 +1,5 @@
+46646546727 INFO mpq_sender: CLIENT-e1d6e46fc1d90c13 established
+46646548240 INFO mpq_sender: CLIENT-4bfb77779000be8b established
+46647547823 INFO mpq_sender: streaming 1500 frames (policy=A1)
+46707761276 INFO mpq_sender: CLIENT-e1d6e46fc1d90c13 closed
+46707761374 INFO mpq_sender: sent 1500 of 1500 frames

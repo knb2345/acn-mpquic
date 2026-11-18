@@ -1,0 +1,5 @@
+50747070368 INFO mpq_receiver: listening on 10.10.0.1:4433
+50747326070 INFO mpq_receiver: SERVER-57d6751bc228d9fa established
+50808370837 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+50809249590 INFO mpq_receiver: SERVER-57d6751bc228d9fa closed
+50809252478 INFO mpq_receiver: 1500 of 1500 frames complete

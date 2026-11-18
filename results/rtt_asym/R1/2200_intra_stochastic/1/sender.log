@@ -1,0 +1,4 @@
+59686915390 INFO mpq_sender: CLIENT-b400b8ec8679ac4b established
+59687916333 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+59748151485 INFO mpq_sender: CLIENT-b400b8ec8679ac4b closed
+59748151556 INFO mpq_sender: sent 1500 of 1500 frames

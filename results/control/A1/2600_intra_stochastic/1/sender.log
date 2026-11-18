@@ -1,0 +1,5 @@
+41941978974 INFO mpq_sender: CLIENT-9e9c5c52121fb0a3 established
+41941978981 INFO mpq_sender: CLIENT-394808547e593615 established
+41942979751 INFO mpq_sender: streaming 1500 frames (policy=A1)
+42003128035 INFO mpq_sender: CLIENT-9e9c5c52121fb0a3 closed
+42003128095 INFO mpq_sender: sent 1500 of 1500 frames

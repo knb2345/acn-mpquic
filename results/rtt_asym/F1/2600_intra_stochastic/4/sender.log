@@ -1,0 +1,5 @@
+45330455515 INFO mpq_sender: CLIENT-1df954ab840d3ade established
+45330455527 INFO mpq_sender: added path 10.10.2.1:42522 -> 10.10.0.1:4433
+45331455866 INFO mpq_sender: streaming 1500 frames (policy=F1)
+45392189020 INFO mpq_sender: CLIENT-1df954ab840d3ade closed
+45392189161 INFO mpq_sender: sent 1500 of 1500 frames

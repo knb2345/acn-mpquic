@@ -1,0 +1,5 @@
+58750415570 INFO mpq_sender: CLIENT-bac0eddc3e914561 established
+58750652228 INFO mpq_sender: CLIENT-16d0172e83b8070b established
+58751416042 INFO mpq_sender: streaming 1500 frames (policy=A1)
+58811505119 INFO mpq_sender: CLIENT-bac0eddc3e914561 closed
+58811505318 INFO mpq_sender: sent 1500 of 1500 frames

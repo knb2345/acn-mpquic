@@ -1,0 +1,4 @@
+43007993755 INFO mpq_sender: CLIENT-1267ef6f2fb2071e established
+43008994769 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+43069302010 INFO mpq_sender: CLIENT-1267ef6f2fb2071e closed
+43069302169 INFO mpq_sender: sent 1500 of 1500 frames

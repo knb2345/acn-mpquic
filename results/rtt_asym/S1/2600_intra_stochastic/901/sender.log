@@ -1,0 +1,5 @@
+37993592068 INFO mpq_sender: CLIENT-b63bd33881af1779 established
+37993592076 INFO mpq_sender: added path 10.10.2.1:37929 -> 10.10.0.1:4433
+37994592310 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+38056252962 INFO mpq_sender: CLIENT-b63bd33881af1779 closed
+38056253094 INFO mpq_sender: sent 1500 of 1500 frames

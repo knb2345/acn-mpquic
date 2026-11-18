@@ -1,0 +1,4 @@
+54546877611 INFO mpq_sender: CLIENT-5f580813e98af381 established
+54547878092 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+54607998054 INFO mpq_sender: CLIENT-5f580813e98af381 closed
+54607998117 INFO mpq_sender: sent 1500 of 1500 frames

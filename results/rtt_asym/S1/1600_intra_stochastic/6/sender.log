@@ -1,0 +1,5 @@
+57555294416 INFO mpq_sender: CLIENT-625407aeeb0126f9 established
+57555294426 INFO mpq_sender: added path 10.10.2.1:58781 -> 10.10.0.1:4433
+57556295196 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+57617066518 INFO mpq_sender: CLIENT-625407aeeb0126f9 closed
+57617066595 INFO mpq_sender: sent 1500 of 1500 frames

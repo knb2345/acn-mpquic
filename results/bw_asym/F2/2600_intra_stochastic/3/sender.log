@@ -1,0 +1,5 @@
+43885780413 INFO mpq_sender: CLIENT-d8ee609b92dd0587 established
+43885780425 INFO mpq_sender: added path 10.10.2.1:38036 -> 10.10.0.1:4433
+43886780820 INFO mpq_sender: streaming 1500 frames (policy=F2)
+43947132278 INFO mpq_sender: CLIENT-d8ee609b92dd0587 closed
+43947132320 INFO mpq_sender: sent 1500 of 1500 frames

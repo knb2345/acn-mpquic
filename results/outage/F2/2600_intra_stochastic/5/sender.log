@@ -1,0 +1,5 @@
+47655296613 INFO mpq_sender: CLIENT-26a387c61cf444d6 established
+47655296622 INFO mpq_sender: added path 10.10.2.1:53258 -> 10.10.0.1:4433
+47656297648 INFO mpq_sender: streaming 1500 frames (policy=F2)
+47716526841 INFO mpq_sender: CLIENT-26a387c61cf444d6 closed
+47716526909 INFO mpq_sender: sent 1500 of 1500 frames

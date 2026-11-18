@@ -1,0 +1,5 @@
+55545577082 INFO mpq_sender: CLIENT-eeac6324707159ef established
+55545577094 INFO mpq_sender: added path 10.10.2.1:42299 -> 10.10.0.1:4433
+55546578102 INFO mpq_sender: streaming 1500 frames (policy=F2)
+55607009445 INFO mpq_sender: CLIENT-eeac6324707159ef closed
+55607009550 INFO mpq_sender: sent 1500 of 1500 frames

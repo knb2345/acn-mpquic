@@ -1,0 +1,4 @@
+60001515750 INFO mpq_sender: CLIENT-b058aa21ef5aef80 established
+60002516041 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+60062750079 INFO mpq_sender: CLIENT-b058aa21ef5aef80 closed
+60062750226 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+59874992693 INFO mpq_sender: CLIENT-e60dce415d063398 established
+59874992705 INFO mpq_sender: added path 10.10.2.1:60414 -> 10.10.0.1:4433
+59875993802 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+59936866596 INFO mpq_sender: CLIENT-e60dce415d063398 closed
+59936866684 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+57177793387 INFO mpq_sender: CLIENT-2d069601edd3cc8e established
+57178033155 INFO mpq_sender: CLIENT-7322e964335343df established
+57178793955 INFO mpq_sender: streaming 1500 frames (policy=A1)
+57240326838 INFO mpq_sender: CLIENT-2d069601edd3cc8e closed
+57240326928 INFO mpq_sender: sent 1500 of 1500 frames

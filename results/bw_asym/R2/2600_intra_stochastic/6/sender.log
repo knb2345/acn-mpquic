@@ -1,0 +1,5 @@
+48721012880 INFO mpq_sender: CLIENT-b0baee2e874e071f established
+48721012892 INFO mpq_sender: added path 10.10.2.1:52631 -> 10.10.0.1:4433
+48722013234 INFO mpq_sender: streaming 1500 frames (policy=R2)
+48782211058 INFO mpq_sender: CLIENT-b0baee2e874e071f closed
+48782211129 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+62582946534 INFO mpq_receiver: listening on 10.10.0.1:4433
+62583061807 INFO mpq_receiver: SERVER-c7143d4a047a1b13 established
+62644054531 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+62644446583 INFO mpq_receiver: SERVER-c7143d4a047a1b13 closed
+62644447490 INFO mpq_receiver: 1500 of 1500 frames complete

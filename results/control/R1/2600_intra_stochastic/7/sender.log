@@ -1,0 +1,4 @@
+51249266995 INFO mpq_sender: CLIENT-222d202d89b97746 established
+51250267328 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+51310439562 INFO mpq_sender: CLIENT-222d202d89b97746 closed
+51310439634 INFO mpq_sender: sent 1500 of 1500 frames

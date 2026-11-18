@@ -1,0 +1,5 @@
+43446583177 INFO mpq_sender: CLIENT-d9c83b0115f24657 established
+43446583187 INFO mpq_sender: added path 10.10.2.1:59731 -> 10.10.0.1:4433
+43447584122 INFO mpq_sender: streaming 1500 frames (policy=F1)
+43508092990 INFO mpq_sender: CLIENT-d9c83b0115f24657 closed
+43508093121 INFO mpq_sender: sent 1500 of 1500 frames

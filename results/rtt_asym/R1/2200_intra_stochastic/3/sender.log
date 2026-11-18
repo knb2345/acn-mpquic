@@ -1,0 +1,4 @@
+60316105847 INFO mpq_sender: CLIENT-962226510234ac70 established
+60317107007 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+60377349194 INFO mpq_sender: CLIENT-962226510234ac70 closed
+60377349423 INFO mpq_sender: sent 1500 of 1500 frames

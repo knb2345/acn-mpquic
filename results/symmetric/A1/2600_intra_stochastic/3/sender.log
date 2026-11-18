@@ -1,0 +1,5 @@
+44450151221 INFO mpq_sender: CLIENT-1e026336b552e43f established
+44450151235 INFO mpq_sender: CLIENT-03f064379528dbc9 established
+44451152229 INFO mpq_sender: streaming 1500 frames (policy=A1)
+44511655619 INFO mpq_sender: CLIENT-1e026336b552e43f closed
+44511655776 INFO mpq_sender: sent 1500 of 1500 frames

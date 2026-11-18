@@ -1,0 +1,5 @@
+47781253371 INFO mpq_sender: CLIENT-1cbb86958f77937e established
+47781253380 INFO mpq_sender: added path 10.10.2.1:38713 -> 10.10.0.1:4433
+47782253861 INFO mpq_sender: streaming 1500 frames (policy=R2)
+47842500855 INFO mpq_sender: CLIENT-1cbb86958f77937e closed
+47842501032 INFO mpq_sender: sent 1500 of 1500 frames

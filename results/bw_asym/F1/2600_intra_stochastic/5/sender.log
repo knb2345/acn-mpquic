@@ -1,0 +1,5 @@
+47213769581 INFO mpq_sender: CLIENT-b899dc227f093c43 established
+47213769593 INFO mpq_sender: added path 10.10.2.1:36739 -> 10.10.0.1:4433
+47214770189 INFO mpq_sender: streaming 1500 frames (policy=F1)
+47275557018 INFO mpq_sender: CLIENT-b899dc227f093c43 closed
+47275557119 INFO mpq_sender: sent 1500 of 1500 frames

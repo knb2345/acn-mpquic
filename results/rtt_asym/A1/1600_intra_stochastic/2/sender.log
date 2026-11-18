@@ -1,0 +1,5 @@
+56548153797 INFO mpq_sender: CLIENT-4eef31715ae8b134 established
+56548392575 INFO mpq_sender: CLIENT-2ff2aa9dc6652692 established
+56549154369 INFO mpq_sender: streaming 1500 frames (policy=A1)
+56609859210 INFO mpq_sender: CLIENT-4eef31715ae8b134 closed
+56609859278 INFO mpq_sender: sent 1500 of 1500 frames

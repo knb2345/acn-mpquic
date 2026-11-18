@@ -1,0 +1,5 @@
+48596110203 INFO mpq_sender: CLIENT-609b043f352df66b established
+48596110212 INFO mpq_sender: added path 10.10.2.1:59981 -> 10.10.0.1:4433
+48597111278 INFO mpq_sender: streaming 1500 frames (policy=F2)
+48657324091 INFO mpq_sender: CLIENT-609b043f352df66b closed
+48657324184 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+45706314662 INFO mpq_receiver: listening on 10.10.0.1:4433
+45706598467 INFO mpq_receiver: SERVER-52d3b52f7ecdadc7 established
+45767617431 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+45768093361 INFO mpq_receiver: SERVER-52d3b52f7ecdadc7 closed
+45768094240 INFO mpq_receiver: 1500 of 1500 frames complete

@@ -1,0 +1,5 @@
+59123738511 INFO mpq_sender: CLIENT-1669cd14c705778a established
+59123977329 INFO mpq_sender: CLIENT-87088fbc5be0e74d established
+59124739151 INFO mpq_sender: streaming 1500 frames (policy=A1)
+59184828046 INFO mpq_sender: CLIENT-1669cd14c705778a closed
+59184828088 INFO mpq_sender: sent 1500 of 1500 frames

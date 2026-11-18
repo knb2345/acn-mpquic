@@ -1,0 +1,5 @@
+48157741273 INFO mpq_sender: CLIENT-53f18d3d1339a9d2 established
+48157741284 INFO mpq_sender: added path 10.10.2.1:36847 -> 10.10.0.1:4433
+48158741676 INFO mpq_sender: streaming 1500 frames (policy=F1)
+48218967162 INFO mpq_sender: CLIENT-53f18d3d1339a9d2 closed
+48218967219 INFO mpq_sender: sent 1500 of 1500 frames

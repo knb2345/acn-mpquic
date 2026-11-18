@@ -1,0 +1,5 @@
+47529420488 INFO mpq_sender: CLIENT-67afcd8701ee23ec established
+47529420499 INFO mpq_sender: added path 10.10.2.1:60899 -> 10.10.0.1:4433
+47530421574 INFO mpq_sender: streaming 1500 frames (policy=F1)
+47590772380 INFO mpq_sender: CLIENT-67afcd8701ee23ec closed
+47590772454 INFO mpq_sender: sent 1500 of 1500 frames

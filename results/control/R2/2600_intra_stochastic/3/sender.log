@@ -1,0 +1,5 @@
+44954817806 INFO mpq_sender: CLIENT-86159cfaed81bbee established
+44954817812 INFO mpq_sender: added path 10.10.2.1:53951 -> 10.10.0.1:4433
+44955818736 INFO mpq_sender: streaming 1500 frames (policy=R2)
+45015999370 INFO mpq_sender: CLIENT-86159cfaed81bbee closed
+45015999457 INFO mpq_sender: sent 1500 of 1500 frames

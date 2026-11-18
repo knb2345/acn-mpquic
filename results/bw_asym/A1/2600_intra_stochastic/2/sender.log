@@ -1,0 +1,5 @@
+42568208693 INFO mpq_sender: CLIENT-878c986ebb1d5497 established
+42568249037 INFO mpq_sender: CLIENT-731226aad24c95b7 established
+42569209119 INFO mpq_sender: streaming 1500 frames (policy=A1)
+42629494293 INFO mpq_sender: CLIENT-878c986ebb1d5497 closed
+42629494358 INFO mpq_sender: sent 1500 of 1500 frames

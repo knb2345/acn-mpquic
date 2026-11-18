@@ -1,0 +1,5 @@
+61511965216 INFO mpq_sender: CLIENT-dceed1980f5035e9 established
+61511965223 INFO mpq_sender: added path 10.10.2.1:34521 -> 10.10.0.1:4433
+61512965519 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+61574312101 INFO mpq_sender: CLIENT-dceed1980f5035e9 closed
+61574312179 INFO mpq_sender: sent 1500 of 1500 frames

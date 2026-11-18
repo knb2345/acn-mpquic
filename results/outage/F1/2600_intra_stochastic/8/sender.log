@@ -1,0 +1,5 @@
+52628302752 INFO mpq_sender: CLIENT-cb188b484730608b established
+52628302758 INFO mpq_sender: added path 10.10.2.1:44815 -> 10.10.0.1:4433
+52629303482 INFO mpq_sender: streaming 1500 frames (policy=F1)
+52690123395 INFO mpq_sender: CLIENT-cb188b484730608b closed
+52690123566 INFO mpq_sender: sent 1500 of 1500 frames

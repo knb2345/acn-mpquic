@@ -1,0 +1,5 @@
+45142417506 INFO mpq_sender: CLIENT-f6c6ac0415b5635e established
+45142417518 INFO mpq_sender: added path 10.10.2.1:53142 -> 10.10.0.1:4433
+45143418110 INFO mpq_sender: streaming 1500 frames (policy=F2)
+45204039190 INFO mpq_sender: CLIENT-f6c6ac0415b5635e closed
+45204039276 INFO mpq_sender: sent 1500 of 1500 frames

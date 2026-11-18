@@ -1,0 +1,4 @@
+43321960990 INFO mpq_sender: CLIENT-720752d00cd402ce established
+43322961208 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+43383158445 INFO mpq_sender: CLIENT-720752d00cd402ce closed
+43383158511 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+41315338401 INFO mpq_sender: CLIENT-cfd580ad3ecccb9d established
+41315338414 INFO mpq_sender: CLIENT-6d8675e7afba0703 established
+41316339001 INFO mpq_sender: streaming 1500 frames (policy=A1)
+41376610881 INFO mpq_sender: CLIENT-cfd580ad3ecccb9d closed
+41376610955 INFO mpq_sender: sent 1500 of 1500 frames

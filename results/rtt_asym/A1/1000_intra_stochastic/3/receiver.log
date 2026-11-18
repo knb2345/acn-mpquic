@@ -1,0 +1,6 @@
+54359659268 INFO mpq_receiver: listening on 10.10.0.1:4433
+54359961872 INFO mpq_receiver: SERVER-46fe792616e7c311 established
+54420931848 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+54421077263 INFO tquic::connection: SERVER-bc413a9b7d6d173c idle timeout
+54421167110 INFO mpq_receiver: SERVER-46fe792616e7c311 closed
+54421167869 INFO mpq_receiver: 1500 of 1500 frames complete

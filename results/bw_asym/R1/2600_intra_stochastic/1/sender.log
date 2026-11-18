@@ -1,0 +1,4 @@
+40813945687 INFO mpq_sender: CLIENT-3caa0b920028b4b1 established
+40814946896 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+40875233432 INFO mpq_sender: CLIENT-3caa0b920028b4b1 closed
+40875233475 INFO mpq_sender: sent 1500 of 1500 frames

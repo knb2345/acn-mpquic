@@ -1,0 +1,5 @@
+55608166355 INFO mpq_sender: CLIENT-3a46be71405e3279 established
+55608405945 INFO mpq_sender: CLIENT-4cd27cc1f2bfd545 established
+55609166927 INFO mpq_sender: streaming 1500 frames (policy=A1)
+55669315050 INFO mpq_sender: CLIENT-3a46be71405e3279 closed
+55669315193 INFO mpq_sender: sent 1500 of 1500 frames

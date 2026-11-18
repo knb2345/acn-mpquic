@@ -1,0 +1,5 @@
+47024647815 INFO mpq_sender: CLIENT-4b3c2ea98b54b497 established
+47024647822 INFO mpq_sender: added path 10.10.2.1:41913 -> 10.10.0.1:4433
+47025648880 INFO mpq_sender: streaming 1500 frames (policy=F2)
+47085955512 INFO mpq_sender: CLIENT-4b3c2ea98b54b497 closed
+47085955742 INFO mpq_sender: sent 1500 of 1500 frames

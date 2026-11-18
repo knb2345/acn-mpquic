@@ -1,0 +1,5 @@
+58495920644 INFO mpq_sender: CLIENT-ed61b24d44c964c4 established
+58496158288 INFO mpq_sender: CLIENT-df76302da798b349 established
+58496921342 INFO mpq_sender: streaming 1500 frames (policy=A1)
+58557338295 INFO mpq_sender: CLIENT-ed61b24d44c964c4 closed
+58557338372 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+61007920959 INFO mpq_sender: CLIENT-5e6abe59940a80bd established
+61007920970 INFO mpq_sender: added path 10.10.2.1:50163 -> 10.10.0.1:4433
+61008921907 INFO mpq_sender: streaming 1500 frames (policy=F2)
+61069458360 INFO mpq_sender: CLIENT-5e6abe59940a80bd closed
+61069458482 INFO mpq_sender: sent 1500 of 1500 frames

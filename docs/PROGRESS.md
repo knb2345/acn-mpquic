@@ -578,3 +578,35 @@ Running (laptop must stay on): batch final_main_2600 (5 scenarios x F2 R1 R2
 F1 A1 x run ids 1-8, build da6f450), then scripts/overnight_20261118b.sh:
 rtt_asym sweep S1 S4 R1 F2 A1 at 1.0-2.8 Mbit/s, then 0.5 and 3.5, then
 extras (S2 R2 F1). Logs: results/batches/final_*.log.
+
+## 2026-11-18 06:45 IST: final batch complete; slides, report, README final
+Batch (build da6f450 = 63baae1 code, TQUIC 4d7481d), 17 Nov 18:12 - 18 Nov 01:09 UTC:
+- final_main_2600: 5 scenarios x F2 R1 R2 F1 A1 x run ids 1-8 (200 runs).
+- rtt_asym sweep, run ids 1-8: S1 S4 R1 F2 A1 at 1.0, 1.6, 2.2, 2.8 Mbit/s;
+  F2 A1 at 0.5 Mbit/s (moved ahead of 2.2 after F2 froze at 1.0 Mbit/s, so P5
+  could be computed). Not run: 0.5 Mbit/s for S1/S4/R1 (all three are at 0 %
+  freeze at 1.0, so usable capacity does not depend on it), 3.5 Mbit/s, and the
+  S2/R2/F1 sweeps. Drivers: scripts/overnight_20261118{,b,c}.sh, logs
+  results/batches/final_*.log, overnight_*.out.
+- No stalled run. Four runs went above 80 % receiver CPU (one-off spikes,
+  probably the Docker containers running on this machine); batch.sh moved
+  them to results/_discarded/ and reran them cleanly (outage/F2/6,
+  rtt_asym/F2/1000/1, rtt_asym/S1/1600/8, rtt_asym/F2/2800/1).
+- At 03:19 the part-2 driver did not start because my own wait loop's command
+  line matched its pgrep pattern; found and fixed within 6 minutes.
+
+Results (analysis/summary_final.csv, 576 runs; analysis/tables/):
+- P1/P2 (H2): usable capacity S1/R1 and S4/R1 per run median 0.42 (0.38-0.45),
+  Holm p = 0.020 each: H2 supported (MinRTT/ECF 1.0 Mbit/s, R1 2.6 Mbit/s).
+- P3/P4 (H3): F2 vs S1 on rtt_asym 4.4 % vs 14.9 % freeze, F2 vs S4 on bw_asym
+  3.8 % vs 10.8 %, 8/8 pairs, Holm p = 0.023. Symmetric part: F2 10.2 pp
+  better than S1 (not "equivalent"). Outage: F2 37.7 % vs S1 34.3 % vs S2 25.1 %.
+- P5 (H4): usable capacity F2 0.5 vs A1 1.0 Mbit/s, not equivalent. At 2.6
+  Mbit/s F2 and A1 within 1 pp.
+- F2 low-load stall: at 1.0 Mbit/s parts assigned to the fast path wait a
+  median 120 ms (p90 192 ms, 8 runs) in the sender before their first byte is
+  sent (send.csv vs frame_path.csv); 0.2 ms at 2.6 Mbit/s; A1 0.1 ms. Not
+  fixed (would need a TQUIC send-loop change and a rerun).
+- Live demo (scripts/demo.sh, run ids 900+) re-tested: MinRTT 83.9 %, F2
+  94.6 % on time; replay mode works.
+- Slides, report (11 pages), README filled from analysis/tables; PDFs rebuilt.

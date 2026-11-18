@@ -1,0 +1,5 @@
+63779481803 INFO mpq_sender: CLIENT-08236752a19e18b2 established
+63779481813 INFO mpq_sender: added path 10.10.2.1:39434 -> 10.10.0.1:4433
+63780482370 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+63841277391 INFO mpq_sender: CLIENT-08236752a19e18b2 closed
+63841277470 INFO mpq_sender: sent 1500 of 1500 frames

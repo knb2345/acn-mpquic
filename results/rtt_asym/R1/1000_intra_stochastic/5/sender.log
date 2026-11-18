@@ -1,0 +1,4 @@
+54859032106 INFO mpq_sender: CLIENT-670c0ddb0ec0f5ff established
+54860032566 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+54920150922 INFO mpq_sender: CLIENT-670c0ddb0ec0f5ff closed
+54920150997 INFO mpq_sender: sent 1500 of 1500 frames

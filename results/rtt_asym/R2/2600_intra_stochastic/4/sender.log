@@ -1,0 +1,5 @@
+45267849571 INFO mpq_sender: CLIENT-cce54edfdbc22749 established
+45267849584 INFO mpq_sender: added path 10.10.2.1:38813 -> 10.10.0.1:4433
+45268850088 INFO mpq_sender: streaming 1500 frames (policy=R2)
+45329372382 INFO mpq_sender: CLIENT-cce54edfdbc22749 closed
+45329372495 INFO mpq_sender: sent 1500 of 1500 frames

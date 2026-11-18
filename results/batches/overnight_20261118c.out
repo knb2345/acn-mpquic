@@ -1,0 +1,9 @@
+2026-11-17T23:23:41Z start final_sweep_500_f2a1
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.08s
+2026-11-17T23:40:55Z end final_sweep_500_f2a1 rc=0
+2026-11-17T23:40:55Z start final_sweep_2200
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.09s
+2026-11-18T00:24:33Z end final_sweep_2200 rc=0
+2026-11-18T00:24:33Z start final_sweep_2800
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.11s
+2026-11-18T00:28:29Z driver stopped after final_sweep_2800 (0.5 Mbit/s for S1/S4/R1, 3.5 Mbit/s and extras not run)

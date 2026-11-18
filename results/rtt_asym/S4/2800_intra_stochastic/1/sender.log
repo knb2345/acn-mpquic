@@ -1,0 +1,5 @@
+62141669055 INFO mpq_sender: CLIENT-461eea207eef9e3b established
+62141669066 INFO mpq_sender: added path 10.10.2.1:51434 -> 10.10.0.1:4433
+62142669689 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+62203411510 INFO mpq_sender: CLIENT-461eea207eef9e3b closed
+62203411648 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+42630873043 INFO mpq_sender: CLIENT-ec8401fb9bc87cb2 established
+42630873052 INFO mpq_sender: added path 10.10.2.1:41027 -> 10.10.0.1:4433
+42631873207 INFO mpq_sender: streaming 1500 frames (policy=F2)
+42692128163 INFO mpq_sender: CLIENT-ec8401fb9bc87cb2 closed
+42692128265 INFO mpq_sender: sent 1500 of 1500 frames

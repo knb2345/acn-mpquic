@@ -1,0 +1,5 @@
+42004267258 INFO mpq_sender: CLIENT-ba7965a0da821bce established
+42004267264 INFO mpq_sender: added path 10.10.2.1:59431 -> 10.10.0.1:4433
+42005268253 INFO mpq_sender: streaming 1500 frames (policy=F2)
+42065954317 INFO mpq_sender: CLIENT-ba7965a0da821bce closed
+42065954394 INFO mpq_sender: sent 1500 of 1500 frames

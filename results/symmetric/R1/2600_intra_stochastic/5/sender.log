@@ -1,0 +1,4 @@
+47403084260 INFO mpq_sender: CLIENT-6a8b693046c57e37 established
+47404084537 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+47464371337 INFO mpq_sender: CLIENT-6a8b693046c57e37 closed
+47464371437 INFO mpq_sender: sent 1500 of 1500 frames

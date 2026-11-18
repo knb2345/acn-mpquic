@@ -1,0 +1,4 @@
+55483218190 INFO mpq_sender: CLIENT-c030e31dc6cadd4d established
+55484218915 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+55544335432 INFO mpq_sender: CLIENT-c030e31dc6cadd4d closed
+55544335461 INFO mpq_sender: sent 1500 of 1500 frames

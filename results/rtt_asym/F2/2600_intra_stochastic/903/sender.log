@@ -1,0 +1,5 @@
+64793316356 INFO mpq_sender: CLIENT-3eaaa790d4ee96fa established
+64793316367 INFO mpq_sender: added path 10.10.2.1:47452 -> 10.10.0.1:4433
+64794317139 INFO mpq_sender: streaming 1500 frames (policy=F2)
+64855074565 INFO mpq_sender: CLIENT-3eaaa790d4ee96fa closed
+64855074617 INFO mpq_sender: sent 1500 of 1500 frames

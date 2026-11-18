@@ -1,0 +1,5 @@
+41252640722 INFO mpq_sender: CLIENT-e99e1bc935db51d4 established
+41252640735 INFO mpq_sender: added path 10.10.2.1:45795 -> 10.10.0.1:4433
+41253641497 INFO mpq_sender: streaming 1500 frames (policy=F1)
+41314033290 INFO mpq_sender: CLIENT-e99e1bc935db51d4 closed
+41314033416 INFO mpq_sender: sent 1500 of 1500 frames

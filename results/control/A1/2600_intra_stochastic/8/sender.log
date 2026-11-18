@@ -1,0 +1,5 @@
+53004777435 INFO mpq_sender: CLIENT-354945b7d32f1754 established
+53004777449 INFO mpq_sender: CLIENT-790b85b920d31483 established
+53005777848 INFO mpq_sender: streaming 1500 frames (policy=A1)
+53065925047 INFO mpq_sender: CLIENT-354945b7d32f1754 closed
+53065925135 INFO mpq_sender: sent 1500 of 1500 frames

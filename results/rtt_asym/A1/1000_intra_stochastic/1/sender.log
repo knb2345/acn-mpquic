@@ -1,0 +1,6 @@
+53736647337 INFO mpq_sender: CLIENT-6f2bb2f4bf4df3b2 established
+53736883671 INFO mpq_sender: CLIENT-6281b17309a8ab2a established
+53737648145 INFO mpq_sender: streaming 1500 frames (policy=A1)
+53797855617 INFO tquic::connection: CLIENT-6281b17309a8ab2a idle timeout
+53797855645 INFO mpq_sender: CLIENT-6281b17309a8ab2a closed
+53797855914 INFO mpq_sender: sent 1500 of 1500 frames

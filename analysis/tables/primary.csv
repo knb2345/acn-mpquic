@@ -1,4 +1,6 @@
 name,description,p_raw,p_holm
-P3,"H3 rtt_asym freeze F2 4.4% vs S1 14.9% (n=8), diff -10.5 pp [-11.5, -9.5], F2 lower in 8/8",0.0078125,0.015625
-P4,"H3 bw_asym freeze F2 3.8% vs S4 10.8% (n=8), diff -7.0 pp [-8.1, -6.0], F2 lower in 8/8",0.0078125,0.015625
-P5*,H4 (deviation: A1 sweep incomplete) rtt_asym on-time at 2.6 Mbit/s F2 95.8% vs A1 96.5% (n=8); TOST margin +-4.8 pp: equivalent=True,1.0730703864814117e-05,3.219211159444235e-05
+P1,"H2 rtt_asym usable capacity S1/R1 per run: median 0.42, range 0.38-0.45 (n=8); bar < 0.80",0.00390625,0.01953125
+P2,"H2 rtt_asym usable capacity S4/R1 per run: median 0.42, range 0.38-0.45 (n=8); bar < 0.80",0.00390625,0.01953125
+P3,"H3 rtt_asym freeze F2 4.4% vs S1 14.9% (n=8), diff -10.5 pp [-11.5, -9.5], F2 lower in 8/8",0.0078125,0.0234375
+P4,"H3 bw_asym freeze F2 3.8% vs S4 10.8% (n=8), diff -7.0 pp [-8.1, -6.0], F2 lower in 8/8",0.0078125,0.0234375
+P5,H4 rtt_asym usable capacity F2 500 vs A1 1000 kbps (n=8); TOST margin +-50 kbps: equivalent=False,1.0,1.0

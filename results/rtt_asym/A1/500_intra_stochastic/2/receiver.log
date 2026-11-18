@@ -1,0 +1,5 @@
+58750155620 INFO mpq_receiver: listening on 10.10.0.1:4433
+58750432118 INFO mpq_receiver: SERVER-459987396214b6b6 established
+58811392893 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+58811593649 INFO mpq_receiver: SERVER-459987396214b6b6 closed
+58811594484 INFO mpq_receiver: 1500 of 1500 frames complete

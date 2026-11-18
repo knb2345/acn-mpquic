@@ -1,0 +1,5 @@
+63905321070 INFO mpq_sender: CLIENT-f770a788bd98d27c established
+63905321081 INFO mpq_sender: added path 10.10.2.1:36344 -> 10.10.0.1:4433
+63906321734 INFO mpq_sender: streaming 1500 frames (policy=F2)
+63967040149 INFO mpq_sender: CLIENT-f770a788bd98d27c closed
+63967040244 INFO mpq_sender: sent 1500 of 1500 frames

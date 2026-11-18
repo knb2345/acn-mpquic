@@ -1,0 +1,5 @@
+53611209573 INFO mpq_sender: CLIENT-8c98652cd7e283d2 established
+53611209584 INFO mpq_sender: added path 10.10.2.1:60638 -> 10.10.0.1:4433
+53612210615 INFO mpq_sender: streaming 1500 frames (policy=F2)
+53672472692 INFO mpq_sender: CLIENT-8c98652cd7e283d2 closed
+53672472789 INFO mpq_sender: sent 1500 of 1500 frames

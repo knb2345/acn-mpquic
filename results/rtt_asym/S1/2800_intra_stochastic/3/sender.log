@@ -1,0 +1,5 @@
+62771219698 INFO mpq_sender: CLIENT-b6a8ed098a3f970b established
+62771219708 INFO mpq_sender: added path 10.10.2.1:52294 -> 10.10.0.1:4433
+62772220471 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+62833065813 INFO mpq_sender: CLIENT-b6a8ed098a3f970b closed
+62833065888 INFO mpq_sender: sent 1500 of 1500 frames

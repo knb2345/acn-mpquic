@@ -1,0 +1,5 @@
+48533384652 INFO mpq_sender: CLIENT-91fa9514eb61c3da established
+48533623778 INFO mpq_sender: CLIENT-337d3b0fedabd8fc established
+48534384763 INFO mpq_sender: streaming 1500 frames (policy=A1)
+48595066437 INFO mpq_sender: CLIENT-91fa9514eb61c3da closed
+48595066525 INFO mpq_sender: sent 1500 of 1500 frames

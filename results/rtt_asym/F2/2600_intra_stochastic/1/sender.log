@@ -1,0 +1,5 @@
+40437029776 INFO mpq_sender: CLIENT-fbcd79f72375dee4 established
+40437029786 INFO mpq_sender: added path 10.10.2.1:51101 -> 10.10.0.1:4433
+40438030537 INFO mpq_sender: streaming 1500 frames (policy=F2)
+40498635746 INFO mpq_sender: CLIENT-fbcd79f72375dee4 closed
+40498635966 INFO mpq_sender: sent 1500 of 1500 frames

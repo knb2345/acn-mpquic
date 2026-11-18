@@ -1,0 +1,5 @@
+55732741319 INFO mpq_sender: CLIENT-27d2abe403e15d83 established
+55732741330 INFO mpq_sender: added path 10.10.2.1:57111 -> 10.10.0.1:4433
+55733741822 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+55793892776 INFO mpq_sender: CLIENT-27d2abe403e15d83 closed
+55793892968 INFO mpq_sender: sent 1500 of 1500 frames

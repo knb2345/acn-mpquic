@@ -1,0 +1,5 @@
+52376082862 INFO mpq_sender: CLIENT-9fa3152a7e603fb2 established
+52376082877 INFO mpq_sender: CLIENT-358fd61654b45fd6 established
+52377083718 INFO mpq_sender: streaming 1500 frames (policy=A1)
+52437335307 INFO mpq_sender: CLIENT-9fa3152a7e603fb2 closed
+52437335381 INFO mpq_sender: sent 1500 of 1500 frames

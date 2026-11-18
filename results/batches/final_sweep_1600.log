@@ -1,0 +1,44 @@
+# 2026-11-17T22:39:05Z start: SCENARIOS='rtt_asym' CONFIGS='S1 S4 R1 F2 A1' RUN_IDS='1 2 3 4 5 6 7 8' 1600 intra stochastic repo=abf39c6 tquic=4d7481d built=2026-11-17T22:39:05Z 
+2026-11-17T22:40:11Z results/rtt_asym/S1/1600_intra_stochastic/1 rc=0 66s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=10908861 B=1698556
+2026-11-17T22:41:16Z results/rtt_asym/S4/1600_intra_stochastic/1 rc=0 65s cpu max {'mpq_receiver': 10.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=10675555 B=1931552
+2026-11-17T22:42:21Z results/rtt_asym/R1/1600_intra_stochastic/1 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=12593876 B=0
+2026-11-17T22:43:26Z results/rtt_asym/F2/1600_intra_stochastic/1 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 9.9}; stalled=False; veth tx A=11314014 B=1323843
+2026-11-17T22:44:31Z results/rtt_asym/A1/1600_intra_stochastic/1 rc=0 65s cpu max {'mpq_receiver': 9.9, 'mpq_sender': 8.0}; stalled=False; veth tx A=12005805 B=633792
+2026-11-17T22:45:36Z results/rtt_asym/S1/1600_intra_stochastic/2 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=10714292 B=1891682
+2026-11-17T22:46:41Z results/rtt_asym/S4/1600_intra_stochastic/2 rc=0 65s cpu max {'mpq_receiver': 9.9, 'mpq_sender': 8.0}; stalled=False; veth tx A=10516082 B=2091310
+2026-11-17T22:47:45Z results/rtt_asym/R1/1600_intra_stochastic/2 rc=0 64s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 7.9}; stalled=False; veth tx A=12594322 B=0
+2026-11-17T22:48:51Z results/rtt_asym/F2/1600_intra_stochastic/2 rc=0 66s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 9.9}; stalled=False; veth tx A=11233707 B=1395331
+2026-11-17T22:49:56Z results/rtt_asym/A1/1600_intra_stochastic/2 rc=0 65s cpu max {'mpq_receiver': 10.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=11938680 B=713490
+2026-11-17T22:51:01Z results/rtt_asym/S1/1600_intra_stochastic/3 rc=0 65s cpu max {'mpq_receiver': 7.9, 'mpq_sender': 8.0}; stalled=False; veth tx A=10506397 B=2100294
+2026-11-17T22:52:06Z results/rtt_asym/S4/1600_intra_stochastic/3 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=10258186 B=2348530
+2026-11-17T22:53:11Z results/rtt_asym/R1/1600_intra_stochastic/3 rc=0 65s cpu max {'mpq_receiver': 7.9, 'mpq_sender': 8.0}; stalled=False; veth tx A=12593971 B=0
+2026-11-17T22:54:17Z results/rtt_asym/F2/1600_intra_stochastic/3 rc=0 66s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 10.0}; stalled=False; veth tx A=11355550 B=1283257
+2026-11-17T22:55:22Z results/rtt_asym/A1/1600_intra_stochastic/3 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=11980971 B=667736
+2026-11-17T22:56:28Z results/rtt_asym/S1/1600_intra_stochastic/4 rc=0 66s cpu max {'mpq_receiver': 9.9, 'mpq_sender': 9.9}; stalled=False; veth tx A=10527289 B=2077832
+2026-11-17T22:57:33Z results/rtt_asym/S4/1600_intra_stochastic/4 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=9936832 B=2667195
+2026-11-17T22:58:38Z results/rtt_asym/R1/1600_intra_stochastic/4 rc=0 65s cpu max {'mpq_receiver': 7.9, 'mpq_sender': 7.9}; stalled=False; veth tx A=12593862 B=0
+2026-11-17T22:59:43Z results/rtt_asym/F2/1600_intra_stochastic/4 rc=0 65s cpu max {'mpq_receiver': 9.9, 'mpq_sender': 9.9}; stalled=False; veth tx A=11477640 B=1165662
+2026-11-17T23:00:49Z results/rtt_asym/A1/1600_intra_stochastic/4 rc=0 66s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=11993850 B=641358
+2026-11-17T23:01:54Z results/rtt_asym/S1/1600_intra_stochastic/5 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=11342692 B=1266166
+2026-11-17T23:03:00Z results/rtt_asym/S4/1600_intra_stochastic/5 rc=0 66s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=10806067 B=1800425
+2026-11-17T23:04:04Z results/rtt_asym/R1/1600_intra_stochastic/5 rc=0 64s cpu max {'mpq_receiver': 7.9, 'mpq_sender': 7.9}; stalled=False; veth tx A=12593873 B=0
+2026-11-17T23:05:10Z results/rtt_asym/F2/1600_intra_stochastic/5 rc=0 66s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 9.9}; stalled=False; veth tx A=11202126 B=1434678
+2026-11-17T23:06:15Z results/rtt_asym/A1/1600_intra_stochastic/5 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=11940312 B=695334
+2026-11-17T23:07:20Z results/rtt_asym/S1/1600_intra_stochastic/6 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=10232118 B=2376349
+2026-11-17T23:08:24Z results/rtt_asym/S4/1600_intra_stochastic/6 rc=0 64s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=10309332 B=2295649
+2026-11-17T23:09:29Z results/rtt_asym/R1/1600_intra_stochastic/6 rc=0 65s cpu max {'mpq_receiver': 7.9, 'mpq_sender': 7.9}; stalled=False; veth tx A=12594086 B=0
+2026-11-17T23:10:34Z results/rtt_asym/F2/1600_intra_stochastic/6 rc=0 65s cpu max {'mpq_receiver': 10.0, 'mpq_sender': 9.9}; stalled=False; veth tx A=11278892 B=1356898
+2026-11-17T23:11:39Z results/rtt_asym/A1/1600_intra_stochastic/6 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=11948816 B=693061
+2026-11-17T23:12:45Z results/rtt_asym/S1/1600_intra_stochastic/7 rc=0 66s cpu max {'mpq_receiver': 9.9, 'mpq_sender': 8.0}; stalled=False; veth tx A=10982886 B=1621851
+2026-11-17T23:13:50Z results/rtt_asym/S4/1600_intra_stochastic/7 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=11241553 B=1364634
+2026-11-17T23:14:55Z results/rtt_asym/R1/1600_intra_stochastic/7 rc=0 65s cpu max {'mpq_receiver': 9.9, 'mpq_sender': 8.0}; stalled=False; veth tx A=12593866 B=0
+2026-11-17T23:16:00Z results/rtt_asym/F2/1600_intra_stochastic/7 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 9.9}; stalled=False; veth tx A=11231004 B=1404921
+2026-11-17T23:17:05Z results/rtt_asym/A1/1600_intra_stochastic/7 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 7.9}; stalled=False; veth tx A=11947909 B=696179
+2026-11-17T23:18:11Z results/rtt_asym/S1/1600_intra_stochastic/8 rc=4 66s cpu max {'mpq_receiver': 105.8, 'mpq_sender': 6.0}; stalled=False; veth tx A=9959888 B=2646405
+  CPU above 80%: moved to results/_discarded/results/rtt_asym/S1/1600_intra_stochastic/8.cpu.1794957491, rerunning
+2026-11-17T23:19:16Z results/rtt_asym/S1/1600_intra_stochastic/8 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 7.9}; stalled=False; veth tx A=10823990 B=1781126
+2026-11-17T23:20:21Z results/rtt_asym/S4/1600_intra_stochastic/8 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=10672242 B=1932624
+2026-11-17T23:21:26Z results/rtt_asym/R1/1600_intra_stochastic/8 rc=0 65s cpu max {'mpq_receiver': 7.9, 'mpq_sender': 8.0}; stalled=False; veth tx A=12594017 B=0
+2026-11-17T23:22:31Z results/rtt_asym/F2/1600_intra_stochastic/8 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 9.9}; stalled=False; veth tx A=11172791 B=1459326
+2026-11-17T23:23:36Z results/rtt_asym/A1/1600_intra_stochastic/8 rc=0 65s cpu max {'mpq_receiver': 8.0, 'mpq_sender': 8.0}; stalled=False; veth tx A=11921541 B=713425
+# 2026-11-17T23:23:36Z done

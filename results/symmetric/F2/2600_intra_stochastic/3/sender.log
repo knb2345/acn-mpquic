@@ -1,0 +1,5 @@
+44199188642 INFO mpq_sender: CLIENT-70b717f427f3e0ce established
+44199188653 INFO mpq_sender: added path 10.10.2.1:36444 -> 10.10.0.1:4433
+44200189301 INFO mpq_sender: streaming 1500 frames (policy=F2)
+44260460150 INFO mpq_sender: CLIENT-70b717f427f3e0ce closed
+44260460221 INFO mpq_sender: sent 1500 of 1500 frames

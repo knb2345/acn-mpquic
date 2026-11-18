@@ -1,0 +1,5 @@
+56485453091 INFO mpq_sender: CLIENT-daf466755382c863 established
+56485453101 INFO mpq_sender: added path 10.10.2.1:40095 -> 10.10.0.1:4433
+56486453518 INFO mpq_sender: streaming 1500 frames (policy=F2)
+56547009097 INFO mpq_sender: CLIENT-daf466755382c863 closed
+56547009167 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+45017380821 INFO mpq_sender: CLIENT-3b22f749b6446f1f established
+45017380827 INFO mpq_sender: added path 10.10.2.1:54929 -> 10.10.0.1:4433
+45018381565 INFO mpq_sender: streaming 1500 frames (policy=F1)
+45078682765 INFO mpq_sender: CLIENT-3b22f749b6446f1f closed
+45078682822 INFO mpq_sender: sent 1500 of 1500 frames

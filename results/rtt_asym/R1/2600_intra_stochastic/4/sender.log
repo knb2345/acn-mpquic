@@ -1,0 +1,4 @@
+45205285766 INFO mpq_sender: CLIENT-8af63e984de8bc27 established
+45206286966 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+45266570038 INFO mpq_sender: CLIENT-8af63e984de8bc27 closed
+45266570088 INFO mpq_sender: sent 1500 of 1500 frames

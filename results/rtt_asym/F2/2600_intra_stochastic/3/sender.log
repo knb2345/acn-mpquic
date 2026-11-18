@@ -1,0 +1,5 @@
+43571991106 INFO mpq_sender: CLIENT-390a4a641af9d074 established
+43571991117 INFO mpq_sender: added path 10.10.2.1:50809 -> 10.10.0.1:4433
+43572992094 INFO mpq_sender: streaming 1500 frames (policy=F2)
+43633689833 INFO mpq_sender: CLIENT-390a4a641af9d074 closed
+43633689915 INFO mpq_sender: sent 1500 of 1500 frames

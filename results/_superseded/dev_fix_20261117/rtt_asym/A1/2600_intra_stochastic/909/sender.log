@@ -1,0 +1,5 @@
+39756405751 INFO mpq_sender: CLIENT-4c5c1c2ec4424abe established
+39756647600 INFO mpq_sender: CLIENT-53be344f33b66ab2 established
+39757408070 INFO mpq_sender: streaming 1500 frames (policy=A1)
+39877442770 WARN mpq_sender: giving up after 120 s
+39877442872 INFO mpq_sender: sent 1500 of 1500 frames

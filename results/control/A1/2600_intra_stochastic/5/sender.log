@@ -1,0 +1,5 @@
+48220257780 INFO mpq_sender: CLIENT-56c9276a57c36ea1 established
+48220257795 INFO mpq_sender: CLIENT-dfc77d272fddb9ee established
+48221258787 INFO mpq_sender: streaming 1500 frames (policy=A1)
+48281435000 INFO mpq_sender: CLIENT-56c9276a57c36ea1 closed
+48281435121 INFO mpq_sender: sent 1500 of 1500 frames

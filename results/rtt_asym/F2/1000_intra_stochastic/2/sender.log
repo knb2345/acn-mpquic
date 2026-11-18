@@ -1,0 +1,5 @@
+53985739185 INFO mpq_sender: CLIENT-340985137b480188 established
+53985739196 INFO mpq_sender: added path 10.10.2.1:48752 -> 10.10.0.1:4433
+53986740106 INFO mpq_sender: streaming 1500 frames (policy=F2)
+54046919719 INFO mpq_sender: CLIENT-340985137b480188 closed
+54046919788 INFO mpq_sender: sent 1500 of 1500 frames

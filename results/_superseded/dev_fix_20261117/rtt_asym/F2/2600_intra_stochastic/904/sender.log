@@ -1,0 +1,5 @@
+39094512691 INFO mpq_sender: CLIENT-985c4b49dc0e0c47 established
+39094512695 INFO mpq_sender: added path 10.10.2.1:55148 -> 10.10.0.1:4433
+39095512892 INFO mpq_sender: streaming 1500 frames (policy=F2)
+39156456630 INFO mpq_sender: CLIENT-985c4b49dc0e0c47 closed
+39156456981 INFO mpq_sender: sent 1500 of 1500 frames

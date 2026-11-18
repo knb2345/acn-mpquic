@@ -1,0 +1,5 @@
+38186842444 INFO mpq_sender: CLIENT-3a704d661c1a839e established
+38186842457 INFO mpq_sender: added path 10.10.2.1:50047 -> 10.10.0.1:4433
+38187843100 INFO mpq_sender: streaming 1500 frames (policy=F2)
+38248430326 INFO mpq_sender: CLIENT-3a704d661c1a839e closed
+38248430670 INFO mpq_sender: sent 1500 of 1500 frames

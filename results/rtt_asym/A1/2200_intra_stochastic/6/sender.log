@@ -1,0 +1,5 @@
+61385443400 INFO mpq_sender: CLIENT-4b476e5140e43dba established
+61385681942 INFO mpq_sender: CLIENT-2e05c312197f8290 established
+61386444264 INFO mpq_sender: streaming 1500 frames (policy=A1)
+61447212473 INFO mpq_sender: CLIENT-4b476e5140e43dba closed
+61447212575 INFO mpq_sender: sent 1500 of 1500 frames

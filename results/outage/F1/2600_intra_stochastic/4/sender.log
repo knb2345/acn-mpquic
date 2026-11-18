@@ -1,0 +1,5 @@
+46270676136 INFO mpq_sender: CLIENT-0413cf01735c5aab established
+46270676149 INFO mpq_sender: added path 10.10.2.1:42265 -> 10.10.0.1:4433
+46271676901 INFO mpq_sender: streaming 1500 frames (policy=F1)
+46332226676 INFO mpq_sender: CLIENT-0413cf01735c5aab closed
+46332226818 INFO mpq_sender: sent 1500 of 1500 frames

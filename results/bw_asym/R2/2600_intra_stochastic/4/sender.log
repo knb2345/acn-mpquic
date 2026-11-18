@@ -1,0 +1,5 @@
+45581521666 INFO mpq_sender: CLIENT-08d163262fa5ff96 established
+45581521677 INFO mpq_sender: added path 10.10.2.1:37629 -> 10.10.0.1:4433
+45582521946 INFO mpq_sender: streaming 1500 frames (policy=R2)
+45642725940 INFO mpq_sender: CLIENT-08d163262fa5ff96 closed
+45642725997 INFO mpq_sender: sent 1500 of 1500 frames

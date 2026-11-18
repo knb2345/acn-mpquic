@@ -1,0 +1,5 @@
+57743266334 INFO mpq_sender: CLIENT-e7fa97a7abc30337 established
+57743266345 INFO mpq_sender: added path 10.10.2.1:54937 -> 10.10.0.1:4433
+57744266556 INFO mpq_sender: streaming 1500 frames (policy=F2)
+57804732206 INFO mpq_sender: CLIENT-e7fa97a7abc30337 closed
+57804732255 INFO mpq_sender: sent 1500 of 1500 frames

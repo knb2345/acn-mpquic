@@ -1,0 +1,5 @@
+54048249273 INFO mpq_sender: CLIENT-99754c5610827dd0 established
+54048486045 INFO mpq_sender: CLIENT-7955656aafe96be8 established
+54049249915 INFO mpq_sender: streaming 1500 frames (policy=A1)
+54109389928 INFO mpq_sender: CLIENT-99754c5610827dd0 closed
+54109389983 INFO mpq_sender: sent 1500 of 1500 frames

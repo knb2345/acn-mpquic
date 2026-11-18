@@ -1,0 +1,1 @@
+testbed up: scenario=bw_asym mode=R1 A=3200kbit/40ms B=1kbit/1000ms queue=200ms

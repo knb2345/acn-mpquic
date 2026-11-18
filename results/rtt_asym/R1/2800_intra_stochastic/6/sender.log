@@ -1,0 +1,4 @@
+63842827300 INFO mpq_sender: CLIENT-8b0abd396d29e012 established
+63843828535 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+63904114857 INFO mpq_sender: CLIENT-8b0abd396d29e012 closed
+63904115029 INFO mpq_sender: sent 1500 of 1500 frames

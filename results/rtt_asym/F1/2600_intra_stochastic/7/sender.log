@@ -1,0 +1,5 @@
+50120532411 INFO mpq_sender: CLIENT-96052b82fd8ff943 established
+50120532422 INFO mpq_sender: added path 10.10.2.1:49057 -> 10.10.0.1:4433
+50121532712 INFO mpq_sender: streaming 1500 frames (policy=F1)
+50182105203 INFO mpq_sender: CLIENT-96052b82fd8ff943 closed
+50182105239 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+63653121521 INFO mpq_sender: CLIENT-70b1d65b6dd0e572 established
+63653359796 INFO mpq_sender: CLIENT-86e87bb31faa1d74 established
+63654122493 INFO mpq_sender: streaming 1500 frames (policy=A1)
+63715018099 INFO mpq_sender: CLIENT-70b1d65b6dd0e572 closed
+63715018296 INFO mpq_sender: sent 1500 of 1500 frames

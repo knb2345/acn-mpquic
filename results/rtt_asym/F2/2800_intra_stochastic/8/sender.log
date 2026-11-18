@@ -1,0 +1,5 @@
+64533641420 INFO mpq_sender: CLIENT-c731eaf81867eb5d established
+64533641431 INFO mpq_sender: added path 10.10.2.1:39337 -> 10.10.0.1:4433
+64534641762 INFO mpq_sender: streaming 1500 frames (policy=F2)
+64595324346 INFO mpq_sender: CLIENT-c731eaf81867eb5d closed
+64595324554 INFO mpq_sender: sent 1500 of 1500 frames

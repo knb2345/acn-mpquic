@@ -1,0 +1,5 @@
+43133718973 INFO mpq_sender: CLIENT-b1325abb9285c7b1 established
+43133718984 INFO mpq_sender: added path 10.10.2.1:47926 -> 10.10.0.1:4433
+43134720272 INFO mpq_sender: streaming 1500 frames (policy=F1)
+43194942394 INFO mpq_sender: CLIENT-b1325abb9285c7b1 closed
+43194942523 INFO mpq_sender: sent 1500 of 1500 frames

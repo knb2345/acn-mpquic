@@ -1,0 +1,5 @@
+44136370072 INFO mpq_sender: CLIENT-a0f08436b9f5e96d established
+44136409182 INFO mpq_sender: CLIENT-6f0878bbecf0e363 established
+44137371277 INFO mpq_sender: streaming 1500 frames (policy=A1)
+44197673528 INFO mpq_sender: CLIENT-a0f08436b9f5e96d closed
+44197673605 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+54921267202 INFO mpq_sender: CLIENT-082eac600b8f137e established
+54921267213 INFO mpq_sender: added path 10.10.2.1:45016 -> 10.10.0.1:4433
+54922267791 INFO mpq_sender: streaming 1500 frames (policy=F2)
+54983135838 INFO mpq_sender: CLIENT-082eac600b8f137e closed
+54983135897 INFO mpq_sender: sent 1500 of 1500 frames

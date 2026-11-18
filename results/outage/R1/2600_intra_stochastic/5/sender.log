@@ -1,0 +1,4 @@
+47718349054 INFO mpq_sender: CLIENT-ff80afd72ae11074 established
+47719350194 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+47779617820 INFO mpq_sender: CLIENT-ff80afd72ae11074 closed
+47779617910 INFO mpq_sender: sent 1500 of 1500 frames

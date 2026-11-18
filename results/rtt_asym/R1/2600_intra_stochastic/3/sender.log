@@ -1,0 +1,4 @@
+43634658710 INFO mpq_sender: CLIENT-4077a3d75933b6ad established
+43635659380 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+43695943916 INFO mpq_sender: CLIENT-4077a3d75933b6ad closed
+43695943974 INFO mpq_sender: sent 1500 of 1500 frames

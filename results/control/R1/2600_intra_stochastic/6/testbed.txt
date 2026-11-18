@@ -1,0 +1,1 @@
+testbed up: scenario=control mode=R1 A=8000kbit/40ms B=1kbit/1000ms queue=200ms

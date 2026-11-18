@@ -1,0 +1,5 @@
+62519479268 INFO mpq_receiver: listening on 10.10.0.1:4433
+62519764699 INFO mpq_receiver: SERVER-9ecacf30eadb6394 established
+62580892263 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+62582018677 INFO mpq_receiver: SERVER-9ecacf30eadb6394 closed
+62582019510 INFO mpq_receiver: 1500 of 1500 frames complete

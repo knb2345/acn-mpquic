@@ -1,0 +1,5 @@
+54422316230 INFO mpq_sender: CLIENT-76b45929b5e2a7df established
+54422316241 INFO mpq_sender: added path 10.10.2.1:39123 -> 10.10.0.1:4433
+54423317021 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+54483470592 INFO mpq_sender: CLIENT-76b45929b5e2a7df closed
+54483470662 INFO mpq_sender: sent 1500 of 1500 frames

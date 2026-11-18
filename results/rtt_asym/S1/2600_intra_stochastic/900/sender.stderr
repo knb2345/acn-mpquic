@@ -1,0 +1,5 @@
+error: unexpected argument '--policy' found
+
+Usage: mpq_sender <--connect <CONNECT>|--local-addresses <LOCAL_ADDRESSES>|--enable-multipath|--multipath-algor <MULTIPATH_ALGOR>|--cc <CC>|--frames <FRAMES>|--clip-offset <CLIP_OFFSET>|--warmup-ms <WARMUP_MS>|--max-duration-s <MAX_DURATION_S>|--out <OUT>|--frame-path-log <FRAME_PATH_LOG>|--paths-log <PATHS_LOG>|--log-file <LOG_FILE>|--log-level <LOG_LEVEL>|--qlog-dir <QLOG_DIR>>
+
+For more information, try '--help'.

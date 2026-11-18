@@ -1,0 +1,5 @@
+38423736284 INFO mpq_sender: CLIENT-9228f56cf8dda724 established
+38423736290 INFO mpq_sender: added path 10.10.2.1:50641 -> 10.10.0.1:4433
+38424736862 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+38485476919 INFO mpq_sender: CLIENT-9228f56cf8dda724 closed
+38485477186 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+56360009938 INFO mpq_sender: CLIENT-a20e9320ef2db627 established
+56360009949 INFO mpq_sender: added path 10.10.2.1:38764 -> 10.10.0.1:4433
+56361010316 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+56421599576 INFO mpq_sender: CLIENT-a20e9320ef2db627 closed
+56421599656 INFO mpq_sender: sent 1500 of 1500 frames

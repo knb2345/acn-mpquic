@@ -1,0 +1,4 @@
+46144697323 INFO mpq_sender: CLIENT-a6ad15a6de359bbb established
+46145698237 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+46205999773 INFO mpq_sender: CLIENT-a6ad15a6de359bbb closed
+46205999837 INFO mpq_sender: sent 1500 of 1500 frames

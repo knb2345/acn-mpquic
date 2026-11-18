@@ -1,0 +1,5 @@
+50810368502 INFO mpq_sender: CLIENT-ea5ff681cde3dc5c established
+50810368518 INFO mpq_sender: CLIENT-5ddf3d3f5ec80d58 established
+50811369447 INFO mpq_sender: streaming 1500 frames (policy=A1)
+50871608068 INFO mpq_sender: CLIENT-ea5ff681cde3dc5c closed
+50871608142 INFO mpq_sender: sent 1500 of 1500 frames

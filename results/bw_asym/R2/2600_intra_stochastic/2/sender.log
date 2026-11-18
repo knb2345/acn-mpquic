@@ -1,0 +1,5 @@
+42442923408 INFO mpq_sender: CLIENT-482d661efa43652e established
+42442923413 INFO mpq_sender: added path 10.10.2.1:55418 -> 10.10.0.1:4433
+42443924606 INFO mpq_sender: streaming 1500 frames (policy=R2)
+42504118501 INFO mpq_sender: CLIENT-482d661efa43652e closed
+42504118538 INFO mpq_sender: sent 1500 of 1500 frames

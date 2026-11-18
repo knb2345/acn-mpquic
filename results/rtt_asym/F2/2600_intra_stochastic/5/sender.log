@@ -1,0 +1,5 @@
+46708827193 INFO mpq_sender: CLIENT-a6d91d9c7283788d established
+46708827200 INFO mpq_sender: added path 10.10.2.1:48617 -> 10.10.0.1:4433
+46709827749 INFO mpq_sender: streaming 1500 frames (policy=F2)
+46770702093 INFO mpq_sender: CLIENT-a6d91d9c7283788d closed
+46770702240 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+38250400863 INFO mpq_sender: CLIENT-1fd65aab990ac1a6 established
+38250400882 INFO mpq_sender: added path 10.10.2.1:56888 -> 10.10.0.1:4433
+38251400996 INFO mpq_sender: streaming 1500 frames (policy=F2)
+38371435406 WARN mpq_sender: giving up after 120 s
+38371435412 INFO mpq_sender: sent 1500 of 1500 frames

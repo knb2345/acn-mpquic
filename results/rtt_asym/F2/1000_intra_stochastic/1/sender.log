@@ -1,0 +1,5 @@
+53673635577 INFO mpq_sender: CLIENT-d1a76dd19afe434d established
+53673635586 INFO mpq_sender: added path 10.10.2.1:41598 -> 10.10.0.1:4433
+53674636517 INFO mpq_sender: streaming 1500 frames (policy=F2)
+53735699545 INFO mpq_sender: CLIENT-d1a76dd19afe434d closed
+53735699629 INFO mpq_sender: sent 1500 of 1500 frames

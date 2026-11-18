@@ -1,0 +1,5 @@
+41503130584 INFO mpq_sender: CLIENT-473e5b6623a239a6 established
+41503130589 INFO mpq_sender: added path 10.10.2.1:58298 -> 10.10.0.1:4433
+41504131656 INFO mpq_sender: streaming 1500 frames (policy=R2)
+41564376132 INFO mpq_sender: CLIENT-473e5b6623a239a6 closed
+41564376289 INFO mpq_sender: sent 1500 of 1500 frames

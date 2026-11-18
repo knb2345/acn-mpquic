@@ -18,7 +18,7 @@ recover what packet-level schedulers waste?
 
 ![Cross-scenario results](analysis/plots/fig1_cross_scenario_ontime.png)
 
-## Main results ({RUNS} paired runs, 60 s NPTEL lecture, D = 250 ms)
+## Main results (576 paired runs, 60 s NPTEL lecture, D = 250 ms)
 
 - **Packet schedulers waste capacity.** At 2.6 Mbit/s over two links with 23 %
   spare capacity, MinRTT and ECF freeze the video 11-15 % of the time: they

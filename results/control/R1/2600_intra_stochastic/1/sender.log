@@ -1,0 +1,4 @@
+41754523943 INFO mpq_sender: CLIENT-152b5398e7f319c7 established
+41755524647 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+41815709399 INFO mpq_sender: CLIENT-152b5398e7f319c7 closed
+41815709468 INFO mpq_sender: sent 1500 of 1500 frames

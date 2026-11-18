@@ -1,0 +1,4 @@
+45519127960 INFO mpq_sender: CLIENT-09bb66e3fc396fc7 established
+45520128067 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+45580450671 INFO mpq_sender: CLIENT-09bb66e3fc396fc7 closed
+45580450712 INFO mpq_sender: sent 1500 of 1500 frames

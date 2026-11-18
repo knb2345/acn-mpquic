@@ -1,0 +1,5 @@
+57618191706 INFO mpq_sender: CLIENT-23e728bed73180c3 established
+57618191716 INFO mpq_sender: added path 10.10.2.1:43984 -> 10.10.0.1:4433
+57619192340 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+57679931808 INFO mpq_sender: CLIENT-23e728bed73180c3 closed
+57679931879 INFO mpq_sender: sent 1500 of 1500 frames

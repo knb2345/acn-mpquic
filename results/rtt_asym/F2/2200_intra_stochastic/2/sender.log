@@ -1,0 +1,5 @@
+60063818699 INFO mpq_sender: CLIENT-291fe15188e60ba4 established
+60063818709 INFO mpq_sender: added path 10.10.2.1:42565 -> 10.10.0.1:4433
+60064819820 INFO mpq_sender: streaming 1500 frames (policy=F2)
+60125560599 INFO mpq_sender: CLIENT-291fe15188e60ba4 closed
+60125560704 INFO mpq_sender: sent 1500 of 1500 frames

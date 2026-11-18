@@ -1,0 +1,5 @@
+42755489986 INFO mpq_sender: CLIENT-f04d1075caf72285 established
+42755489993 INFO mpq_sender: added path 10.10.2.1:42760 -> 10.10.0.1:4433
+42756490627 INFO mpq_sender: streaming 1500 frames (policy=R2)
+42816746844 INFO mpq_sender: CLIENT-f04d1075caf72285 closed
+42816746907 INFO mpq_sender: sent 1500 of 1500 frames

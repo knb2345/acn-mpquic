@@ -1,0 +1,5 @@
+61951575928 INFO mpq_sender: CLIENT-694f3d163a5dcdf3 established
+61951575939 INFO mpq_sender: added path 10.10.2.1:54801 -> 10.10.0.1:4433
+61952576724 INFO mpq_sender: streaming 1500 frames (policy=F2)
+62013143505 INFO mpq_sender: CLIENT-694f3d163a5dcdf3 closed
+62013143623 INFO mpq_sender: sent 1500 of 1500 frames

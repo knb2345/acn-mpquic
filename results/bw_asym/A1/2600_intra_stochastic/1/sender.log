@@ -1,0 +1,5 @@
+41002022851 INFO mpq_sender: CLIENT-9a3e9ca6d395445b established
+41002064282 INFO mpq_sender: CLIENT-9feff0d5630930c5 established
+41003023139 INFO mpq_sender: streaming 1500 frames (policy=A1)
+41063374037 INFO mpq_sender: CLIENT-9a3e9ca6d395445b closed
+41063374105 INFO mpq_sender: sent 1500 of 1500 frames

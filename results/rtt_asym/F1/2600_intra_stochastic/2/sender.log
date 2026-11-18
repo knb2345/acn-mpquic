@@ -1,0 +1,5 @@
+42192613391 INFO mpq_sender: CLIENT-c8ccc879bbda17eb established
+42192613397 INFO mpq_sender: added path 10.10.2.1:52560 -> 10.10.0.1:4433
+42193614235 INFO mpq_sender: streaming 1500 frames (policy=F1)
+42254187134 INFO mpq_sender: CLIENT-c8ccc879bbda17eb closed
+42254187174 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+56926193083 INFO mpq_sender: CLIENT-c63a2c6370801ad2 established
+56926193089 INFO mpq_sender: added path 10.10.2.1:56211 -> 10.10.0.1:4433
+56927194070 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+56988190214 INFO mpq_sender: CLIENT-c63a2c6370801ad2 closed
+56988190278 INFO mpq_sender: sent 1500 of 1500 frames

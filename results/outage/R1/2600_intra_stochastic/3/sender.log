@@ -1,0 +1,4 @@
+44576206479 INFO mpq_sender: CLIENT-09b9271241f35fd1 established
+44577207578 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+44638116333 INFO mpq_sender: CLIENT-09b9271241f35fd1 closed
+44638116539 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+44766142403 INFO mpq_sender: CLIENT-be8fffa2f312245e established
+44766181361 INFO mpq_sender: CLIENT-67aec8f55ffd31e1 established
+44767143029 INFO mpq_sender: streaming 1500 frames (policy=A1)
+44827480205 INFO mpq_sender: CLIENT-be8fffa2f312245e closed
+44827480299 INFO mpq_sender: sent 1500 of 1500 frames

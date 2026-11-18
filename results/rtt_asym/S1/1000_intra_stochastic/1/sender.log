@@ -1,0 +1,5 @@
+53424258993 INFO mpq_sender: CLIENT-2646826978c9fa4b established
+53424258998 INFO mpq_sender: added path 10.10.2.1:42608 -> 10.10.0.1:4433
+53425260088 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+53485476263 INFO mpq_sender: CLIENT-2646826978c9fa4b closed
+53485476445 INFO mpq_sender: sent 1500 of 1500 frames

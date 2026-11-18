@@ -1,0 +1,5 @@
+52000663886 INFO mpq_sender: CLIENT-2883c9a3505b13a3 established
+52000663893 INFO mpq_sender: added path 10.10.2.1:54105 -> 10.10.0.1:4433
+52001664665 INFO mpq_sender: streaming 1500 frames (policy=F1)
+52062204917 INFO mpq_sender: CLIENT-2883c9a3505b13a3 closed
+52062205003 INFO mpq_sender: sent 1500 of 1500 frames

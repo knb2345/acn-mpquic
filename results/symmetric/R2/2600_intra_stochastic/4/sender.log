@@ -1,0 +1,5 @@
+45894156570 INFO mpq_sender: CLIENT-0f799070b30b6544 established
+45894156575 INFO mpq_sender: added path 10.10.2.1:46165 -> 10.10.0.1:4433
+45895157139 INFO mpq_sender: streaming 1500 frames (policy=R2)
+45955423699 INFO mpq_sender: CLIENT-0f799070b30b6544 closed
+45955423765 INFO mpq_sender: sent 1500 of 1500 frames

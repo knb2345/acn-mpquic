@@ -1,0 +1,5 @@
+56297000820 INFO mpq_sender: CLIENT-c5f57d4c538345c1 established
+56297000831 INFO mpq_sender: added path 10.10.2.1:33230 -> 10.10.0.1:4433
+56298001884 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+56358637529 INFO mpq_sender: CLIENT-c5f57d4c538345c1 closed
+56358637582 INFO mpq_sender: sent 1500 of 1500 frames

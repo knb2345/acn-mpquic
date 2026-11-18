@@ -1,0 +1,5 @@
+61070769586 INFO mpq_sender: CLIENT-70eea089ab3f4ff0 established
+61071011654 INFO mpq_sender: CLIENT-0f8a2a30f0c91317 established
+61071770030 INFO mpq_sender: streaming 1500 frames (policy=A1)
+61132491916 INFO mpq_sender: CLIENT-70eea089ab3f4ff0 closed
+61132491984 INFO mpq_sender: sent 1500 of 1500 frames

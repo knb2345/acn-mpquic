@@ -1,0 +1,5 @@
+57805828836 INFO mpq_sender: CLIENT-5af6790805860655 established
+57806068797 INFO mpq_sender: CLIENT-827b881a29d8191a established
+57806829767 INFO mpq_sender: streaming 1500 frames (policy=A1)
+57867582826 INFO mpq_sender: CLIENT-5af6790805860655 closed
+57867582899 INFO mpq_sender: sent 1500 of 1500 frames

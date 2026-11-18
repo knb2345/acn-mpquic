@@ -1,0 +1,5 @@
+45456530242 INFO mpq_sender: CLIENT-464599526ce8e8d1 established
+45456530249 INFO mpq_sender: added path 10.10.2.1:41284 -> 10.10.0.1:4433
+45457530894 INFO mpq_sender: streaming 1500 frames (policy=F2)
+45517809644 INFO mpq_sender: CLIENT-464599526ce8e8d1 closed
+45517809748 INFO mpq_sender: sent 1500 of 1500 frames

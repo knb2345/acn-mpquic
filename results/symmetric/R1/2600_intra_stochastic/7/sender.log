@@ -1,0 +1,4 @@
+50622610542 INFO mpq_sender: CLIENT-ba0fde3d23c11a5a established
+50623611502 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+50683862277 INFO mpq_sender: CLIENT-ba0fde3d23c11a5a closed
+50683862408 INFO mpq_sender: sent 1500 of 1500 frames

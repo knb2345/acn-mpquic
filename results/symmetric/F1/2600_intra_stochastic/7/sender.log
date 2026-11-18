@@ -1,0 +1,5 @@
+50747305503 INFO mpq_sender: CLIENT-75c56cb68df5b218 established
+50747305508 INFO mpq_sender: added path 10.10.2.1:59382 -> 10.10.0.1:4433
+50748306165 INFO mpq_sender: streaming 1500 frames (policy=F1)
+50809103812 INFO mpq_sender: CLIENT-75c56cb68df5b218 closed
+50809103922 INFO mpq_sender: sent 1500 of 1500 frames

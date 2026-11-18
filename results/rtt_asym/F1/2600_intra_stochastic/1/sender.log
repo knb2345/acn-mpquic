@@ -1,0 +1,5 @@
+40625918257 INFO mpq_sender: CLIENT-91d973060d5d46b7 established
+40625918271 INFO mpq_sender: added path 10.10.2.1:32788 -> 10.10.0.1:4433
+40626918831 INFO mpq_sender: streaming 1500 frames (policy=F1)
+40687570444 INFO mpq_sender: CLIENT-91d973060d5d46b7 closed
+40687570666 INFO mpq_sender: sent 1500 of 1500 frames

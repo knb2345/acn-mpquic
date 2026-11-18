@@ -1,0 +1,5 @@
+55046710675 INFO mpq_sender: CLIENT-6c94e23489b09b13 established
+55046710686 INFO mpq_sender: added path 10.10.2.1:51504 -> 10.10.0.1:4433
+55047711409 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+55107901235 INFO mpq_sender: CLIENT-6c94e23489b09b13 closed
+55107901304 INFO mpq_sender: sent 1500 of 1500 frames

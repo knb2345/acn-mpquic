@@ -1,0 +1,5 @@
+49546431868 INFO mpq_sender: CLIENT-20e373d80dea434f established
+49547275009 INFO mpq_sender: CLIENT-c1323cc232ac8016 established
+49547432299 INFO mpq_sender: streaming 1500 frames (policy=A1)
+49618989503 INFO mpq_sender: CLIENT-20e373d80dea434f closed
+49618989799 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+42882238606 INFO mpq_sender: CLIENT-72e828e8fcd68312 established
+42882238616 INFO mpq_sender: CLIENT-0afe1fb32daa2948 established
+42883239551 INFO mpq_sender: streaming 1500 frames (policy=A1)
+42943500066 INFO mpq_sender: CLIENT-72e828e8fcd68312 closed
+42943500111 INFO mpq_sender: sent 1500 of 1500 frames

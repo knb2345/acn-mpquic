@@ -1,0 +1,5 @@
+51061019304 INFO mpq_sender: CLIENT-a797f5ed121ca70e established
+51061019316 INFO mpq_sender: added path 10.10.2.1:49242 -> 10.10.0.1:4433
+51062019956 INFO mpq_sender: streaming 1500 frames (policy=F1)
+51122822602 INFO mpq_sender: CLIENT-a797f5ed121ca70e closed
+51122822854 INFO mpq_sender: sent 1500 of 1500 frames

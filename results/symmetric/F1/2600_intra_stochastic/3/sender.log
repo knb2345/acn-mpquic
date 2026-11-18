@@ -1,0 +1,5 @@
+44387040227 INFO mpq_sender: CLIENT-922cb9ee81f64dbd established
+44387040236 INFO mpq_sender: added path 10.10.2.1:57921 -> 10.10.0.1:4433
+44388040978 INFO mpq_sender: streaming 1500 frames (policy=F1)
+44448551773 INFO mpq_sender: CLIENT-922cb9ee81f64dbd closed
+44448551805 INFO mpq_sender: sent 1500 of 1500 frames

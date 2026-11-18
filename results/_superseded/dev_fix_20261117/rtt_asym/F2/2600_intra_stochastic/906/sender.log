@@ -1,0 +1,5 @@
+39221578860 INFO mpq_sender: CLIENT-c2e5e3c9adca6f9f established
+39221578872 INFO mpq_sender: added path 10.10.2.1:45221 -> 10.10.0.1:4433
+39222579382 INFO mpq_sender: streaming 1500 frames (policy=F2)
+39283726859 INFO mpq_sender: CLIENT-c2e5e3c9adca6f9f closed
+39283726929 INFO mpq_sender: sent 1500 of 1500 frames

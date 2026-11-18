@@ -1,0 +1,5 @@
+52692063958 INFO mpq_sender: CLIENT-f567a35e05ed205b established
+52692101729 INFO mpq_sender: CLIENT-793706ec182b30c0 established
+52693064347 INFO mpq_sender: streaming 1500 frames (policy=A1)
+52753602463 INFO mpq_sender: CLIENT-f567a35e05ed205b closed
+52753602552 INFO mpq_sender: sent 1500 of 1500 frames

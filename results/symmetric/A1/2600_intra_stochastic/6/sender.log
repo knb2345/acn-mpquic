@@ -1,0 +1,5 @@
+49158466443 INFO mpq_sender: CLIENT-6e936a465f7c7050 established
+49158466456 INFO mpq_sender: CLIENT-332c96006c45ff1a established
+49159466681 INFO mpq_sender: streaming 1500 frames (policy=A1)
+49219726575 INFO mpq_sender: CLIENT-6e936a465f7c7050 closed
+49219726638 INFO mpq_sender: sent 1500 of 1500 frames

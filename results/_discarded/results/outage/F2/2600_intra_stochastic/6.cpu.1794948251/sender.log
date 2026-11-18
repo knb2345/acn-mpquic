@@ -1,0 +1,5 @@
+49220862032 INFO mpq_sender: CLIENT-d3a8ca2bcb6a18ef established
+49220862037 INFO mpq_sender: added path 10.10.2.1:55046 -> 10.10.0.1:4433
+49221862390 INFO mpq_sender: streaming 1500 frames (policy=F2)
+49284459258 INFO mpq_sender: CLIENT-d3a8ca2bcb6a18ef closed
+49284459344 INFO mpq_sender: sent 1500 of 1500 frames

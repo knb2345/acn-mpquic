@@ -1,0 +1,5 @@
+44639159160 INFO mpq_sender: CLIENT-4b15bc0018a7544e established
+44639159170 INFO mpq_sender: added path 10.10.2.1:40520 -> 10.10.0.1:4433
+44640159640 INFO mpq_sender: streaming 1500 frames (policy=R2)
+44700425304 INFO mpq_sender: CLIENT-4b15bc0018a7544e closed
+44700425481 INFO mpq_sender: sent 1500 of 1500 frames

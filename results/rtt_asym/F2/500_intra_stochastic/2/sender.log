@@ -1,0 +1,5 @@
+58687895031 INFO mpq_sender: CLIENT-3bdd5847bb2540bf established
+58687895042 INFO mpq_sender: added path 10.10.2.1:38726 -> 10.10.0.1:4433
+58688895705 INFO mpq_sender: streaming 1500 frames (policy=F2)
+58749057308 INFO mpq_sender: CLIENT-3bdd5847bb2540bf closed
+58749057373 INFO mpq_sender: sent 1500 of 1500 frames

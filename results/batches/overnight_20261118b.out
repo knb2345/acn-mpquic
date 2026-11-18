@@ -1,0 +1,5 @@
+2026-11-17T21:55:11Z start final_sweep_1000
+    Finished `release` profile [optimized + debuginfo] target(s) in 1.05s
+2026-11-17T22:39:05Z end final_sweep_1000 rc=0
+2026-11-17T22:39:05Z start final_sweep_1600
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.11s

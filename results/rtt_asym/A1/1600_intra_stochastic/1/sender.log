@@ -1,0 +1,5 @@
+56233757062 INFO mpq_sender: CLIENT-18129b1d17b5d058 established
+56233996740 INFO mpq_sender: CLIENT-3947b19e5b465b88 established
+56234757683 INFO mpq_sender: streaming 1500 frames (policy=A1)
+56295742293 INFO mpq_sender: CLIENT-18129b1d17b5d058 closed
+56295742502 INFO mpq_sender: sent 1500 of 1500 frames

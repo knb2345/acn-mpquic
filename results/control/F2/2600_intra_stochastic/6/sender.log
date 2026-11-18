@@ -1,0 +1,5 @@
+49620569299 INFO mpq_sender: CLIENT-f21c68af2d5513b8 established
+49620569309 INFO mpq_sender: added path 10.10.2.1:37882 -> 10.10.0.1:4433
+49621569722 INFO mpq_sender: streaming 1500 frames (policy=F2)
+49681747856 INFO mpq_sender: CLIENT-f21c68af2d5513b8 closed
+49681748091 INFO mpq_sender: sent 1500 of 1500 frames

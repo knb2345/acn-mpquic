@@ -1,0 +1,5 @@
+42505214419 INFO mpq_sender: CLIENT-11568f04f4a9d11b established
+42505214429 INFO mpq_sender: added path 10.10.2.1:50338 -> 10.10.0.1:4433
+42506216096 INFO mpq_sender: streaming 1500 frames (policy=F1)
+42566579380 INFO mpq_sender: CLIENT-11568f04f4a9d11b closed
+42566579448 INFO mpq_sender: sent 1500 of 1500 frames

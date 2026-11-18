@@ -1,0 +1,5 @@
+46019434792 INFO mpq_sender: CLIENT-56691a7b1e0c72a3 established
+46019434807 INFO mpq_sender: CLIENT-8cb50dbfde816bfe established
+46020435607 INFO mpq_sender: streaming 1500 frames (policy=A1)
+46080706361 INFO mpq_sender: CLIENT-56691a7b1e0c72a3 closed
+46080706443 INFO mpq_sender: sent 1500 of 1500 frames

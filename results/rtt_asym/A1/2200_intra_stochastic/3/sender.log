@@ -1,0 +1,5 @@
+60441464352 INFO mpq_sender: CLIENT-374521f08e1b8233 established
+60441703586 INFO mpq_sender: CLIENT-f83cdc168beb5100 established
+60442465033 INFO mpq_sender: streaming 1500 frames (policy=A1)
+60503239190 INFO mpq_sender: CLIENT-374521f08e1b8233 closed
+60503239264 INFO mpq_sender: sent 1500 of 1500 frames

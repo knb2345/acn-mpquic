@@ -1,0 +1,5 @@
+60126749509 INFO mpq_sender: CLIENT-96ba57596876d1c7 established
+60126988901 INFO mpq_sender: CLIENT-9efe6f6f33dea6ba established
+60127750571 INFO mpq_sender: streaming 1500 frames (policy=A1)
+60188457761 INFO mpq_sender: CLIENT-96ba57596876d1c7 closed
+60188457859 INFO mpq_sender: sent 1500 of 1500 frames

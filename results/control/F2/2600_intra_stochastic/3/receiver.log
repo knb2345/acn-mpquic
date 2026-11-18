@@ -1,0 +1,5 @@
+44829220204 INFO mpq_receiver: listening on 10.10.0.1:4433
+44829552273 INFO mpq_receiver: SERVER-3a8dd2f349f648a8 established
+44890541254 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+44890803782 INFO mpq_receiver: SERVER-3a8dd2f349f648a8 closed
+44890804755 INFO mpq_receiver: 1500 of 1500 frames complete

@@ -1,0 +1,5 @@
+62014123148 INFO mpq_receiver: listening on 10.10.0.1:4433
+62014372562 INFO mpq_receiver: SERVER-fb2e02685d5dcebc established
+62075528811 INFO mpq_receiver: closing: 1500 of 1500 frames complete
+62076464141 INFO mpq_receiver: SERVER-fb2e02685d5dcebc closed
+62076464880 INFO mpq_receiver: 1500 of 1500 frames complete

@@ -1,0 +1,5 @@
+43697097540 INFO mpq_sender: CLIENT-a5cd39fb1654efa2 established
+43697097550 INFO mpq_sender: added path 10.10.2.1:47375 -> 10.10.0.1:4433
+43698098621 INFO mpq_sender: streaming 1500 frames (policy=R2)
+43758606711 INFO mpq_sender: CLIENT-a5cd39fb1654efa2 closed
+43758606761 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+54734237212 INFO mpq_sender: CLIENT-62e29c5f99606619 established
+54734237226 INFO mpq_sender: added path 10.10.2.1:60426 -> 10.10.0.1:4433
+54735237847 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+54795389366 INFO mpq_sender: CLIENT-62e29c5f99606619 closed
+54795389441 INFO mpq_sender: sent 1500 of 1500 frames

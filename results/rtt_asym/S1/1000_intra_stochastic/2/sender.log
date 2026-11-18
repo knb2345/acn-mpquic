@@ -1,0 +1,5 @@
+53798964508 INFO mpq_sender: CLIENT-21abf57780499057 established
+53798964517 INFO mpq_sender: added path 10.10.2.1:53891 -> 10.10.0.1:4433
+53799965181 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+53860102760 INFO mpq_sender: CLIENT-21abf57780499057 closed
+53860102923 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,4 @@
+47087356237 INFO mpq_sender: CLIENT-518f5d5c4b8bcba8 established
+47088357048 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+47148645309 INFO mpq_sender: CLIENT-518f5d5c4b8bcba8 closed
+47148645581 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,5 @@
+41377790701 INFO mpq_sender: CLIENT-bc50e79c28ac5750 established
+41377790711 INFO mpq_sender: added path 10.10.2.1:50895 -> 10.10.0.1:4433
+41378791544 INFO mpq_sender: streaming 1500 frames (policy=F2)
+41439360699 INFO mpq_sender: CLIENT-bc50e79c28ac5750 closed
+41439360784 INFO mpq_sender: sent 1500 of 1500 frames

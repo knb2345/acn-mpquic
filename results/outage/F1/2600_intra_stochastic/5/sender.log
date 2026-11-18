@@ -1,0 +1,5 @@
+47844593836 INFO mpq_sender: CLIENT-c7097e6e4726d7e4 established
+47844593847 INFO mpq_sender: added path 10.10.2.1:51351 -> 10.10.0.1:4433
+47845594002 INFO mpq_sender: streaming 1500 frames (policy=F1)
+47906085197 INFO mpq_sender: CLIENT-c7097e6e4726d7e4 closed
+47906085436 INFO mpq_sender: sent 1500 of 1500 frames

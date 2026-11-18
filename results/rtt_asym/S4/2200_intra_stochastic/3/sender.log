@@ -1,0 +1,5 @@
+60252665973 INFO mpq_sender: CLIENT-ab40ddaa0f306222 established
+60252665984 INFO mpq_sender: added path 10.10.2.1:56492 -> 10.10.0.1:4433
+60253666344 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+60314664119 INFO mpq_sender: CLIENT-ab40ddaa0f306222 closed
+60314664264 INFO mpq_sender: sent 1500 of 1500 frames

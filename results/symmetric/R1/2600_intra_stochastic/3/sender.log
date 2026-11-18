@@ -1,0 +1,4 @@
+44261854999 INFO mpq_sender: CLIENT-0a15c10bde8f0461 established
+44262855450 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+44323178097 INFO mpq_sender: CLIENT-0a15c10bde8f0461 closed
+44323178218 INFO mpq_sender: sent 1500 of 1500 frames

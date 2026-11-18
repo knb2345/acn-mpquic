@@ -1,0 +1,5 @@
+48282472734 INFO mpq_sender: CLIENT-1691d404300a8b3e established
+48282472741 INFO mpq_sender: added path 10.10.2.1:51047 -> 10.10.0.1:4433
+48283473513 INFO mpq_sender: streaming 1500 frames (policy=F2)
+48344469701 INFO mpq_sender: CLIENT-1691d404300a8b3e closed
+48344469837 INFO mpq_sender: sent 1500 of 1500 frames

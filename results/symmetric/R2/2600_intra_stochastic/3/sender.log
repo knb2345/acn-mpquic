@@ -1,0 +1,5 @@
+44324426831 INFO mpq_sender: CLIENT-0ddf6e7f63f0ad6e established
+44324426841 INFO mpq_sender: added path 10.10.2.1:43467 -> 10.10.0.1:4433
+44325427584 INFO mpq_sender: streaming 1500 frames (policy=R2)
+44385696081 INFO mpq_sender: CLIENT-0ddf6e7f63f0ad6e closed
+44385696119 INFO mpq_sender: sent 1500 of 1500 frames

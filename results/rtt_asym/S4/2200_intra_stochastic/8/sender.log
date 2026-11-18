@@ -1,0 +1,5 @@
+61826459697 INFO mpq_sender: CLIENT-51c381be293e40d3 established
+61826459709 INFO mpq_sender: added path 10.10.2.1:53032 -> 10.10.0.1:4433
+61827460826 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+61888183579 INFO mpq_sender: CLIENT-51c381be293e40d3 closed
+61888183666 INFO mpq_sender: sent 1500 of 1500 frames

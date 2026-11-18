@@ -1,0 +1,4 @@
+56737674087 INFO mpq_sender: CLIENT-98920e5c3354ffc4 established
+56738675594 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+56798865131 INFO mpq_sender: CLIENT-98920e5c3354ffc4 closed
+56798865177 INFO mpq_sender: sent 1500 of 1500 frames

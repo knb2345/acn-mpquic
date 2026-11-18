@@ -1,0 +1,5 @@
+46396423821 INFO mpq_sender: CLIENT-f3ff2f05b5a05134 established
+46396423826 INFO mpq_sender: added path 10.10.2.1:52809 -> 10.10.0.1:4433
+46397425024 INFO mpq_sender: streaming 1500 frames (policy=F2)
+46458502003 INFO mpq_sender: CLIENT-f3ff2f05b5a05134 closed
+46458502100 INFO mpq_sender: sent 1500 of 1500 frames

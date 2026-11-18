@@ -1,0 +1,5 @@
+46081752113 INFO mpq_sender: CLIENT-90411519ea1137b8 established
+46081752120 INFO mpq_sender: added path 10.10.2.1:56977 -> 10.10.0.1:4433
+46082752779 INFO mpq_sender: streaming 1500 frames (policy=F2)
+46143098996 INFO mpq_sender: CLIENT-90411519ea1137b8 closed
+46143099083 INFO mpq_sender: sent 1500 of 1500 frames

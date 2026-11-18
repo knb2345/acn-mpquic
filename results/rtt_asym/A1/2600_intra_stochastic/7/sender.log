@@ -1,0 +1,5 @@
+50183476316 INFO mpq_sender: CLIENT-1f8bf63cc04f5daf established
+50183717463 INFO mpq_sender: CLIENT-6df04c2aa8d5c037 established
+50184477222 INFO mpq_sender: streaming 1500 frames (policy=A1)
+50245186696 INFO mpq_sender: CLIENT-1f8bf63cc04f5daf closed
+50245186744 INFO mpq_sender: sent 1500 of 1500 frames

@@ -1,0 +1,4 @@
+61575398717 INFO mpq_sender: CLIENT-aa53dbb25816327d established
+61576399190 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+61636591697 INFO mpq_sender: CLIENT-aa53dbb25816327d closed
+61636591768 INFO mpq_sender: sent 1500 of 1500 frames

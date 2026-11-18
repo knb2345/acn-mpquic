@@ -1,0 +1,5 @@
+63399841321 INFO mpq_sender: CLIENT-23459bd1c81f3b25 established
+63399841332 INFO mpq_sender: added path 10.10.2.1:34409 -> 10.10.0.1:4433
+63400842409 INFO mpq_sender: streaming 1500 frames (policy=Tquic)
+63461692086 INFO mpq_sender: CLIENT-23459bd1c81f3b25 closed
+63461692132 INFO mpq_sender: sent 1500 of 1500 frames
