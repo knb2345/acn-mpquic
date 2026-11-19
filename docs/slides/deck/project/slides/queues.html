@@ -1,0 +1,23 @@
+<section id="queues" data-transition="fade" style="background:#EEF1F4;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:80px 112px;display:flex;flex-direction:column;gap:24px">
+<p style="font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">10 · Why MinRTT and ECF freeze</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:52px;font-weight:600;line-height:1.1">They keep 90 to 130 ms of video waiting in a link’s buffer</h2>
+<div style="background:#FFFFFF;padding:24px 30px;border:1px solid #DCE1E8;border-radius:16px;display:flex;flex-direction:column;gap:10px">
+<table style="border-collapse:collapse;font-size:24px;width:100%;font-variant-numeric:tabular-nums"><thead><tr style="text-align:right;color:#4A5568"><th style="text-align:left;font-weight:600;padding:8px 10px;border-bottom:2px solid #14213D">Queue on link A / link B (ms)</th><th style="font-weight:600;padding:8px 10px;border-bottom:2px solid #14213D">MinRTT</th><th style="font-weight:600;padding:8px 10px;border-bottom:2px solid #14213D">Round-robin</th><th style="font-weight:600;padding:8px 10px;border-bottom:2px solid #14213D;color:#2F6FB0">F2</th></tr></thead><tbody style="text-align:right"><tr><td style="text-align:left;padding:10px;border-bottom:1px solid #DCE1E8">Equal links (40/40 ms)</td><td style="padding:10px;border-bottom:1px solid #DCE1E8">94 / 93</td><td style="padding:10px;border-bottom:1px solid #DCE1E8">8 / 8</td><td style="padding:10px;border-bottom:1px solid #DCE1E8;color:#2F6FB0;font-weight:600">9 / 9</td></tr><tr><td style="text-align:left;padding:10px;border-bottom:1px solid #DCE1E8">Unequal speeds (2.0 / 1.2 Mbit/s)</td><td style="padding:10px;border-bottom:1px solid #DCE1E8">93 / 102</td><td style="padding:10px;border-bottom:1px solid #DCE1E8">8 / <b>142</b></td><td style="padding:10px;border-bottom:1px solid #DCE1E8;color:#2F6FB0;font-weight:600">10 / 11</td></tr><tr><td style="text-align:left;padding:10px;border-bottom:1px solid #DCE1E8">Unequal delays (30 / 150 ms)</td><td style="padding:10px;border-bottom:1px solid #DCE1E8"><b>129</b> / 48</td><td style="padding:10px;border-bottom:1px solid #DCE1E8">9 / 9</td><td style="padding:10px;border-bottom:1px solid #DCE1E8;color:#2F6FB0;font-weight:600"><b>117</b> / 7</td></tr></tbody></table>
+<p style="font-size:20px;color:#4A5568">Queue = the link’s median round-trip time during the run minus its minimum (from paths.csv, 8 runs each, 2.6 Mbit/s, after the first 5 s). ECF is within 2 ms of MinRTT everywhere.</p>
+</div>
+<div style="display:flex;gap:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 30px;border:1px solid #DCE1E8;border-radius:16px">
+<h3 style="font-size:28px;font-weight:600;color:#2F6FB0">MinRTT and ECF</h3>
+<p style="font-size:22px;line-height:1.4;color:#3C4658">They send on the lower-delay link until its window is full, and CUBIC grows the window until the 200 ms buffer is full. So 90–130 ms of video waits in line and frames miss 250 ms.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 30px;border:1px solid #DCE1E8;border-radius:16px">
+<h3 style="font-size:28px;font-weight:600;color:#2F6FB0">Unequal delays: round-robin wins</h3>
+<p style="font-size:22px;line-height:1.4;color:#3C4658">F2 sends more on the fast link (58% of the bytes) because the slow link takes longer to deliver, and that builds a 117 ms queue there. Round-robin gives two equal-speed links half each, so both queues stay at 9 ms.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 30px;border:1px solid #DCE1E8;border-radius:16px">
+<h3 style="font-size:28px;font-weight:600;color:#2F6FB0">Unequal speeds: F2 wins</h3>
+<p style="font-size:22px;line-height:1.4;color:#3C4658">Round-robin gives the 1.2 Mbit/s link 44% of the video: 0.44 × 2.6 = 1.15 Mbit/s, so that link is nearly full (142 ms queue). F2 puts 66% on the 2.0 Mbit/s link, close to its 62.5% share of capacity.</p>
+</div>
+</div>
+<aside>This slide explains the results with measurements, not guesses. Read the table row by row: MinRTT has long queues everywhere; round-robin is short except on the slower link when speeds differ; F2 is short except on the fast link when delays differ.</aside>
+</section>

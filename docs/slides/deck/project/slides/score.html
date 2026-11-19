@@ -1,0 +1,19 @@
+<section id="score" data-transition="fade" style="background:#FBFBF8;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:80px 112px;display:flex;flex-direction:column;gap:26px">
+<p style="font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">6 · How we score and compare</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:54px;font-weight:600;line-height:1.1">One score that matches what a student sees, and a fair comparison</h2>
+<div style="display:flex;gap:24px">
+<div style="flex:1.1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 30px;border:1px solid #DCE1E8;border-radius:16px">
+<h3 style="font-size:30px;font-weight:600;color:#2F6FB0">Score for each run</h3>
+<ul style="font-size:22px;line-height:1.45;color:#3C4658;display:flex;flex-direction:column;gap:6px"><li><b>Frames on time:</b> a frame counts only if it and every earlier frame it depends on arrived within <b>250 ms</b> of capture</li><li><b>Time frozen:</b> gaps of <b>190 ms</b> or more between shown frames, as a share of the 60 s (190 = max(3 × 40, 40 + 150) ms at 25 frames/s)</li><li><b>Usable capacity:</b> the highest video bitrate with at most <b>1%</b> of the time frozen</li></ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 30px;border:1px solid #DCE1E8;border-radius:16px">
+<h3 style="font-size:30px;font-weight:600;color:#2F6FB0">What we compare</h3>
+<ul style="font-size:22px;line-height:1.45;color:#3C4658;display:flex;flex-direction:column;gap:6px"><li><b>S0</b> one link only · <b>S1</b> MinRTT · <b>S2</b> round-robin · <b>S3</b> redundant · <b>S4</b> ECF</li><li><b>F2</b> our frame split · <b>F1</b> whole frames only (no split)</li><li><b>A1</b> F2 over two separate connections</li><li><b>R2</b> F2 told the true link speeds</li><li><b>R1</b> ideal: one link with both speeds added and the lower delay</li></ul>
+</div>
+<div style="flex:1.1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 30px;border:1px solid #DCE1E8;border-radius:16px">
+<h3 style="font-size:30px;font-weight:600;color:#2F6FB0">Fair and checked</h3>
+<ul style="font-size:22px;line-height:1.45;color:#3C4658;display:flex;flex-direction:column;gap:6px"><li><b>8 paired runs</b> per setting: run k streams the same 60 s of the lecture for every scheduler</li><li><b>576 runs</b> in total, raw data for each on GitHub</li><li>Predictions H1–H5 written down <b>before</b> any run</li><li>Paired Wilcoxon test, Holm correction over the 5 main comparisons; winning 8 of 8 pairs gives p = 2/2⁸ = 0.0078 before correction</li></ul>
+</div>
+</div>
+<aside>Explain the score with the lecture in mind: a frame that comes late is as bad as a frame that never comes, and because each frame builds on the previous ones, one late frame holds up the ones after it. Then the list of schedulers, then why the comparison is fair.</aside>
+</section>

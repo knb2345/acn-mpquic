@@ -12,32 +12,30 @@
     "problem",
     "existing",
     "idea",
-    "why",
     "test",
     "progress",
+    "score",
     "results",
+    "demo",
+    "why",
+    "queues",
     "sweep",
     "ablation",
     "plan",
-    "demo",
     "close"
   ],
   "sections": {
     "s1": {
-      "description": "The problem and what exists today",
+      "description": "Problem, related work and our idea",
       "start": "cover"
     },
     "s2": {
-      "description": "Our idea and why we think it works",
-      "start": "idea"
-    },
-    "s3": {
-      "description": "How we test it, what we built, results",
+      "description": "How we test it and the main results",
       "start": "test"
     },
-    "s4": {
-      "description": "Takeaways and live demo",
-      "start": "plan"
+    "s3": {
+      "description": "Why it works, the sweep and our predictions",
+      "start": "why"
     }
   },
   "faces": {

@@ -1,25 +1,26 @@
-<section id="why" data-transition="fade" style="background:#FBFBF8;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
-<p style="font-size:28px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">4 · Why we think it works</p>
-<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:64px;font-weight:600;line-height:1.1">A frame’s finish time is predictable, so we can balance it</h2>
-<div style="display:flex;align-items:center;justify-content:center;gap:20px;background:#FFFFFF;padding:28px;border:1px solid #DCE1E8;border-radius:16px;font-family:'Source Serif 4', Georgia, serif">
-<p style="font-size:52px;font-style:italic">T =</p>
-<div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-<p style="font-size:48px;font-style:italic">bytes waiting + frame size</p>
-<hr style="width:440px;border-top:3px solid #14213D">
-<p style="font-size:48px;font-style:italic">link rate</p>
+<section id="why" data-transition="fade" style="background:#FBFBF8;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:80px 112px;display:flex;flex-direction:column;gap:24px">
+<p style="font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">9 · The math behind F2</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:54px;font-weight:600;line-height:1.1">Split each frame so both pieces arrive at the same moment</h2>
+<div style="display:flex;align-items:center;justify-content:center;gap:20px;background:#FFFFFF;padding:22px;border:1px solid #DCE1E8;border-radius:16px;font-family:'Source Serif 4', Georgia, serif">
+<p style="font-size:44px;font-style:italic">finish time =</p>
+<div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+<p style="font-size:40px;font-style:italic">bytes waiting + frame size</p>
+<hr style="width:420px;border-top:3px solid #14213D">
+<p style="font-size:40px;font-style:italic">link speed</p>
 </div>
-<p style="font-size:48px;font-style:italic">+ one-way delay</p>
+<p style="font-size:40px;font-style:italic">+ one-way delay</p>
 </div>
-<div style="display:flex;gap:28px">
-<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#EEF1F4;padding:32px 36px;border-radius:16px">
-<h3 style="font-size:32px;font-weight:600;color:#2F6FB0">Split rule</h3>
-<p style="font-size:28px;line-height:1.45;color:#3C4658">Choose the split S₁ + S₂ = S so both parts finish together: T₁(S₁) = T₂(S₂). One linear equation, one answer.</p>
+<p style="font-size:22px;color:#4A5568;text-align:center">bytes waiting = bytes not yet sent on that link + bytes already sitting in its buffer &nbsp;·&nbsp; link speed = bytes acknowledged per second (best of the last 1 s)</p>
+<div style="display:flex;gap:24px">
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 30px;border:1px solid #DCE1E8;border-radius:16px">
+<h3 style="font-size:30px;font-weight:600;color:#2F6FB0">Split rule</h3>
+<p style="font-size:24px;line-height:1.4;color:#3C4658">Pick piece sizes S₁ + S₂ = S (the frame) so that<br><b>finish time on link 1 = finish time on link 2</b>.</p><p style="font-size:24px;line-height:1.4;color:#3C4658">One equation, one unknown, one answer:</p><p style="font-size:24px;font-family:'IBM Plex Mono', Consolas, monospace;color:#14213D;background:#F3F1EC;padding:12px 14px;border-radius:8px">S₁ = ((W₂+S)/R₂ + d₂ − W₁/R₁ − d₁)<br>&nbsp;&nbsp;&nbsp;&nbsp;÷ (1/R₁ + 1/R₂)</p><p style="font-size:21px;line-height:1.4;color:#3C4658">W = bytes waiting, R = link speed, d = one-way delay. If one piece would be empty, the whole frame goes to the link that finishes first.</p>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#EEF1F4;padding:32px 36px;border-radius:16px">
-<h3 style="font-size:32px;font-weight:600;color:#2F6FB0">Worked example</h3>
-<p style="font-size:28px;line-height:1.45;color:#3C4658">Two 1.6 Mbit/s links (one-way 15 ms and 75 ms), an 85 KB frame: one link 440 ms; split 48.5 / 36.5 KB, both done at <b>258 ms</b>.</p>
+<div style="flex:1.25;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;padding:26px 30px;border:1px solid #DCE1E8;border-radius:16px">
+<h3 style="font-size:30px;font-weight:600;color:#2F6FB0">Worked example</h3>
+<p style="font-size:23px;line-height:1.4;color:#3C4658">Two links at 1.6 Mbit/s = <b>200 KB/s</b>; one-way delay 15 ms and 75 ms; nothing waiting; a big frame of <b>85 KB</b>.</p><ul style="font-size:23px;line-height:1.45;color:#3C4658;display:flex;flex-direction:column;gap:6px"><li>One link only: 85 ÷ 200 = 425 ms, + 15 ms = <b>440 ms</b> (too late for 250 ms)</li><li>The slow link starts 75 − 15 = 60 ms behind; 60 ms × 200 KB/s = 12 KB</li><li>Fast piece: (85 + 12) ÷ 2 = <b>48.5 KB</b> → 48.5 ÷ 200 = 242.5 ms + 15 = <b>257.5 ms</b></li><li>Slow piece: 85 − 48.5 = <b>36.5 KB</b> → 36.5 ÷ 200 = 182.5 ms + 75 = <b>257.5 ms</b></li><li>Both pieces arrive at <b>≈ 258 ms instead of 440 ms</b></li></ul>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6A7383">Worked from the formula, not measured. 85 KB is the largest frame in our clip (a camera cut); a typical frame is about 13 KB.</p>
-<aside>Formally, T_p = (W_p + S)/R_p + minRTT_p/2. W_p is everything ahead of the new frame on that link: bytes we have handed to it but QUIC has not sent yet, plus bytes already sent that are still sitting in the link's buffer (bytes in flight beyond one round trip at rate R_p). R_p is the measured delivery rate (bytes acknowledged per interval, maximum over the last second). Setting T_1(S_1) = T_2(S - S_1) and solving gives S_1 = ((W_2 + S)/R_2 + d_2 - W_1/R_1 - d_1) / (1/R_1 + 1/R_2), clamped between 0 and S, with d_p = minRTT_p/2. Example: rates 200 KB/s each, d_1 = 15 ms, d_2 = 75 ms, nothing waiting, S = 85 KB (the largest frame in our clip, from a camera cut): S_1 = 48.5 KB; both parts finish at 257.5 ms, against 440 ms on one link. A packet scheduler cannot do this because it never sees where a frame begins and ends. The rate estimate can be wrong; the reference R2 (F2 given the true link rates) shows how much that costs.</aside>
+<p style="font-size:20px;color:#6A7383">Worked from the formula. 85 KB is the largest frame in our clip (a camera cut); a typical frame is about 13 KB (2.6 Mbit/s ÷ 25 frames/s).</p>
+<aside>Finish time on a link is the time to drain what is already waiting plus this frame, at the link's speed, plus the one-way delay. Counting the bytes already sitting in the link's buffer matters: if you only count bytes not yet sent, the fast link always looks empty and gets overloaded. Walk through the example line by line.</aside>
 </section>

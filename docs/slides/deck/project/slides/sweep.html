@@ -1,5 +1,5 @@
 <section id="sweep" data-transition="fade" style="background:#EEF1F4;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:88px 104px;display:flex;flex-direction:column;gap:24px">
-<p style="font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">8 · Bitrate sweep on the 30/150 ms links</p>
+<p style="font-size:26px;letter-spacing:4px;text-transform:uppercase;color:#C8691F;font-weight:600">11 · Bitrate sweep on the 30/150 ms links</p>
 <h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:52px;font-weight:600;line-height:1.1">MinRTT and ECF stay smooth only up to 1.0 Mbit/s; an ideal link of the same capacity carries 2.6</h2>
 <div style="display:flex;gap:24px;align-items:stretch;flex:1">
 <div style="flex:1.6;background:#FFFFFF;padding:20px;border:1px solid #DCE1E8;border-radius:16px;display:flex;flex-direction:column;justify-content:center;gap:10px">
@@ -9,7 +9,7 @@
 <div style="flex:1;display:flex;flex-direction:column;gap:14px">
 <div style="display:flex;flex-direction:column;gap:6px;background:#FFFFFF;padding:22px 26px;border:1px solid #DCE1E8;border-radius:16px">
 <h3 style="font-size:27px;font-weight:600;color:#2F6FB0">H2 holds</h3>
-<p style="font-size:22px;line-height:1.4;color:#3C4658">Usable up to: ideal link 2.6 Mbit/s, MinRTT 1.0, ECF 1.0. That is 38% of the ideal; our bar was 80% (P1, P2, Holm p = 0.020 each).</p>
+<p style="font-size:22px;line-height:1.4;color:#3C4658">Usable up to: ideal link 2.6 Mbit/s, MinRTT 1.0, ECF 1.0. 1.0 ÷ 2.6 = <b>38%</b> of the ideal; our bar was 80%. Per run: median 42%, all 8 runs below 80% (P1, P2, p = 0.020 each).</p>
 </div>
 <div style="display:flex;flex-direction:column;gap:6px;background:#FFFFFF;padding:22px 26px;border:1px solid #DCE1E8;border-radius:16px">
 <h3 style="font-size:27px;font-weight:600;color:#2F6FB0">F2 beats MinRTT and ECF at 2.2 to 2.6 Mbit/s</h3>
@@ -17,7 +17,7 @@
 </div>
 <div style="display:flex;flex-direction:column;gap:6px;background:#14213D;padding:22px 26px;border-radius:16px">
 <h3 style="font-size:27px;font-weight:600;color:#E8A15C">But not when the links are lightly used</h3>
-<p style="font-size:22px;line-height:1.4;color:#F4F1EA">At 1.0 to 1.6 Mbit/s F2 freezes 7 to 8% of the time. With one multipath connection, data for the fast link sat in the sender for a median 120 ms (8 runs) while that link was idle; over two separate connections (A1) it did not at 1.0 Mbit/s.</p>
+<p style="font-size:22px;line-height:1.4;color:#F4F1EA">At 1.0 to 1.6 Mbit/s F2 freezes 7 to 8% of the time. With one multipath connection, data for the fast link sat in the sender for a median <b>120 ms</b> (8 runs) while that link was idle, against 0.2 ms at 2.6 Mbit/s and 0.1 ms with two separate connections (A1).</p>
 </div>
 </div>
 </div>
