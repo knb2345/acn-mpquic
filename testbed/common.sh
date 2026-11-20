@@ -18,7 +18,11 @@ SRV_PORT=4433
 
 # up.sh writes the active link parameters here; wiped with the namespaces on
 # a WSL restart, which is what we want.
-STATE_FILE=${XDG_RUNTIME_DIR:-/tmp}/mpq-testbed.env
+# XDG_RUNTIME_DIR can point to a folder that does not exist (e.g. after a WSL
+# restart); fall back to /tmp then.
+STATE_DIR=${XDG_RUNTIME_DIR:-/tmp}
+[[ -d $STATE_DIR && -w $STATE_DIR ]] || STATE_DIR=/tmp
+STATE_FILE=$STATE_DIR/mpq-testbed.env
 
 # The user who invoked the script; processes inside the namespaces run as this
 # user so that result files are not owned by root.
