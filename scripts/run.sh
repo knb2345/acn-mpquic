@@ -142,7 +142,7 @@ nsu "$NS_SRV" "$BIN/mpq_receiver" --listen "$SRV_IP:$SRV_PORT" \
     --cert "$cache/cert.crt" --key "$cache/cert.key" --enable-multipath --cc "$CC" \
     --frames "$frames" --out "$out/recv.csv" --max-duration-s 120 \
     --log-file "$out/receiver.log" --log-level "$LOG_LEVEL" --qlog-dir "$out/qlog_receiver" \
-    2> "$out/receiver.stderr" &
+    ${DEMO_LIVE:+--live-log "$out/live.csv"} 2> "$out/receiver.stderr" &
 rcv_pid=$!
 for _ in $(seq 50); do
     [[ -n $(nsx "$NS_SRV" ss -Hlun "sport = :$SRV_PORT") ]] && break

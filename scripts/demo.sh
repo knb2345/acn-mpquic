@@ -45,7 +45,7 @@ live)
     done
     for c in "${configs[@]}"; do
         run=$repo/results/$scenario/$c/${kbps}_intra_stochastic/$id
-        "$repo/scripts/run.sh" "$scenario" "$c" "$kbps" intra stochastic "$id" > "$out/$c.log" 2>&1 &
+        DEMO_LIVE=1 "$repo/scripts/run.sh" "$scenario" "$c" "$kbps" intra stochastic "$id" > "$out/$c.log" 2>&1 &
         pid=$!
         "$py" "$here/demo_dashboard.py" live --run-dir "$run" --config "$c" --scenario "$scenario" --pid "$pid"
         rc=0; wait "$pid" || rc=$?

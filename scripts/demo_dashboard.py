@@ -60,7 +60,10 @@ def live_state(run):
             seen.add(r["frame_id"])
             frames.append({"id": r["frame_id"], "frame_type": r["frame_type"],
                            "capture_ts_us": int(r["capture_ts_us"]), "complete_ts_us": None})
-    done = {r["frame_id"]: int(r["complete_ts_us"]) for r in read_csv(run / "recv.csv")
+    # live.csv is written by the receiver as each frame completes (demo runs);
+    # recv.csv only at the end of the run.
+    src = run / "live.csv" if (run / "live.csv").exists() else run / "recv.csv"
+    done = {r["frame_id"]: int(r["complete_ts_us"]) for r in read_csv(src)
             if r.get("complete_ts_us", "").isdigit()}
     for f in frames:
         f["complete_ts_us"] = done.get(f["id"])

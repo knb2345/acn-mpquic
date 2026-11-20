@@ -58,6 +58,10 @@ struct Opt {
     log_level: LevelFilter,
     #[clap(long)]
     qlog_dir: Option<PathBuf>,
+    /// Optional live log for the demo dashboard: one line "frame_id,complete_ts_us"
+    /// written (unbuffered) as each frame completes. Does not change recv.csv.
+    #[clap(long)]
+    live_log: Option<PathBuf>,
 }
 
 /// A part stream being received.
@@ -86,6 +90,7 @@ struct State {
     frames: HashMap<u32, FrameRx>,
     complete: usize,
     qlog_dir: Option<PathBuf>,
+    live: Option<File>,
 }
 
 struct Handler {
@@ -168,6 +173,10 @@ impl TransportHandler for Handler {
                     f.cover.add(h.offset, h.offset + part.payload as u32);
                     if f.complete_ts.is_none() && f.cover.complete(f.size) {
                         f.complete_ts = Some(now);
+                        let fid = h.frame_id;
+                        if let Some(w) = st.live.as_mut() {
+                            let _ = writeln!(w, "{fid},{now}");
+                        }
                         st.complete += 1;
                     }
                     break;
@@ -206,7 +215,15 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let mut poll = mio::Poll::new()?;
     let sock = Rc::new(QuicSocket::new(&opt.listen, poll.registry())?);
-    let st = Rc::new(RefCell::new(State { qlog_dir: opt.qlog_dir.clone(), ..Default::default() }));
+    let live = match &opt.live_log {
+        Some(p) => {
+            let mut f = File::create(p)?;
+            writeln!(f, "frame_id,complete_ts_us")?;
+            Some(f)
+        }
+        None => None,
+    };
+    let st = Rc::new(RefCell::new(State { qlog_dir: opt.qlog_dir.clone(), live, ..Default::default() }));
     let handler = Handler { st: st.clone(), buf: vec![0u8; 65536] };
     let mut endpoint = Endpoint::new(Box::new(config), true, Box::new(handler), sock.clone());
     info!("listening on {}", sock.local_addr());
